@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>লন্ড্রি’ওয়ালা | ৫১টি আইটেম লিস্ট</title>
+    <title>লন্ড্রি’ওয়ালা | ফুল সার্ভিস অ্যাপ</title>
     <style>
         :root { --primary: #00a8ff; --accent: #9c88ff; --dark: #2f3640; --bkash: #d12053; --nagad: #f7941d; --success: #27ae60; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0; padding: 15px; min-height: 100vh; color: #fff; }
+        
         .glass-card { max-width: 480px; margin: auto; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); padding: 30px; border-radius: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); color: var(--dark); position: relative; }
         
         .header { text-align: center; margin-bottom: 20px; }
         .app-icon { width: 70px; height: 70px; background: var(--primary); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 35px; box-shadow: 0 10px 20px rgba(0,168,255,0.3); animation: float 3s infinite ease-in-out; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
+        /* Steps Animation with Labels */
         .step-container { display: flex; justify-content: space-between; margin: 30px 0; }
-        .step-circle { width: 48px; height: 48px; background: #fff; border: 3px solid var(--primary); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 22px; transition: 0.4s; }
-        
+        .step-box { flex: 1; text-align: center; }
+        .step-circle { width: 48px; height: 48px; background: #fff; border: 3px solid var(--primary); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 22px; transition: 0.4s; margin: 0 auto; animation: popIn 0.5s backwards; }
+        .step-label { font-size: 11px; font-weight: bold; margin-top: 8px; color: var(--dark); display: block; }
+        @keyframes popIn { from { transform: scale(0); opacity: 0; } }
+
         .input-group { background: #f1f2f6; padding: 20px; border-radius: 25px; margin-bottom: 20px; }
         input, select { width: 100%; padding: 14px; margin: 10px 0; border: none; border-radius: 15px; background: white; font-size: 15px; outline: none; box-sizing: border-box; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         
@@ -25,7 +30,8 @@
         .admin-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
         .stat-box { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 15px; text-align: center; }
 
-        .receipt-area { display: none; background: #fff; padding: 25px; border-radius: 25px; border-left: 10px solid var(--success); margin-top: 25px; color: var(--dark); }
+        .receipt-area { display: none; background: #fff; padding: 25px; border-radius: 25px; border-left: 10px solid var(--success); margin-top: 25px; color: var(--dark); animation: slideUp 0.5s; }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } }
     </style>
 </head>
 <body>
@@ -38,10 +44,10 @@
     </div>
 
     <div class="step-container">
-        <div style="text-align:center;"><div class="step-circle">📝</div></div>
-        <div style="text-align:center;"><div class="step-circle">🧼</div></div>
-        <div style="text-align:center;"><div class="step-circle">💨</div></div>
-        <div style="text-align:center;"><div class="step-circle">🚚</div></div>
+        <div class="step-box"><div class="step-circle">📝</div><span class="step-label">Order</span></div>
+        <div class="step-box"><div class="step-circle" style="animation-delay:0.2s">🧼</div><span class="step-label">Wash</span></div>
+        <div class="step-box"><div class="step-circle" style="animation-delay:0.4s">💨</div><span class="step-label">Iron</span></div>
+        <div class="step-box"><div class="step-circle" style="animation-delay:0.6s">🚚</div><span class="step-label">Delivery</span></div>
     </div>
 
     <div class="input-group">
@@ -50,73 +56,45 @@
         
         <select id="itemSelect">
             <option disabled selected>আমাদের ৫১টি আইটেম লিস্ট 👇</option>
-            
             <optgroup label="👔 পুরুষদের পোশাক">
                 <option value="60">শার্ট (ধোয়া+আয়রন) - ৬০</option>
                 <option value="50">শার্ট (শুধু আয়রন) - ৫০</option>
                 <option value="70">প্যান্ট/জিন্স (ধোয়া+আয়রন) - ৭০</option>
                 <option value="50">প্যান্ট (শুধু আয়রন) - ৫০</option>
                 <option value="80">পাঞ্জাবি (সুতি) - ৮০</option>
-                <option value="120">পাঞ্জাবি (সিল্ক/এমব্রয়ডারি) - ১২০</option>
+                <option value="120">পাঞ্জাবি (সিল্ক/কাজ করা) - ১২০</option>
                 <option value="60">পায়জামা - ৬০</option>
                 <option value="70">লুঙ্গি - ৭০</option>
-                <option value="60">গেঞ্জি/টি-শার্ট - ৬০</option>
-                <option value="150">কটি / ওয়েস্টকোট - ১৫০</option>
+                <option value="60">টি-শার্ট - ৬০</option>
                 <option value="250">ব্লেজার (ড্রাই ক্লিন) - ২৫০</option>
-                <option value="350">স্যুট (২ পার্ট) - ৩৫০</option>
                 <option value="500">স্যুট (৩ পার্ট) - ৫০০</option>
-                <option value="100">টাই / রুমাল (সেট) - ১০০</option>
             </optgroup>
-
             <optgroup label="👗 মহিলাদের পোশাক">
                 <option value="100">শাড়ি (সুতি) - ১০০</option>
-                <option value="150">শাড়ি (জর্জেট/সিল্ক) - ১৫০</option>
-                <option value="300">শাড়ি (কাতান/ভারী) - ৩০০</option>
+                <option value="150">শাড়ি (সিল্ক/জর্জেট) - ১৫০</option>
+                <option value="300">শাড়ি (ভারী কাজ) - ৩০০</option>
                 <option value="120">থ্রিপিস (সুতি) - ১২০</option>
-                <option value="180">থ্রিপিস (সিল্ক/জর্জেট) - ১৮০</option>
-                <option value="60">কামিজ / কুর্তি - ৬০</option>
+                <option value="180">থ্রিপিস (সিল্ক) - ১৮০</option>
                 <option value="80">বোরকা (সাধারণ) - ৮০</option>
                 <option value="150">বোরকা (ভারী কাজ) - ১৫০</option>
-                <option value="80">হিজাব / ওড়না - ৮০</option>
                 <option value="450">লেহেঙ্গা - ৪৫০</option>
-                <option value="200">নাইটি / ম্যাক্সি - ২০০</option>
             </optgroup>
-
             <optgroup label="🧥 শীতের পোশাক">
                 <option value="120">সুয়েটার - ১২০</option>
-                <option value="150">হুডি - ১৫০</option>
                 <option value="200">জ্যাকেট (সাধারণ) - ২০০</option>
                 <option value="350">লেদার জ্যাকেট - ৩৫০</option>
                 <option value="400">লং কোট - ৪০০</option>
-                <option value="80">মাফলার / কান টুপি - ৮০</option>
-                <option value="100">হাতমোজা/পামোজা (সেট) - ১০০</option>
             </optgroup>
-
             <optgroup label="🏠 ঘরোয়া আইটেম">
                 <option value="250">কম্বল (সিঙ্গেল) - ২৫০</option>
                 <option value="450">কম্বল (ডাবল) - ৪৫০</option>
                 <option value="120">বেডশিট (সিঙ্গেল) - ১২০</option>
                 <option value="200">বেডশিট (ডাবল) - ২০০</option>
-                <option value="60">বালিশের কভার (জোড়া) - ৬০</option>
-                <option value="150">পর্দা (ছোট) - ১৫০</option>
-                <option value="250">পর্দা (ভারী/বড়) - ২৫০</option>
-                <option value="100">টেবিল ক্লথ - ১০০</option>
+                <option value="150">পর্দা (প্রতি পার্ট) - ১৫০</option>
                 <option value="150">জায়নামাজ - ১৫০</option>
                 <option value="80">তোয়ালে / গামছা - ৮০</option>
-                <option value="300">সোফার কভার (সেট) - ৩০০</option>
-                <option value="500">ম্যাট্রেস কভার - ৫০০</option>
             </optgroup>
-
-            <optgroup label="🎒 অন্যান্য">
-                <option value="150">কেডস / জুতা (ওয়াশ) - ১৫০</option>
-                <option value="100">স্কুল ব্যাগ - ১০০</option>
-                <option value="350">ট্রাভেল ব্যাগ - ৩৫০</option>
-                <option value="250">লেদার ব্যাগ - ২৫০</option>
-                <option value="120">সোফট টয় / পুতুল - ১২০</option>
-                <option value="200">কার সিট কভার - ২০০</option>
-                <option value="70">মোজা (৫ জোড়া) - ৭০</option>
-            </optgroup>
-        </select>
+            </select>
         
         <input type="number" id="qty" value="1" min="1">
         <input type="number" id="disc" placeholder="ডিসকাউন্ট">
@@ -125,7 +103,7 @@
     <button class="btn-main" onclick="generate()">রিসিট ও সেভ করুন ✨</button>
 
     <div id="receipt" class="receipt-area">
-        <h3 style="margin:0; color:var(--success);">✅ অর্ডার কনফার্ম!</h3>
+        <h3 style="margin:0; color:var(--success);">✅ অর্ডার মেমো</h3>
         <div id="rDetails" style="margin:15px 0; font-size:14px; line-height:1.6;"></div>
         <div style="display:flex; gap:10px;">
             <a href="tel:*247*1#" style="flex:1; background:var(--bkash); color:white; padding:10px; border-radius:10px; text-decoration:none; text-align:center; font-weight:bold;">bKash</a>
@@ -138,7 +116,7 @@
     </div>
 
     <div id="adminPanel" class="admin-panel">
-        <h3 style="margin:0; text-align:center; color:var(--primary);">📊 ডেইলি রিপোর্ট</h3>
+        <h3 style="margin:0; text-align:center; color:var(--primary);">📊 ডেলি রিপোর্ট</h3>
         <div class="admin-stats">
             <div class="stat-box"><span>অর্ডার</span><h2 id="totalOrders">0</h2></div>
             <div class="stat-box"><span>বিক্রি</span><h2 id="totalCash">0</h2></div>
@@ -155,14 +133,14 @@
         let p = parseInt(document.getElementById('itemSelect').value);
         let q = parseInt(document.getElementById('qty').value);
         let d = parseInt(document.getElementById('disc').value) || 0;
-        if(!n || !m || isNaN(p)) { alert("সব তথ্য দিন!"); return; }
+        if(!n || !m || isNaN(p)) { alert("Sob totho din!"); return; }
         let total = (p * q) - d + ( (p*q >= 500) ? 0 : 40 );
         window.current = {n, m, total, id: Math.floor(1000+Math.random()*9000)};
         orders++; cash += total;
         document.getElementById('totalOrders').innerText = orders;
         document.getElementById('totalCash').innerText = cash;
         document.getElementById('receipt').style.display = 'block';
-        document.getElementById('rDetails').innerHTML = `<b>ID: #LW${window.current.id}</b><br>কাস্টমার: ${n}<br>বিল: <b>${total} টাকা</b>`;
+        document.getElementById('rDetails').innerHTML = `<b>ID: #LW${window.current.id}</b><br>Customer: ${n}<br>Bill: <b>${total} tk</b>`;
     }
     function sendWhatsApp() {
         let o = window.current;
@@ -170,8 +148,7 @@
         window.open(`https://wa.me/88${o.m}?text=${encodeURIComponent(msg)}`);
     }
     function openAdmin() {
-        if(prompt("পাসওয়ার্ড:") === "admin123") document.getElementById('adminPanel').style.display = 'block';
-        else alert("ভুল!");
+        if(prompt("Pass:") === "admin123") document.getElementById('adminPanel').style.display = 'block';
     }
 </script>
 </body>
