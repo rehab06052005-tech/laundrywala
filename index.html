@@ -3,146 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laundry’Wala | Official Website</title>
+    <title>Laundry’Wala | Fully Functional Cart</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root { --main: #00d2ff; --dark: #0f172a; --glass: rgba(255, 255, 255, 0.03); }
-        
-        body { 
-            margin: 0; background: #020617; color: #fff; 
-            font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif;
-            line-height: 1.6;
-        }
+        :root { --main: #00d2ff; --dark: #020617; --accent: #fbbf24; --glass: rgba(255, 255, 255, 0.03); --red: #ff4757; }
+        body { margin: 0; background: var(--dark); color: #fff; font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif; scroll-behavior: smooth; }
 
-        /* Hero Section */
-        .hero {
-            height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(to bottom, rgba(2,6,23,0.5), #020617), url('https://images.unsplash.com/photo-1545173168-9f1947e96a3e?auto=format&fit=crop&q=80&w=1600') center/cover;
-            text-align: center;
-        }
+        .hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: radial-gradient(circle at center, #1e293b 0%, #020617 100%); text-align: center; border-bottom: 1px solid rgba(0, 210, 255, 0.2); }
+        .hero h1 { font-size: 60px; margin: 0; animation: glow 3s infinite alternate; }
+        @keyframes glow { from { text-shadow: 0 0 10px var(--main); } to { text-shadow: 0 0 30px var(--main); } }
 
-        .hero h1 { font-size: 60px; margin: 0; letter-spacing: -2px; }
-        .hero p { font-size: 18px; color: var(--main); letter-spacing: 5px; text-transform: uppercase; }
+        .main-grid { max-width: 1200px; margin: -50px auto 50px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; padding: 0 20px; }
+        .glass-box { background: var(--glass); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.05); border-radius: 30px; padding: 30px; }
 
-        /* Main Website Layout */
-        .main-container { max-width: 1200px; margin: -50px auto 100px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; padding: 0 20px; }
+        .search-bar { width: 100%; padding: 18px; border-radius: 15px; border: 2px solid var(--main); background: #000; color: #fff; margin-bottom: 25px; outline: none; box-sizing: border-box; }
 
-        .content-box { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 30px; }
-
-        /* Search & Table */
-        .search-bar { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid var(--main); background: #000; color: #fff; margin-bottom: 20px; outline: none; }
-        
         table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; color: var(--main); border-bottom: 2px solid var(--main); padding: 10px; }
-        td { padding: 15px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .add-btn { background: var(--main); border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        tr { border-bottom: 1px solid rgba(255,255,255,0.05); }
+        td { padding: 15px; }
 
-        /* Bill Receipt */
-        .receipt { position: sticky; top: 20px; }
-        .receipt h3 { border-bottom: 1px solid var(--main); padding-bottom: 10px; }
-        .bill-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
-        .total-box { border-top: 1px solid var(--main); margin-top: 20px; padding-top: 20px; font-size: 20px; font-weight: 800; display: flex; justify-content: space-between; }
+        .add-btn { background: var(--main); color: #000; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; }
+        .add-btn:active { transform: scale(0.9); }
 
-        .order-btn { width: 100%; background: #25D366; color: #fff; padding: 15px; border: none; border-radius: 10px; font-weight: 800; font-size: 18px; cursor: pointer; margin-top: 20px; }
+        /* Receipt Styles */
+        .bill-card { position: sticky; top: 20px; border: 1px solid var(--main); }
+        .bill-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
 
-        @media (max-width: 768px) { .main-container { grid-template-columns: 1fr; } .hero h1 { font-size: 40px; } }
+        .remove-btn { background: transparent; color: var(--red); border: none; cursor: pointer; font-size: 18px; padding-left: 10px; transition: 0.2s; }
+        .remove-btn:hover { transform: scale(1.2); color: #ff6b81; }
+
+        .total-box { border-top: 2px dashed #444; margin-top: 20px; padding-top: 20px; font-size: 24px; font-weight: 800; display: flex; justify-content: space-between; }
+        .whatsapp-btn { width: 100%; background: #25D366; color: #fff; padding: 18px; border: none; border-radius: 15px; font-weight: 800; font-size: 18px; cursor: pointer; margin-top: 20px; }
+
+        @media (max-width: 992px) { .main-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <section class="hero">
-    <p>Premium Laundry Service</p>
+    <p style="letter-spacing: 10px; color: var(--main); font-weight: 800;">PREMIUM QUALITY</p>
     <h1>Laundry’Wala</h1>
-    <div style="margin-top: 20px; font-weight: 700; color: #fbbf24;">Contact: 01872720582</div>
+    <p style="opacity: 0.6;">আপনার বিশ্বস্ত লন্ড্রি পার্টনার</p>
 </section>
 
-<div class="main-container">
-    <div class="content-box">
-        <input type="text" class="search-bar" id="search" placeholder="আইটেমের নাম লিখে সার্চ করুন (যেমন: শার্ট, কম্বল...)" onkeyup="filterTable()">
+<div class="main-grid">
+    <div class="glass-box">
+        <input type="text" id="srch" class="search-bar" placeholder="আইটেম সার্চ করুন..." onkeyup="search()">
         <table>
-            <thead>
-                <tr>
-                    <th>পরিষেবা</th>
-                    <th>মূল্য</th>
-                    <th>অ্যাকশন</th>
-                </tr>
-            </thead>
-            <tbody id="price-table">
-                </tbody>
+            <tbody id="p-table"></tbody>
         </table>
     </div>
 
-    <div class="receipt content-box">
-        <h3>আপনার অর্ডার লিস্ট</h3>
-        <div id="selected-items">
-            <p style="opacity: 0.5; text-align: center;">কোনো আইটেম যোগ করা হয়নি</p>
+    <div class="bill-card glass-box">
+        <h3 style="margin-top: 0; color: var(--main);"><i class="fas fa-shopping-cart"></i> আপনার ঝুড়ি</h3>
+        <div id="cart-list" style="max-height: 400px; overflow-y: auto;">
+            <p style="text-align:center; opacity:0.3; padding: 20px;">ঝুড়ি বর্তমানে খালি</p>
         </div>
         <div class="total-box">
             <span>মোট বিল:</span>
-            <span id="grand-total">৳০</span>
+            <span id="total-val" style="color: var(--accent);">৳০</span>
         </div>
-        <button class="order-btn" onclick="sendOrder()"><i class="fab fa-whatsapp"></i> হোয়াটসঅ্যাপে অর্ডার দিন</button>
+        <button class="whatsapp-btn" onclick="sendOrder()"><i class="fab fa-whatsapp"></i> অর্ডার পাঠান</button>
     </div>
 </div>
 
 <script>
     const inventory = [
-        ["শার্ট (ওয়াশ ও আয়রন)", 60], ["প্যান্ট (ওয়াশ ও আয়রন)", 70], ["পাঞ্জাবি", 120], 
-        ["ব্লেজার ড্রাই ক্লিন", 250], ["কম্বল (ডাবল)", 500], ["বেডশিট (ডাবল)", 200],
-        ["সিল্ক শাড়ি", 350], ["বোরকা", 150], ["স্নিকার্স ওয়াশ", 250], ["পর্দা", 150]
+        ["শার্ট (ওয়াশ/আয়রন)", 60], ["প্যান্ট (ওয়াশ/আয়রন)", 70], ["পাঞ্জাবি", 120], 
+        ["ব্লেজার", 250], ["কম্বল (ডাবল)", 500], ["বেডশিট", 150], ["সিল্ক শাড়ি", 350], 
+        ["বোরকা", 180], ["স্নিকার্স ওয়াশ", 250], ["পর্দা", 150], ["জ্যাকেট", 250]
     ];
 
     let cart = [];
-    let totalBill = 0;
 
-    function loadTable() {
-        const table = document.getElementById('price-table');
+    function init() {
+        const tb = document.getElementById('p-table');
         for(let i=0; i<75; i++) {
             let item = inventory[i % inventory.length];
-            table.innerHTML += `
+            tb.innerHTML += `
                 <tr class="item-row">
-                    <td>${item[0]}</td>
-                    <td><b>৳${item[1]}</b></td>
-                    <td><button class="add-btn" onclick="addToCart('${item[0]}', ${item[1]})">যোগ করুন</button></td>
-                </tr>
-            `;
+                    <td><b>${item[0]}</b></td>
+                    <td><b style="color:var(--main)">৳${item[1]}</b></td>
+                    <td style="text-align:right;"><button class="add-btn" onclick="addToCart('${item[0]}', ${item[1]})">যোগ করুন</button></td>
+                </tr>`;
         }
     }
 
     function addToCart(name, price) {
-        cart.push({name, price});
-        totalBill += price;
-        updateReceipt();
+        // একটি ইউনিক আইডি দিচ্ছি যাতে রিমুভ করতে সুবিধা হয়
+        const id = Date.now() + Math.random();
+        cart.push({id, name, price});
+        renderCart();
     }
 
-    function updateReceipt() {
-        const list = document.getElementById('selected-items');
-        list.innerHTML = cart.map(i => `<div class="bill-item"><span>${i.name}</span><span>৳${i.price}</span></div>`).join('');
-        document.getElementById('grand-total').innerText = `৳${totalBill}`;
+    function removeFromCart(id) {
+        // আইডি ধরে আইটেমটি ফিল্টার করে দিচ্ছি
+        cart = cart.filter(item => item.id !== id);
+        renderCart();
     }
 
-    function filterTable() {
-        let input = document.getElementById('search').value.toLowerCase();
-        let rows = document.querySelectorAll('.item-row');
-        rows.forEach(r => {
-            r.style.display = r.innerText.toLowerCase().includes(input) ? '' : 'none';
+    function renderCart() {
+        const list = document.getElementById('cart-list');
+        const totalDisp = document.getElementById('total-val');
+        
+        if (cart.length === 0) {
+            list.innerHTML = `<p style="text-align:center; opacity:0.3; padding: 20px;">ঝুড়ি বর্তমানে খালি</p>`;
+            totalDisp.innerText = '৳০';
+            return;
+        }
+
+        let total = 0;
+        list.innerHTML = cart.map(item => {
+            total += item.price;
+            return `
+                <div class="bill-item">
+                    <div>
+                        <div style="font-size:14px;">${item.name}</div>
+                        <div style="color:var(--main); font-weight:800;">৳${item.price}</div>
+                    </div>
+                    <button class="remove-btn" onclick="removeFromCart(${item.id})">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>`;
+        }).join('');
+        
+        totalDisp.innerText = '৳' + total;
+    }
+
+    function search() {
+        let val = document.getElementById('srch').value.toLowerCase();
+        document.querySelectorAll('.item-row').forEach(r => {
+            r.style.display = r.innerText.toLowerCase().includes(val) ? '' : 'none';
         });
     }
 
     function sendOrder() {
-        if(cart.length === 0) return alert("দয়া করে আইটেম যোগ করুন");
-        let msg = `নতুন অর্ডার ফ্রম ওয়েবসাইট:%0A${cart.map(i => '- '+i.name).join('%0A')}%0A%0A*সর্বমোট: ৳${totalBill}*`;
-        window.location.href = `https://wa.me/8801872720582?text=${msg}`;
+        if(!cart.length) return alert("ঝুড়ি খালি!");
+        let total = cart.reduce((sum, i) => sum + i.price, 0);
+        let text = `লন্ড্রিওয়ালা অর্ডার:%0A${cart.map(c => '• '+c.name).join('%0A')}%0A%0A*সর্বমোট বিল: ৳${total}*`;
+        window.location.href = `https://wa.me/8801872720582?text=${text}`;
     }
 
-    loadTable();
+    init();
 </script>
-
 </body>
 </html>
