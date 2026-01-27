@@ -3,150 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>লন্ড্রি’ওয়ালা | স্মার্ট অর্ডার ও রিভিউ</title>
+    <title>Laundry’Wala | Premium System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --primary: #00a8ff; --accent: #9c88ff; --dark: #2f3640; --whatsapp: #25D366; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; padding: 10px; }
-        .app-card { max-width: 480px; margin: auto; background: #fff; border-radius: 30px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .header { background: linear-gradient(135deg, var(--primary), var(--accent)); padding: 25px; text-align: center; color: white; }
-        .container { padding: 20px; }
-        .input-group { background: #f9f9f9; padding: 15px; border-radius: 20px; margin-bottom: 10px; border: 1px solid #eee; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid #ddd; border-radius: 12px; font-size: 14px; box-sizing: border-box; outline: none; }
-        .btn-add { background: var(--accent); color: white; border: none; padding: 10px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; }
-        .btn-wa { background: var(--whatsapp); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        
-        /* Review Styles */
-        .review-section { background: #fff; padding: 15px; border-radius: 20px; margin-top: 20px; border: 1px solid #eee; }
-        .star-rating { font-size: 25px; color: #ddd; margin: 10px 0; display: flex; justify-content: center; }
-        .star-rating span { cursor: pointer; padding: 0 5px; }
-        .star-rating .selected { color: #ffca08; }
-        .rev-card { border-bottom: 1px solid #eee; padding: 10px 0; text-align: left; }
+        :root {
+            --primary: #00d2ff; --secondary: #3a7bd5; --bg: #f8f9fa;
+            --card: #ffffff; --text: #2d3436; --accent: #ff7675;
+            --wa: #25D366; --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        [data-theme="dark"] {
+            --bg: #0f172a; --card: #1e293b; --text: #f8f9fa;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg);
+            color: var(--text); margin: 0; transition: var(--transition); overflow-x: hidden;
+        }
 
-        #adminPanel { display: none; background: #2f3640; color: white; padding: 20px; border-radius: 20px; margin-top: 20px; }
+        /* --- Animations --- */
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+
+        /* --- Welcome Screen --- */
+        #welcome-screen {
+            position: fixed; inset: 0; background: linear-gradient(135deg, var(--primary), var(--secondary));
+            z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: white; text-align: center; transition: 1s ease;
+        }
+        .proc-box { display: flex; gap: 15px; margin: 30px 0; flex-wrap: wrap; justify-content: center; }
+        .proc-step { animation: zoomIn 0.8s ease forwards; background: rgba(255,255,255,0.2); padding: 15px; border-radius: 20px; width: 80px; }
+
+        /* --- UI Elements --- */
+        .container { max-width: 600px; margin: auto; padding: 20px; }
+        .card {
+            background: var(--card); border-radius: 30px; padding: 25px; margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05); animation: slideIn 0.6s ease;
+        }
+        .top-nav { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; padding: 15px 20px; background: var(--card); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .btn-mode, .btn-lang { background: var(--bg); border: none; padding: 10px 15px; border-radius: 12px; cursor: pointer; color: var(--text); font-weight: bold; }
+        
+        .header-logo { text-align: center; padding: 20px 0; }
+        .slogan { font-size: 12px; font-weight: bold; letter-spacing: 3px; color: var(--secondary); text-transform: uppercase; }
+
+        select, input, textarea {
+            width: 100%; padding: 15px; margin: 10px 0; border-radius: 15px; border: 1px solid #ddd;
+            background: var(--bg); color: var(--text); font-size: 15px; box-sizing: border-box;
+        }
+
+        .btn-action {
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white;
+            border: none; padding: 18px; border-radius: 18px; width: 100%; font-size: 18px; font-weight: bold;
+            cursor: pointer; box-shadow: 0 10px 20px rgba(58,123,213,0.3); transition: 0.3s;
+        }
+        .btn-action:active { transform: scale(0.95); }
+
+        .cart-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .pts-card { background: linear-gradient(45deg, #f1c40f, #f39c12); color: white; text-align: center; border-radius: 20px; padding: 15px; }
+
+        /* Review Stars */
+        .stars { font-size: 25px; color: #ddd; margin: 10px 0; }
+        .stars span { cursor: pointer; }
+        .stars .active { color: #f1c40f; }
+
+        #admin-panel { display: none; margin-top: 20px; background: #2d3436; color: white; border-radius: 20px; padding: 20px; }
     </style>
 </head>
-<body>
+<body data-theme="light">
 
-<div class="app-card">
-    <div class="header">
-        <h1 style="margin:0;">🧺 লন্ড্রি’ওয়ালা</h1>
-        <p style="font-size:11px; opacity:0.9;">Professional Service & Reviews</p>
+    <div id="welcome-screen">
+        <h1 style="font-size: 35px; margin: 0;">লন্ড্রি’ওয়ালা</h1>
+        <p class="slogan" style="color: white; opacity: 0.8;">Fast • Secure • Clean</p>
+        <div class="proc-box">
+            <div class="proc-step" style="animation-delay: 0.2s;"><i class="fas fa-truck-pickup"></i><br>Pickup</div>
+            <div class="proc-step" style="animation-delay: 0.4s;"><i class="fas fa-soap"></i><br>Wash</div>
+            <div class="proc-step" style="animation-delay: 0.6s;"><i class="fas fa-wind"></i><br>Dry</div>
+            <div class="proc-step" style="animation-delay: 0.8s;"><i class="fas fa-tshirt"></i><br>Iron</div>
+            <div class="proc-step" style="animation-delay: 1s;"><i class="fas fa-shipping-fast"></i><br>Deliver</div>
+        </div>
+        <button onclick="enterApp()" class="btn-action" style="width: 200px; background: white; color: var(--secondary);">START</button>
+    </div>
+
+    <div class="top-nav">
+        <button class="btn-lang" onclick="toggleLang()">EN / বাং</button>
+        <button class="btn-mode" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+    </div>
+
+    <div class="header-logo">
+        <h1 style="margin: 0; color: var(--secondary);">Laundry’Wala</h1>
+        <div class="slogan" id="txt-slogan">Fast • Secure • Clean</div>
     </div>
 
     <div class="container">
-        <div class="input-group">
-            <input type="text" id="cName" placeholder="আপনার নাম">
-            <input type="tel" id="cMob" placeholder="মোবাইল নম্বর">
+        <div class="pts-card">
+            <h3 id="txt-points-title">Membership Rewards</h3>
+            <div style="font-size: 25px; font-weight: bold;"><i class="fas fa-star"></i> <span id="user-pts">0</span> Points</div>
+            <p style="font-size: 11px;">100 TK = 1 Point (1 Point = 1 TK)</p>
         </div>
 
-        <div class="input-group">
-            <select id="cItem">
-                <option disabled selected>আইটেম বেছে নিন</option>
-                <option value="60" data-name="শার্ট">শার্ট - ৬০</option>
-                <option value="70" data-name="প্যান্ট">প্যান্ট - ৭০</option>
-                <option value="250" data-name="ব্লেজার">ব্লেজার - ২৫০</option>
-                <option value="450" data-name="কম্বল">কম্বল - ৪৫০</option>
-            </select>
-            <input type="number" id="cQty" value="1" min="1">
-            <button class="btn-add" onclick="addToCart()">➕ আইটেম যোগ করুন</button>
-        </div>
-
-        <div id="cartDisplay" style="display:none; background:#fff8e1; padding:15px; border-radius:15px; margin:10px 0;">
-            <b>অর্ডার লিস্ট:</b>
-            <div id="cartItems" style="font-size:13px;"></div>
-            <hr>
-            <div style="text-align:right;">মোট: <b id="subTotal">0</b> tk</div>
-        </div>
-
-        <button class="btn-wa" onclick="orderToWhatsApp()">অর্ডার পাঠান (WhatsApp) 💬</button>
-
-        <div class="review-section">
-            <h4 style="margin:0; text-align:center;">আমাদের সেবা কেমন লাগলো? ⭐</h4>
-            <div class="star-rating" id="starGroup">
-                <span onclick="setRating(1)">★</span><span onclick="setRating(2)">★</span><span onclick="setRating(3)">★</span><span onclick="setRating(4)">★</span><span onclick="setRating(5)">★</span>
-            </div>
-            <input type="text" id="revName" placeholder="আপনার নাম">
-            <textarea id="revText" placeholder="আপনার মতামত লিখুন..."></textarea>
-            <button onclick="submitReview()" style="background:var(--primary); color:white; border:none; padding:10px; width:100%; border-radius:10px; font-weight:bold;">রিভিউ দিন</button>
+        <div class="card">
+            <h3 id="txt-order-title"><i class="fas fa-shopping-basket"></i> Place New Order</h3>
+            <input type="text" id="name" placeholder="Customer Name">
+            <input type="tel" id="phone" placeholder="Mobile Number">
             
-            <div id="displayReviews" style="margin-top:20px;">
-                <p style="font-size:12px; color:#888;">সাম্প্রতিক রিভিউসমূহ:</p>
+            <select id="items">
+                <option value="" disabled selected>Select Items (70+ Services)</option>
+                <optgroup label="Men's Wear">
+                    <option value="60">Shirt (Wash & Iron) - 60</option>
+                    <option value="40">Shirt (Only Iron) - 40</option>
+                    <option value="70">Pants/Jeans - 70</option>
+                    <option value="120">Panjabi (Cotton) - 120</option>
+                    <option value="180">Panjabi (Premium) - 180</option>
+                    <option value="250">Blazer - 250</option>
+                    <option value="500">Full Suit (3 Part) - 500</option>
+                    <option value="80">T-Shirt / Polo - 80</option>
+                    <option value="150">Jacket (Normal) - 150</option>
+                    <option value="300">Leather Jacket - 300</option>
+                    <option value="120">Fotua - 120</option>
+                    <option value="50">Lungi - 50</option>
+                </optgroup>
+                <optgroup label="Women's Wear">
+                    <option value="150">Saree (Cotton) - 150</option>
+                    <option value="250">Saree (Silk/Georgette) - 250</option>
+                    <option value="450">Saree (Katan/Stone) - 450</option>
+                    <option value="180">Three Piece - 180</option>
+                    <option value="120">Borkha - 120</option>
+                    <option value="800">Lehenga (Heavy) - 800</option>
+                    <option value="100">Abaya - 100</option>
+                    <option value="60">Oroni/Hijab - 60</option>
+                </optgroup>
+                <optgroup label="Bedding & Home">
+                    <option value="500">Blanket (Double) - 500</option>
+                    <option value="300">Blanket (Single) - 300</option>
+                    <option value="200">Bed Sheet (Double) - 200</option>
+                    <option value="150">Bed Sheet (Single) - 150</option>
+                    <option value="150">Curtain (Per Pcs) - 150</option>
+                    <option value="100">Prayer Mat (Janamaz) - 100</option>
+                    <option value="250">Table Cloth (Large) - 250</option>
+                    <option value="80">Towel - 80</option>
+                    <option value="120">Mosquito Net - 120</option>
+                </optgroup>
+                <optgroup label="Extra Care">
+                    <option value="150">Sneakers/Shoes Wash - 150</option>
+                    <option value="120">School Bag - 120</option>
+                    <option value="300">Travel Bag - 300</option>
+                    <option value="200">Soft Toys (Prited) - 200</option>
+                </optgroup>
+            </select>
+            <input type="number" id="qty" value="1" min="1">
+            <button class="btn-action" onclick="addItem()"><i class="fas fa-cart-plus"></i> Add Item</button>
+        </div>
+
+        <div id="cart-box" class="card" style="display: none; border-left: 5px solid var(--secondary);">
+            <div id="cart-list"></div>
+            <div style="font-size: 22px; font-weight: bold; text-align: right; margin-top: 15px;">
+                Total: <span id="total-val">0</span> TK
             </div>
+            <p style="font-size: 11px; color: var(--accent);">Payment: Bikash/Nagad 01838051282</p>
+            <button class="btn-action" style="background: var(--wa);" onclick="sendWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Confirm via WhatsApp
+            </button>
         </div>
 
-        <div style="text-align:center; margin-top:30px;">
-            <span onclick="toggleAdmin()" style="color:#ddd; cursor:pointer; font-size:10px;">🔒 ADMIN PANEL</span>
+        <div class="card">
+            <h3><i class="fas fa-search-location"></i> Track Order</h3>
+            <input type="text" id="tr-id" placeholder="Order ID (e.g. LW1234)">
+            <button class="btn-action" style="background: var(--dark);" onclick="track()">Track Now</button>
+            <div id="tr-res" style="margin-top: 10px; font-weight: bold; color: var(--secondary);"></div>
         </div>
 
-        <div id="adminPanel">
-            <h3>Admin Panel</h3>
-            <input type="number" id="admDisc" placeholder="Discount Amount">
-            <button class="btn-wa" onclick="generateFinalBill()" style="background:var(--primary);">ডিসকাউন্ট ও অনলাইন মেমো পাঠান</button>
+        <div class="card">
+            <h3><i class="fas fa-star-half-alt"></i> Reviews</h3>
+            <div class="stars" id="stars">
+                <span onclick="rate(1)">★</span><span onclick="rate(2)">★</span><span onclick="rate(3)">★</span><span onclick="rate(4)">★</span><span onclick="rate(5)">★</span>
+            </div>
+            <textarea id="rev" placeholder="Write your experience..."></textarea>
+            <button class="btn-action" onclick="addReview()">Submit Review</button>
+            <div id="rev-list" style="margin-top: 15px; font-size: 13px;"></div>
+        </div>
+
+        <div style="text-align:center; padding-bottom: 50px;">
+            <span onclick="showAdmin()" style="cursor:pointer; font-size: 10px; opacity: 0.5;">🔒 ADMIN PANEL</span>
+            <div id="admin-panel">
+                <h4>Update Order Status</h4>
+                <input type="text" id="adm-id" placeholder="Order ID">
+                <select id="adm-st">
+                    <option value="Washing">Washing</option>
+                    <option value="Ready">Ready</option>
+                    <option value="Delivered">Delivered</option>
+                </select>
+                <button class="btn-action" onclick="update()">Update Now</button>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5mGElZZk4C5KMxypxyhbJx7w2ezYzOXe8c70s11ZH-34G6YH-knj8ZzDqkVJp3UV1/exec";
-    const ADMIN_WA = "8801838051282";
-    
-    let cart = [];
-    let subTotal = 0;
-    let currentRating = 0;
-    let reviews = JSON.parse(localStorage.getItem('lw_reviews')) || [];
+    <script>
+        let items = [], total = 0, stars = 0, lang = 'bn', db = JSON.parse(localStorage.getItem('lw_db')) || {};
 
-    // Order Logic
-    function addToCart() {
-        let itemSelect = document.getElementById('cItem');
-        let itemName = itemSelect.options[itemSelect.selectedIndex].getAttribute('data-name');
-        let price = parseInt(itemSelect.value);
-        let qty = parseInt(document.getElementById('cQty').value);
-        if(!itemName) return alert("আইটেম বেছে নিন!");
-        cart.push({ name: itemName, price: price, qty: qty });
-        subTotal += (price * qty);
-        document.getElementById('cartDisplay').style.display = 'block';
-        document.getElementById('cartItems').innerHTML += `<div>${itemName} x${qty} - ${price*qty}tk</div>`;
-        document.getElementById('subTotal').innerText = subTotal;
-    }
+        function enterApp() {
+            document.getElementById('welcome-screen').style.opacity = '0';
+            setTimeout(() => document.getElementById('welcome-screen').style.display = 'none', 1000);
+        }
 
-    function orderToWhatsApp() {
-        let name = document.getElementById('cName').value, mob = document.getElementById('cMob').value;
-        if(!name || !mob || cart.length === 0) return alert("তথ্য দিন!");
-        let id = Math.floor(1000 + Math.random() * 9000);
-        let items = cart.map(i => `${i.name}(${i.qty})`).join(', ');
-        localStorage.setItem('last_order', JSON.stringify({id, name, mob, total: subTotal, items}));
-        window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(`*অর্ডার*\nID: #${id}\nনাম: ${name}\nআইটেম: ${items}\nমোট: ${subTotal}tk`)}`);
-    }
+        function toggleTheme() {
+            let b = document.body;
+            let current = b.getAttribute('data-theme');
+            b.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+        }
 
-    // Review Logic
-    function setRating(n) {
-        currentRating = n;
-        let stars = document.getElementById('starGroup').children;
-        for(let i=0; i<5; i++) stars[i].className = i < n ? 'selected' : '';
-    }
+        function addItem() {
+            let s = document.getElementById('items'), name = s.options[s.selectedIndex].text;
+            let p = parseInt(s.value), q = parseInt(document.getElementById('qty').value);
+            if(!p) return;
+            items.push({name, p, q}); total += (p*q);
+            document.getElementById('cart-box').style.display = 'block';
+            document.getElementById('cart-list').innerHTML += `<div class="cart-item"><span>${name} (x${q})</span> <span>${p*q} TK</span></div>`;
+            document.getElementById('total-val').innerText = total;
+        }
 
-    function submitReview() {
-        let name = document.getElementById('revName').value, text = document.getElementById('revText').value;
-        if(!name || currentRating === 0) return alert("নাম ও রেটিং দিন!");
-        let newRev = { name, text, rating: currentRating };
-        reviews.unshift(newRev);
-        localStorage.setItem('lw_reviews', JSON.stringify(reviews));
-        renderReviews();
-        alert("ধন্যবাদ!");
-        document.getElementById('revName').value = ''; document.getElementById('revText').value = ''; setRating(0);
-    }
+        function sendWhatsApp() {
+            let n = document.getElementById('name').value, ph = document.getElementById('phone').value;
+            if(!n || !ph) return alert("Fill Name & Phone!");
+            let id = "LW" + Math.floor(1000 + Math.random() * 9000);
+            db[id] = {n, total, status: 'Received', items: items};
+            localStorage.setItem('lw_db', JSON.stringify(db));
+            let msg = `*Laundry’Wala Order*\nID: ${id}\nName: ${n}\nTotal: ${total} TK\nItems: ${items.map(i=>i.name).join(', ')}`;
+            window.open(`https://wa.me/8801838051282?text=${encodeURIComponent(msg)}`);
+        }
 
-    function renderReviews() {
-        let html = '';
-        reviews.slice(0, 3).forEach(r => {
-            html += `<div class="rev-card"><b>${r.name}</b> <span style="color:#ffca08;">${'★'.repeat(r.rating)}</span><br><small>${r.text}</small></div>`;
-        });
-        document.getElementById('displayReviews').innerHTML = html || 'কোনো রিভিউ নেই।';
-    }
-    renderReviews();
+        function rate(n) {
+            stars = n;
+            let s = document.getElementById('stars').children;
+            for(let i=0; i<5; i++) s[i].className = i < n ? 'active' : '';
+        }
 
-    function toggleAdmin() { if(prompt("Pass:") === "7272") document.getElementById('adminPanel').style.display = 'block'; }
-</script>
+        function addReview() {
+            let r = document.getElementById('rev').value;
+            if(!r || !stars) return alert("Rating & Review please!");
+            document.getElementById('rev-list').innerHTML += `<div class="card" style="margin-bottom:10px; padding:10px;"><b>Anonymous</b><br>${'★'.repeat(stars)}<br>${r}</div>`;
+            document.getElementById('rev').value = '';
+        }
+
+        function track() {
+            let id = document.getElementById('tr-id').value;
+            document.getElementById('tr-res').innerText = db[id] ? "Status: " + db[id].status : "Not Found!";
+        }
+
+        function showAdmin() { if(prompt("Password:") === "7272") document.getElementById('admin-panel').style.display = 'block'; }
+        
+        function update() {
+            let id = document.getElementById('adm-id').value;
+            if(db[id]) { db[id].status = document.getElementById('adm-st').value; localStorage.setItem('lw_db', JSON.stringify(db)); alert("Updated!"); }
+        }
+    </script>
 </body>
 </html>
-
