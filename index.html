@@ -3,210 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>লন্ড্রি’ওয়ালা | ফুল সার্ভিস পোর্টাল</title>
+    <title>লন্ড্রি’ওয়ালা | স্মার্ট অর্ডার ও রিভিউ</title>
     <style>
         :root { --primary: #00a8ff; --accent: #9c88ff; --dark: #2f3640; --whatsapp: #25D366; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; margin: 0; padding: 10px; color: #333; }
-        .app-card { max-width: 480px; margin: auto; background: #fff; border-radius: 35px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
-        .header { background: linear-gradient(135deg, var(--primary), var(--accent)); padding: 30px 20px; text-align: center; color: white; border-radius: 0 0 45px 45px; }
-        .steps { display: flex; justify-content: space-around; padding: 15px; margin: -30px 20px 0; background: white; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
-        .s-item { text-align: center; font-size: 9px; font-weight: bold; color: var(--dark); }
-        .s-icon { font-size: 18px; margin-bottom: 3px; }
-        .container { padding: 25px 20px; }
-        .input-group { background: #f9f9f9; padding: 15px; border-radius: 20px; margin-bottom: 15px; border: 1px solid #eee; }
-        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 12px; font-size: 14px; box-sizing: border-box; outline: none; transition: 0.3s; }
-        input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 8px rgba(0,168,255,0.2); }
-        .btn-main { background: var(--primary); color: white; border: none; padding: 16px; width: 100%; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,168,255,0.3); }
-        .btn-main:active { transform: scale(0.98); }
-        .receipt { display: none; padding: 20px; border-radius: 20px; border: 2px dashed var(--primary); margin-top: 20px; background: #fdfdfd; }
-        .track-box { background: #eef2f3; padding: 15px; border-radius: 15px; margin-top: 20px; text-align: center; }
-        .btn-wa { background: var(--whatsapp); margin-top: 10px; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; padding: 10px; }
+        .app-card { max-width: 480px; margin: auto; background: #fff; border-radius: 30px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, var(--primary), var(--accent)); padding: 25px; text-align: center; color: white; }
+        .container { padding: 20px; }
+        .input-group { background: #f9f9f9; padding: 15px; border-radius: 20px; margin-bottom: 10px; border: 1px solid #eee; }
+        input, select, textarea { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid #ddd; border-radius: 12px; font-size: 14px; box-sizing: border-box; outline: none; }
+        .btn-add { background: var(--accent); color: white; border: none; padding: 10px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .btn-wa { background: var(--whatsapp); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        
+        /* Review Styles */
+        .review-section { background: #fff; padding: 15px; border-radius: 20px; margin-top: 20px; border: 1px solid #eee; }
+        .star-rating { font-size: 25px; color: #ddd; margin: 10px 0; display: flex; justify-content: center; }
+        .star-rating span { cursor: pointer; padding: 0 5px; }
+        .star-rating .selected { color: #ffca08; }
+        .rev-card { border-bottom: 1px solid #eee; padding: 10px 0; text-align: left; }
+
+        #adminPanel { display: none; background: #2f3640; color: white; padding: 20px; border-radius: 20px; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <div class="app-card">
     <div class="header">
-        <h1 style="margin:0; font-size:30px;">🧺 লন্ড্রি’ওয়ালা</h1>
-        <p style="font-size:12px; opacity:0.9; letter-spacing: 1px;">PREMIUM LAUNDRY SOLUTION</p>
-    </div>
-
-    <div class="steps">
-        <div class="s-item"><div class="s-icon">📝</div>Order</div>
-        <div class="s-item"><div class="s-icon">🔍</div>Check</div>
-        <div class="s-item"><div class="s-icon">🧼</div>Wash</div>
-        <div class="s-item"><div class="s-icon">💨</div>Iron</div>
-        <div class="s-item"><div class="s-icon">🚚</div>Ready</div>
+        <h1 style="margin:0;">🧺 লন্ড্রি’ওয়ালা</h1>
+        <p style="font-size:11px; opacity:0.9;">Professional Service & Reviews</p>
     </div>
 
     <div class="container">
         <div class="input-group">
-            <input type="text" id="cName" placeholder="কাস্টমারের নাম">
+            <input type="text" id="cName" placeholder="আপনার নাম">
             <input type="tel" id="cMob" placeholder="মোবাইল নম্বর">
+        </div>
+
+        <div class="input-group">
             <select id="cItem">
-                <option disabled selected>আইটেম লিস্ট বেছে নিন (৭০+ অপশন)</option>
-                
-                <optgroup label="👔 পুরুষদের পোশাক (Men's)">
-                    <option value="60">শার্ট (ধোয়া+আয়রন) - ৬০</option>
-                    <option value="50">শার্ট (শুধু আয়রন) - ৫০</option>
-                    <option value="70">প্যান্ট/জিন্স (ধোয়া+আয়রন) - ৭০</option>
-                    <option value="50">প্যান্ট (শুধু আয়রন) - ৫০</option>
-                    <option value="80">পাঞ্জাবি (সুতি) - ৮০</option>
-                    <option value="120">পাঞ্জাবি (সিল্ক/কাজ করা) - ১২০</option>
-                    <option value="60">পায়জামা - ৬০</option>
-                    <option value="70">লুঙ্গি - ৭০</option>
-                    <option value="60">টি-শার্ট/গেঞ্জি - ৬০</option>
-                    <option value="250">ব্লেজার (ড্রাই ক্লিন) - ২৫০</option>
-                    <option value="500">স্যুট (৩ পার্ট) - ৫০০</option>
-                    <option value="150">কটি/ওয়েস্টকোট - ১৫০</option>
-                    <option value="40">মোজা/রুমাল - ৪০</option>
-                </optgroup>
-
-                <optgroup label="👗 মহিলাদের পোশাক (Women's)">
-                    <option value="100">শাড়ি (সুতি) - ১০০</option>
-                    <option value="150">শাড়ি (জর্জেট/সিল্ক) - ১৫০</option>
-                    <option value="300">শাড়ি (কাতান/ভারী কাজ) - ৩০০</option>
-                    <option value="120">থ্রিপিস (সুতি) - ১২০</option>
-                    <option value="180">থ্রিপিস (ভারী/ডিজাইন) - ১৮০</option>
-                    <option value="80">বোরকা (সাধারণ) - ৮০</option>
-                    <option value="150">বোরকা (ভারী কাজ) - ১৫০</option>
-                    <option value="60">কামিজ/কুর্তি - ৬০</option>
-                    <option value="80">হিজাব/ওড়না - ৮০</option>
-                    <option value="450">লেহেঙ্গা - ৪৫০</option>
-                    <option value="200">নাইটি/ম্যাক্সি - ২০০</option>
-                </optgroup>
-
-                <optgroup label="🧥 শীতের পোশাক (Winter Care)">
-                    <option value="120">সুয়েটার (পাতলা) - ১২০</option>
-                    <option value="180">সুয়েটার (ভারী) - ১৮০</option>
-                    <option value="150">হুডি - ১৫০</option>
-                    <option value="200">জ্যাকেট (সাধারণ) - ২০০</option>
-                    <option value="350">লেদার জ্যাকেট - ৩৫০</option>
-                    <option value="400">লং কোট - ৪০০</option>
-                    <option value="80">মাফলার/কান টুপি - ৮০</option>
-                </optgroup>
-
-                <optgroup label="🏠 ঘরোয়া ও বিছানা (Home & Bedding)">
-                    <option value="250">কম্বল (সিঙ্গেল) - ২৫০</option>
-                    <option value="450">কম্বল (ডাবল) - ৪৫০</option>
-                    <option value="120">বেডশিট (সিঙ্গেল) - ১২০</option>
-                    <option value="200">বেডশিট (ডাবল) - ২০০</option>
-                    <option value="150">পর্দা (প্রতি পার্ট) - ১৫০</option>
-                    <option value="150">জায়নামাজ - ১৫০</option>
-                    <option value="100">টেবিল ক্লথ - ১০০</option>
-                    <option value="300">সোফার কভার (ফুল সেট) - ৩০০</option>
-                    <option value="80">তোয়ালে/গামছা - ৮০</option>
-                    <option value="60">বালিশের কভার (জোড়া) - ৬০</option>
-                    <option value="500">মশারি ওয়াশ - ৫০০</option>
-                </optgroup>
-
-                <optgroup label="🎒 ব্যাগ ও জুতা (Bags & Shoes)">
-                    <option value="150">কেডস/জুতা (ওয়াশ) - ১৫০</option>
-                    <option value="100">স্কুল ব্যাগ - ১০০</option>
-                    <option value="350">ট্রাভেল ব্যাগ - ৩৫০</option>
-                    <option value="120">সফট টয়/পুতুল - ১২০</option>
-                    <option value="200">কার সিট কভার - ২০০</option>
-                </optgroup>
-
-                <optgroup label="👶 শিশুদের পোশাক (Kids)">
-                    <option value="40">শিশুদের ড্রেস (ছোট) - ৪০</option>
-                    <option value="60">শিশুদের সেট - ৬০</option>
-                    <option value="100">শিশুদের শীতের পোশাক - ১০০</option>
-                </optgroup>
+                <option disabled selected>আইটেম বেছে নিন</option>
+                <option value="60" data-name="শার্ট">শার্ট - ৬০</option>
+                <option value="70" data-name="প্যান্ট">প্যান্ট - ৭০</option>
+                <option value="250" data-name="ব্লেজার">ব্লেজার - ২৫০</option>
+                <option value="450" data-name="কম্বল">কম্বল - ৪৫০</option>
             </select>
-            <input type="number" id="cQty" value="1" min="1" placeholder="পরিমাণ">
-            <input type="number" id="cDisc" placeholder="ডিসকাউন্ট">
+            <input type="number" id="cQty" value="1" min="1">
+            <button class="btn-add" onclick="addToCart()">➕ আইটেম যোগ করুন</button>
         </div>
 
-        <button class="btn-main" onclick="saveOrder()">অর্ডার কনফার্ম ও অনলাইন সেভ ✨</button>
-
-        <div id="receiptArea" class="receipt">
-            <h3 style="margin:0; color:var(--primary); text-align: center;">--- মেমো ---</h3>
-            <p style="text-align: center; font-size: 12px; margin-top: 5px;">ID: #<span id="rId"></span></p>
-            <div id="rDetails" style="margin:15px 0; font-size:15px; line-height:1.8;"></div>
-            <div id="rPoints" style="background:#d4edda; color:#155724; padding:10px; border-radius:12px; font-weight:bold; text-align:center; margin-bottom: 10px;"></div>
-            <button onclick="sendWhatsApp()" class="btn-main btn-wa">কাস্টমারকে WhatsApp-এ পাঠান 💬</button>
+        <div id="cartDisplay" style="display:none; background:#fff8e1; padding:15px; border-radius:15px; margin:10px 0;">
+            <b>অর্ডার লিস্ট:</b>
+            <div id="cartItems" style="font-size:13px;"></div>
+            <hr>
+            <div style="text-align:right;">মোট: <b id="subTotal">0</b> tk</div>
         </div>
 
-        <div class="track-box">
-            <p style="margin:0 0 10px; font-weight:bold; font-size:14px;">অর্ডার ট্র্যাকিং</p>
-            <input type="text" id="tInput" placeholder="আপনার আইডি দিন (উদা: 7542)">
-            <button onclick="trackOrder()" style="background:var(--dark); color:white; border:none; padding:12px; border-radius:10px; width:100%; cursor:pointer; font-weight: bold;">Status Check</button>
-            <div id="tStatus" style="margin-top:12px; font-weight:bold; color:var(--primary); font-size: 15px;"></div>
+        <button class="btn-wa" onclick="orderToWhatsApp()">অর্ডার পাঠান (WhatsApp) 💬</button>
+
+        <div class="review-section">
+            <h4 style="margin:0; text-align:center;">আমাদের সেবা কেমন লাগলো? ⭐</h4>
+            <div class="star-rating" id="starGroup">
+                <span onclick="setRating(1)">★</span><span onclick="setRating(2)">★</span><span onclick="setRating(3)">★</span><span onclick="setRating(4)">★</span><span onclick="setRating(5)">★</span>
+            </div>
+            <input type="text" id="revName" placeholder="আপনার নাম">
+            <textarea id="revText" placeholder="আপনার মতামত লিখুন..."></textarea>
+            <button onclick="submitReview()" style="background:var(--primary); color:white; border:none; padding:10px; width:100%; border-radius:10px; font-weight:bold;">রিভিউ দিন</button>
+            
+            <div id="displayReviews" style="margin-top:20px;">
+                <p style="font-size:12px; color:#888;">সাম্প্রতিক রিভিউসমূহ:</p>
+            </div>
         </div>
-    </div>
-    
-    <div style="text-align:center; padding:20px; font-size:11px; color:#999; border-top: 1px solid #eee;">
-        <b>লন্ড্রি’ওয়ালা ডিজিটাল সিস্টেম</b><br>
-        01872720582 | laundrywala72720@gmail.com
+
+        <div style="text-align:center; margin-top:30px;">
+            <span onclick="toggleAdmin()" style="color:#ddd; cursor:pointer; font-size:10px;">🔒 ADMIN PANEL</span>
+        </div>
+
+        <div id="adminPanel">
+            <h3>Admin Panel</h3>
+            <input type="number" id="admDisc" placeholder="Discount Amount">
+            <button class="btn-wa" onclick="generateFinalBill()" style="background:var(--primary);">ডিসকাউন্ট ও অনলাইন মেমো পাঠান</button>
+        </div>
     </div>
 </div>
 
 <script>
-    // আপনার গুগল স্ক্রিপ্ট লিঙ্ক
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5mGElZZk4C5KMxypxyhbJx7w2ezYzOXe8c70s11ZH-34G6YH-knj8ZzDqkVJp3UV1/exec";
+    const ADMIN_WA = "8801838051282";
     
-    let localDB = JSON.parse(localStorage.getItem('lw_orders')) || {};
+    let cart = [];
+    let subTotal = 0;
+    let currentRating = 0;
+    let reviews = JSON.parse(localStorage.getItem('lw_reviews')) || [];
 
-    async function saveOrder() {
-        let name = document.getElementById('cName').value;
-        let mob = document.getElementById('cMob').value;
-        let price = parseInt(document.getElementById('cItem').value);
+    // Order Logic
+    function addToCart() {
+        let itemSelect = document.getElementById('cItem');
+        let itemName = itemSelect.options[itemSelect.selectedIndex].getAttribute('data-name');
+        let price = parseInt(itemSelect.value);
         let qty = parseInt(document.getElementById('cQty').value);
-        let disc = parseInt(document.getElementById('cDisc').value) || 0;
+        if(!itemName) return alert("আইটেম বেছে নিন!");
+        cart.push({ name: itemName, price: price, qty: qty });
+        subTotal += (price * qty);
+        document.getElementById('cartDisplay').style.display = 'block';
+        document.getElementById('cartItems').innerHTML += `<div>${itemName} x${qty} - ${price*qty}tk</div>`;
+        document.getElementById('subTotal').innerText = subTotal;
+    }
 
-        if(!name || !mob || isNaN(price)) return alert("দয়া করে সব তথ্য পূরণ করুন!");
-
+    function orderToWhatsApp() {
+        let name = document.getElementById('cName').value, mob = document.getElementById('cMob').value;
+        if(!name || !mob || cart.length === 0) return alert("তথ্য দিন!");
         let id = Math.floor(1000 + Math.random() * 9000);
-        let subtotal = price * qty;
-        let delivery = (subtotal >= 500) ? 0 : 40;
-        let bill = subtotal - disc + delivery;
-        let pts = Math.floor(bill / 100);
-
-        let orderData = { id: id, name: name, phone: mob, total: bill, points: pts, status: "📝 অর্ডার রিসিভ হয়েছে" };
-
-        // ১. গুগল শিটে ডেটা পাঠানো
-        try {
-            fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(orderData) });
-        } catch (e) { console.log("Sheet Error"); }
-
-        // ২. লোকাল মেমোরিতে সেভ
-        localDB[id] = orderData;
-        localStorage.setItem('lw_orders', JSON.stringify(localDB));
-
-        // ৩. রিসিট আপডেট
-        document.getElementById('receiptArea').style.display = 'block';
-        document.getElementById('rId').innerText = id;
-        document.getElementById('rDetails').innerHTML = `
-            <b>কাস্টমার:</b> ${name}<br>
-            <b>আইটেম বিল:</b> ${subtotal} tk<br>
-            <b>ডেলিভারি:</b> ${delivery} tk<br>
-            <b>ডিসকাউন্ট:</b> ${disc} tk<br>
-            <hr>
-            <b>মোট বিল: ${bill} টাকা</b>
-        `;
-        document.getElementById('rPoints').innerText = `🎁 মেম্বারশিপ পয়েন্ট: ${pts}`;
-        
-        window.currentOrder = orderData;
-        alert("অর্ডার সফলভাবে অনলাইনে সেভ হয়েছে!");
+        let items = cart.map(i => `${i.name}(${i.qty})`).join(', ');
+        localStorage.setItem('last_order', JSON.stringify({id, name, mob, total: subTotal, items}));
+        window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(`*অর্ডার*\nID: #${id}\nনাম: ${name}\nআইটেম: ${items}\nমোট: ${subTotal}tk`)}`);
     }
 
-    function trackOrder() {
-        let id = document.getElementById('tInput').value;
-        let result = document.getElementById('tStatus');
-        if(localDB[id]) {
-            result.innerText = "বর্তমান অবস্থা: " + localDB[id].status;
-        } else {
-            result.innerText = "দুঃখিত, আইডিটি পাওয়া যায়নি!";
-            result.style.color = "red";
-        }
+    // Review Logic
+    function setRating(n) {
+        currentRating = n;
+        let stars = document.getElementById('starGroup').children;
+        for(let i=0; i<5; i++) stars[i].className = i < n ? 'selected' : '';
     }
 
-    function sendWhatsApp() {
-        let o = window.currentOrder;
-        let msg = `*লন্ড্রি’ওয়ালা মেমো*\n--------------------\nID: #${o.id}\nনাম: ${o.name}\nমোট বিল: ${o.total} tk\nপয়েন্ট: ${o.points}\nবিকাশ/নগদ: 01838051282\n\nধন্যবাদ আমাদের সাথে থাকার জন্য!`;
-        window.open(`https://wa.me/88${o.phone}?text=${encodeURIComponent(msg)}`);
+    function submitReview() {
+        let name = document.getElementById('revName').value, text = document.getElementById('revText').value;
+        if(!name || currentRating === 0) return alert("নাম ও রেটিং দিন!");
+        let newRev = { name, text, rating: currentRating };
+        reviews.unshift(newRev);
+        localStorage.setItem('lw_reviews', JSON.stringify(reviews));
+        renderReviews();
+        alert("ধন্যবাদ!");
+        document.getElementById('revName').value = ''; document.getElementById('revText').value = ''; setRating(0);
     }
+
+    function renderReviews() {
+        let html = '';
+        reviews.slice(0, 3).forEach(r => {
+            html += `<div class="rev-card"><b>${r.name}</b> <span style="color:#ffca08;">${'★'.repeat(r.rating)}</span><br><small>${r.text}</small></div>`;
+        });
+        document.getElementById('displayReviews').innerHTML = html || 'কোনো রিভিউ নেই।';
+    }
+    renderReviews();
+
+    function toggleAdmin() { if(prompt("Pass:") === "7272") document.getElementById('adminPanel').style.display = 'block'; }
 </script>
 </body>
 </html>
+
