@@ -155,16 +155,14 @@
         let sum = 0;
         l.innerHTML = cart.map(i => { sum += i.p; return `<div class="cart-row"><span>${i.n}</span><span>৳${i.p} <i class="fas fa-times-circle" style="color:var(--red);cursor:pointer" onclick="del(${i.id})"></i></span></div>`}).join('');
         t.innerText = '৳' + sum;
-    }
-
-function confirmOrder() {
+    }function sendOrder() {
     // ইনপুট ফিল্ড থেকে তথ্য সংগ্রহ
     const name = document.getElementById('custName').value;
     const phone = document.getElementById('custPhone').value;
     const addr = document.getElementById('custAddr').value;
     const total = document.getElementById('total').innerText;
 
-    // তথ্য চেক করা (Validation)
+    // চেক করা হচ্ছে সব তথ্য দেওয়া হয়েছে কি না
     if (!cart || cart.length === 0) {
         alert(cur === 'bn' ? "আপনার ঝুড়ি খালি!" : "Your cart is empty!");
         return;
@@ -173,7 +171,12 @@ function confirmOrder() {
         alert(cur === 'bn' ? "দয়া করে নাম, ফোন এবং ঠিকানা দিন!" : "Please provide name, phone and address!");
         return;
     }
-    // হোয়াটসঅ্যাপ মেসেজ সাজানো
+
+    // অ্যাডমিন প্যানেলের জন্য রেভিনিউ আপডেট
+    let amount = parseInt(total.replace(/[^\d]/g, '')) || 0;
+    rev += amount;
+
+    // হোয়াটসঅ্যাপ মেসেজ তৈরি
     let msg = `*New Order - LaundryWala*%0A`;
     msg += `--------------------------%0A`;
     msg += `👤 *Name:* ${name}%0A`;
@@ -185,9 +188,8 @@ function confirmOrder() {
     msg += `%0A--------------------------%0A`;
     msg += `💰 *Total Bill: ${total}*`;
 
-    // আপনার হোয়াটসঅ্যাপ নম্বর: 01872720582
-    const whatsappUrl = `https://wa.me/8801872720582?text=${msg}`;
-    window.location.href = whatsappUrl;
+    // সরাসরি হোয়াটসঅ্যাপে পাঠানো
+    window.location.href = `https://wa.me/8801872720582?text=${msg}`;
 }
 
 
@@ -195,6 +197,7 @@ function confirmOrder() {
 </script>
 </body>
 </html>
+
 
 
 
