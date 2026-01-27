@@ -3,214 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laundry’Wala | Business Edition</title>
+    <title>Laundry’Wala</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root { --main: #00d2ff; --bg: #ffffff; --text: #1e293b; --card: #f8fafc; --border: #e2e8f0; --bkash: #e2136e; --nagad: #f1592a; }
         [data-theme="dark"] { --bg: #0f172a; --text: #f8fafc; --card: #1e293b; --border: #334155; }
-        
-        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Hind Siliguri', sans-serif; transition: 0.3s; padding-bottom: 50px; }
-        .header-top { background: var(--main); color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; }
-        
-        .nav-bar { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 1000; }
-        .logo { font-size: 24px; font-weight: 800; color: var(--main); }
-        .btn-tool { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: 10px; cursor: pointer; margin-left: 5px; }
-
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Hind Siliguri', sans-serif; transition: 0.3s; }
+        .header { background: var(--main); color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; }
+        .nav { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); sticky: top; background: var(--bg); }
+        .btn-tool { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 8px 15px; border-radius: 10px; cursor: pointer; font-weight: bold; }
         .hero { text-align: center; padding: 40px 20px; }
-        .search-container { max-width: 500px; margin: 0 auto; position: relative; }
-        .search-bar { width: 100%; padding: 18px; border-radius: 30px; border: 2px solid var(--main); font-size: 16px; outline: none; background: var(--bg); color: var(--text); }
-        
-        #search-results { position: absolute; width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 15px; margin-top: 10px; max-height: 300px; overflow-y: auto; display: none; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .result-item { display: flex; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid var(--border); cursor: pointer; }
-        .result-item:hover { background: var(--main); color: #fff; }
-
-        .cart-box { max-width: 600px; margin: 20px auto; background: var(--card); border-radius: 20px; padding: 20px; border: 1px solid var(--border); }
+        .search-bar { width: 100%; max-width: 500px; padding: 18px; border-radius: 30px; border: 2px solid var(--main); outline: none; background: var(--bg); color: var(--text); }
+        #res { position: absolute; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: var(--bg); border: 1px solid var(--border); border-radius: 15px; display: none; z-index: 100; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .res-item { display: flex; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid var(--border); cursor: pointer; }
+        .cart { max-width: 600px; margin: 30px auto; background: var(--card); border-radius: 20px; padding: 25px; border: 1px solid var(--border); }
         .cart-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
-        
-        .payment-info { margin-top: 20px; padding: 15px; border-radius: 12px; background: rgba(0,210,255,0.05); border: 1px dashed var(--main); }
-        .method { font-weight: bold; padding: 5px 10px; border-radius: 5px; color: #fff; font-size: 12px; }
-        
+        .pay-box { margin-top: 20px; padding: 15px; border-radius: 12px; background: rgba(0,210,255,0.05); border: 1px dashed var(--main); }
         .btn-order { width: 100%; background: #25D366; color: #fff; padding: 18px; border: none; border-radius: 15px; font-weight: 800; font-size: 18px; cursor: pointer; margin-top: 15px; }
-        
-        /* Hidden Admin Panel */
-        #admin-panel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 9999; padding: 20px; box-sizing: border-box; overflow-y: auto; }
-        .admin-stat { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .stat-card { background: var(--main); color: #fff; padding: 20px; border-radius: 15px; text-align: center; }
+        #admin { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 999; padding: 20px; box-sizing: border-box; }
     </style>
 </head>
 <body data-theme="light">
 
-<div class="header-top">
-    <div id="live-time">Loading...</div>
+<div class="header">
+    <div id="time"></div>
     <div><i class="fab fa-whatsapp"></i> 01872720582</div>
 </div>
 
-<nav class="nav-bar">
-    <div class="logo">Laundry’Wala</div>
-    <div class="controls">
-        <button class="btn-tool" onclick="toggleLang()" id="langBtn">EN</button>
-        <button class="btn-tool" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+<nav class="nav">
+    <div style="font-size: 24px; font-weight: 800; color: var(--main);">Laundry’Wala</div>
+    <div>
+        <button class="btn-tool" onclick="swap()" id="lBtn">EN</button>
+        <button class="btn-tool" onclick="dark()"><i class="fas fa-moon"></i></button>
     </div>
 </nav>
 
 <section class="hero">
-    <h1 id="h-title">আপনি কি পরিষ্কার করতে চান?</h1>
-    <div class="search-container">
-        <input type="text" id="main-search" class="search-bar" placeholder="সার্চ করুন (৭৫+ আইটেম)..." onkeyup="handleSearch()">
-        <div id="search-results"></div>
+    <h1 id="h1">আপনি কি পরিষ্কার করতে চান?</h1>
+    <div style="position: relative;">
+        <input type="text" id="in" class="search-bar" placeholder="আইটেম সার্চ করুন..." onkeyup="srch()">
+        <div id="res"></div>
     </div>
 </section>
 
-<div class="cart-box">
-    <h3 id="c-title"><i class="fas fa-shopping-basket"></i> আপনার ঝুড়ি</h3>
-    <div id="cart-list"><p style="text-align:center; opacity:0.5;">ঝুড়ি খালি</p></div>
-    
-    <div style="display:flex; justify-content:space-between; margin-top:15px; font-size:22px; font-weight:800;">
-        <span>মোট:</span><span id="total-val">৳০</span>
+<div class="cart">
+    <h3 id="c1"><i class="fas fa-shopping-basket"></i> আপনার ঝুড়ি</h3>
+    <div id="list"></div>
+    <div style="display:flex; justify-content:space-between; margin-top:15px; font-size:22px; font-weight:800; border-top: 2px solid var(--main); padding-top: 10px;">
+        <span id="t1">মোট:</span><span id="total">৳০</span>
     </div>
-
-    <div class="payment-info">
-        <p style="margin:0 0 10px 0; font-weight:bold;"><i class="fas fa-wallet"></i> পেমেন্ট নম্বর (মার্চেন্ট):</p>
-        <div style="margin-bottom:5px;"><span class="method" style="background:var(--bkash)">বিকাশ</span> <b>01838051282</b></div>
-        <div><span class="method" style="background:var(--nagad)">নগদ</span> <b>01838051282</b></div>
+    <div class="pay-box">
+        <p style="margin:0 0 10px 0; font-weight:bold;" id="p1">পেমেন্ট নম্বর (মার্চেন্ট):</p>
+        <div><span style="background:var(--bkash); color:#fff; padding:2px 6px; border-radius:4px; font-size:12px;">বিকাশ</span> <b>01838051282</b></div>
+        <div style="margin-top:5px;"><span style="background:var(--nagad); color:#fff; padding:2px 6px; border-radius:4px; font-size:12px;">নগদ</span> <b>01838051282</b></div>
     </div>
-
-    <button class="btn-order" onclick="sendWhatsApp()"><i class="fab fa-whatsapp"></i> হোয়াটসঅ্যাপে অর্ডার পাঠান</button>
+    <button class="btn-order" onclick="send()" id="b1"><i class="fab fa-whatsapp"></i> অর্ডার পাঠান</button>
 </div>
 
-<div style="text-align:center; padding: 20px; opacity: 0.3; font-size: 10px;" onclick="showAdmin()">
-    ADMIN LOGIN (SECRET)
-</div>
+<div style="text-align:center; opacity:0.1; font-size:10px; padding:20px;" onclick="adm()">ADMIN</div>
 
-<div id="admin-panel">
-    <button class="btn-tool" onclick="closeAdmin()">বন্ধ করুন</button>
-    <h2 style="color:var(--main)">অ্যাডমিন ড্যাশবোর্ড</h2>
-    <div class="admin-stat">
-        <div class="stat-card"><h4 style="margin:0">মোট অর্ডার</h4><h2 id="adm-count">০</h2></div>
-        <div class="stat-card" style="background:#25D366;"><h4 style="margin:0">মোট আয়</h4><h2 id="adm-total">৳০</h2></div>
+<div id="admin">
+    <button class="btn-tool" onclick="document.getElementById('admin').style.display='none'">CLOSE</button>
+    <h2>Admin Dashboard</h2>
+    <div id="stats" style="background:var(--main); color:#fff; padding:20px; border-radius:15px;">
+        <p>Total Revenue: <span id="rev">৳০</span></p>
     </div>
-    <h3>সাম্প্রতিক অর্ডারসমূহ:</h3>
-    <div id="admin-orders"></div>
 </div>
 
 <script>
-    const items = [
-    // পুরুষদের পোশাক (Men's Wear)
-    ["শার্ট (ওয়াশ/আয়রন)", 60], ["প্যান্ট (ওয়াশ/আয়রন)", 70], ["জিন্স প্যান্ট", 80],
-    ["পাঞ্জাবি (সাধারণ)", 100], ["পাঞ্জাবি (এলিট/সিল্ক)", 150], ["পায়জামা", 60],
-    ["লুঙ্গি", 50], ["গেঞ্জি/টি-শার্ট", 50], ["ব্লেজার (ড্রাই ক্লিন)", 300],
-    ["সুট (২ পিস)", 500], ["সুট (৩ পিস)", 700], ["ওয়েস্ট কোট", 150],
-    ["শেরওয়ানি", 800], ["জ্যাকেট (সাধারণ)", 250], ["লেদার জ্যাকেট", 500],
+     const items = [
+        // পুরুষদের পোশাক
+        ["Shirt (Wash/Iron)", 60], ["Pant (Wash/Iron)", 70], ["Jeans Pant", 80], 
+        ["Panjabi (Basic)", 100], ["Panjabi (Silk)", 150], ["Pajama", 60], 
+        ["Lungi", 50], ["T-Shirt", 50], ["Blazer", 300], ["Suit (2pc)", 500], 
+        ["Suit (3pc)", 700], ["West Coat", 150], ["Sherwani", 800], ["Jacket", 250], 
+        ["Leather Jacket", 500], ["Hoodie", 150], ["Sweater", 200], ["Underwear", 40],
 
-    // মহিলাদের পোশাক (Women's Wear)
-    ["শাড়ি (সুতি)", 150], ["শাড়ি (জর্জেট)", 200], ["সিল্ক শাড়ি", 400],
-    ["কাতান শাড়ি", 500], ["জামদানি শাড়ি", 700], ["থ্রি-পিস", 150],
-    ["কামিজ", 80], ["সালোয়ার", 70], ["বোরকা", 180],
-    ["হিজাব/ওড়না", 50], ["লেহেঙ্গা", 1000], ["ব্লাউজ", 50],
-    ["পেটিকোট", 50], ["গাউন", 500], ["কুর্তি", 100],
+        // মহিলাদের পোশাক
+        ["Saree (Cotton)", 150], ["Saree (Georgette)", 200], ["Saree (Silk)", 400], 
+        ["Saree (Katan)", 500], ["Saree (Jamdani)", 700], ["Three Piece", 150], 
+        ["Kameez", 80], ["Salwar", 70], ["Borka", 180], ["Hijab/Orna", 50], 
+        ["Lehenga", 1000], ["Blouse", 50], ["Petticoat", 50], ["Gown", 500], ["Kurti", 100],
 
-    // শীতকালীন ও ভারী পোশাক (Winter & Heavy)
-    ["সোয়েটার (পাতলা)", 150], ["সোয়েটার (ভারী)", 250], ["কম্বল (সিঙ্গেল)", 350],
-    ["কম্বল (ডাবল)", 550], ["লেপ (কভারসহ)", 400], ["তোশক কভার", 150],
-    ["বালিশ কভার", 30], ["কুশন কভার", 50], ["পর্দা (ভারী/পিস)", 180],
-    ["পর্দা (পাতলা/পিস)", 100], ["সোফার কভার (পিস)", 120], ["কার্পেট (প্রতি বর্গফুট)", 30],
+        // শীতকালীন ও ভারী আইটেম
+        ["Blanket (Single)", 350], ["Blanket (Double)", 550], ["Lep Cover", 150], 
+        ["Bed Sheet (Single)", 120], ["Bed Sheet (Double)", 180], ["Pillow Cover", 30], 
+        ["Cushion Cover", 50], ["Curtain (Heavy)", 180], ["Curtain (Thin)", 100], 
+        ["Sofa Cover", 120], ["Carpet (sq.ft)", 30], ["Mosquito Net", 120],
 
-    // বেডিং ও গৃহস্থালি (Bedding & Household)
-    ["বেডশিট (সিঙ্গেল)", 120], ["বেডশিট (ডাবল)", 180], ["মশারি", 120],
-    ["জায়নামাজ", 80], ["তোয়ালে (ছোট)", 40], ["তোয়ালে (বড়)", 80],
-    ["কিচেন অ্যাপপ্রন", 50], ["টেবিল রানার", 70], ["টেবিল ক্লথ", 150],
+        // জুতা ও ব্যাগ
+        ["Sneakers", 200], ["Boots", 400], ["Leather Shoes", 250], 
+        ["Handbag", 300], ["Travel Bag", 500], ["School Bag", 200],
 
-    // অন্যান্য ও এক্সেসরিজ (Accessories)
-    ["স্নিকার্স (নরমাল)", 200], ["স্নিকার্স (বুট)", 400], ["জুতা (লেদার)", 250],
-    ["হ্যান্ডব্যাগ", 300], ["ট্রাভেল ব্যাগ", 500], ["স্কুল ব্যাগ", 200],
-    ["টুপি", 40], ["টাই", 50], ["রুমাল", 20],
-    ["মোজার জোড়া", 30], ["ইনার ওয়্যার", 50], ["বেল্ট", 80],
+        // অন্যান্য
+        ["Towel (Small)", 40], ["Towel (Large)", 80], ["Janamaz", 80], 
+        ["Topi (Cap)", 40], ["Tie", 50], ["Handkerchief", 20], ["Socks (Pair)", 30],
+        ["Apron", 80], ["Table Cloth", 150], ["Baby Set", 80], ["Soft Toy", 200],
+        ["Woolen Cap", 50], ["Muffler", 60], ["Gloves", 50], ["Baby Blanket", 150],
+        ["Wedding Sherwani", 1500], ["Bridal Lehenga", 2000], ["Overcoat", 400]
+    ];
 
-    // প্রিমিয়াম/ড্রাই ক্লিনিং স্পেশাল
-    ["বিয়ের শেরওয়ানি", 1500], ["ব্রাইডাল লেহেঙ্গা", 2000], ["গয়নার ব্যাগ", 100],
-    ["ওভারকোট", 400], ["হুডি", 150], ["বাচ্চাদের সেট", 80],
-    ["বাচ্চাদের জ্যাকেট", 150], ["উলের টুপি", 50], ["মাফলার", 60],
-    ["গ্লাভস (হাত মোজা)", 50], ["বেবি ব্ল্যাঙ্কেট", 150], ["সফট টয় (পুতুল)", 200]
-];
+    const lang = {
+        bn: { h1: "আপনি কি পরিষ্কার করতে চান?", in: "আইটেম সার্চ করুন...", c1: "আপনার ঝুড়ি", t1: "মোট:", b1: "অর্ডার পাঠান", p1: "পেমেন্ট নম্বর (মার্চেন্ট):", empty: "ঝুড়ি খালি", lBtn: "EN" },
+        en: { h1: "What to clean?", in: "Search items...", c1: "Your Cart", t1: "Total:", b1: "Send Order", p1: "Payment (Merchant):", empty: "Cart empty", lBtn: "BN" }
+    };
+    let cart = [], cur = 'bn', rev = 0;
 
-
-    let cart = [];
-    let isBengali = true;
-    
-    // Admin Database (Local Storage)
-    let totalOrders = localStorage.getItem('orderCount') || 0;
-    let totalRevenue = localStorage.getItem('revenue') || 0;
-
-    function updateTime() {
-        const now = new Date();
-        const opt = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('live-time').innerText = now.toLocaleDateString(isBengali ? 'bn-BD' : 'en-US', opt) + " | " + now.toLocaleTimeString();
+    function tick() {
+        const n = new Date();
+        document.getElementById('time').innerText = n.toLocaleDateString() + " | " + n.toLocaleTimeString();
     }
-    setInterval(updateTime, 1000);
+    setInterval(tick, 1000); tick();
 
-    function toggleTheme() {
-        const b = document.body;
-        b.setAttribute('data-theme', b.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-    }
-
-    function handleSearch() {
-        const v = document.getElementById('main-search').value.toLowerCase();
-        const res = document.getElementById('search-results');
-        if(!v) { res.style.display = 'none'; return; }
-        let filtered = items.filter(i => i[0].toLowerCase().includes(v));
-        res.style.display = 'block';
-        res.innerHTML = filtered.map(i => `<div class="result-item" onclick="add('${i[0]}', ${i[1]})"><span>${i[0]}</span><b>৳${i[1]}</b></div>`).join('');
-    }
-
-    function add(n, p) {
-        cart.push({id: Date.now(), n, p});
-        document.getElementById('main-search').value = '';
-        document.getElementById('search-results').style.display = 'none';
+    function swap() {
+        cur = cur === 'bn' ? 'en' : 'bn';
+        const l = lang[cur];
+        document.getElementById('h1').innerText = l.h1;
+        document.getElementById('in').placeholder = l.in;
+        document.getElementById('c1').innerHTML = `<i class="fas fa-shopping-basket"></i> ${l.c1}`;
+        document.getElementById('t1').innerText = l.t1;
+        document.getElementById('b1').innerHTML = `<i class="fab fa-whatsapp"></i> ${l.b1}`;
+        document.getElementById('p1').innerText = l.p1;
+        document.getElementById('lBtn').innerText = l.lBtn;
         render();
     }
 
-    function remove(id) {
-        cart = cart.filter(i => i.id !== id);
-        render();
+    function dark() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme')==='dark'?'light':'dark'); }
+
+    function srch() {
+        const v = document.getElementById('in').value.toLowerCase();
+        const r = document.getElementById('res');
+        if(!v) { r.style.display='none'; return; }
+        let f = items.filter(i => i[0].toLowerCase().includes(v));
+        r.style.display='block';
+        r.innerHTML = f.map(i => `<div class="res-item" onclick="add('${i[0]}',${i[1]})"><span>${i[0]}</span><b>৳${i[1]}</b></div>`).join('');
     }
+
+    function add(n,p) { cart.push({id:Date.now(),n,p}); document.getElementById('in').value=''; document.getElementById('res').style.display='none'; render(); }
+    function del(id) { cart = cart.filter(i => i.id !== id); render(); }
 
     function render() {
-        const l = document.getElementById('cart-list');
-        const v = document.getElementById('total-val');
-        if(!cart.length) { l.innerHTML = `<p style="text-align:center; opacity:0.5;">ঝুড়ি খালি</p>`; v.innerText = '৳০'; return; }
-        let t = 0;
-        l.innerHTML = cart.map(i => { t += i.p; return `<div class="cart-row"><span>${i.n}</span><span>৳${i.p} <i class="fas fa-times-circle" style="color:#ff4757; cursor:pointer;" onclick="remove(${i.id})"></i></span></div>`; }).join('');
-        v.innerText = '৳' + t;
+        const l = document.getElementById('list');
+        const t = document.getElementById('total');
+        if(!cart.length) { l.innerHTML = `<p style="text-align:center;opacity:0.5">${lang[cur].empty}</p>`; t.innerText = '৳০'; return; }
+        let sum = 0;
+        l.innerHTML = cart.map(i => { sum += i.p; return `<div class="cart-row"><span>${i.n}</span><span>৳${i.p} <i class="fas fa-times-circle" style="color:var(--red);cursor:pointer" onclick="del(${i.id})"></i></span></div>`}).join('');
+        t.innerText = '৳' + sum;
     }
 
-    function sendWhatsApp() {
+    function send() {
         if(!cart.length) return;
-        let t = document.getElementById('total-val').innerText;
-        // Update Admin Stats
-        totalOrders++;
-        totalRevenue = parseInt(totalRevenue) + parseInt(t.replace('৳', ''));
-        localStorage.setItem('orderCount', totalOrders);
-        localStorage.setItem('revenue', totalRevenue);
-
-        let msg = `*নতুন অর্ডার (Laundry Wala)*%0A----------------------%0A${cart.map(c => '• '+c.n).join('%0A')}%0A----------------------%0A*মোট বিল: ${t}*%0Aপেমেন্ট করবেন: বিকাশ/নগদ`;
+        const total = document.getElementById('total').innerText;
+        rev += parseInt(total.replace('৳',''));
+        const msg = `*Laundry Order*%0A${cart.map(i=>'• '+i.n).join('%0A')}%0A*Total: ${total}*`;
         window.location.href = `https://wa.me/8801872720582?text=${msg}`;
     }
 
-    function showAdmin() {
-        let pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
-        if(pass === "7272") {
-            document.getElementById('admin-panel').style.display = 'block';
-            document.getElementById('adm-count').innerText = totalOrders;
-            document.getElementById('adm-total').innerText = '৳' + totalRevenue;
-        } else { alert("ভুল পাসওয়ার্ড!"); }
-    }
-
-    function closeAdmin() { document.getElementById('admin-panel').style.display = 'none'; }
-
-    updateTime();
+    function adm() { if(prompt("Pass:")==="7272") { document.getElementById('admin').style.display='block'; document.getElementById('rev').innerText = '৳'+rev; } }
 </script>
 </body>
 </html>
-
