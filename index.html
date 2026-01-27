@@ -3,198 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>লন্ড্রি’ওয়ালা | ফুল সার্ভিস হাব</title>
+    <title>লন্ড্রি’ওয়ালা | ফুল সার্ভিস পোর্টাল</title>
     <style>
-        :root { --primary: #00a8ff; --accent: #9c88ff; --dark: #2f3640; --bkash: #d12053; --nagad: #f7941d; --whatsapp: #25D366; }
-        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 0; padding: 10px; min-height: 100vh; color: #fff; }
-        .glass-card { max-width: 450px; margin: auto; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); padding: 20px; border-radius: 35px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); color: var(--dark); }
-        
-        .header { text-align: center; }
-        .app-icon { width: 60px; height: 60px; background: var(--primary); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 28px; animation: float 3s infinite ease-in-out; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-
-        .step-container { display: flex; justify-content: space-between; margin: 15px 0; background: #f8f9fa; padding: 12px; border-radius: 15px; }
-        .step-box { flex: 1; text-align: center; }
-        .step-circle { width: 32px; height: 32px; background: #fff; border: 2px solid var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; margin: 0 auto; }
-        .step-label { font-size: 8px; font-weight: bold; margin-top: 4px; color: var(--dark); display: block; }
-
-        .input-group { background: #f1f2f6; padding: 15px; border-radius: 20px; margin-bottom: 15px; }
-        input, select { width: 100%; padding: 12px; margin: 6px 0; border: none; border-radius: 10px; background: white; font-size: 14px; outline: none; box-sizing: border-box; }
-        
-        .btn-main { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border: none; padding: 15px; width: 100%; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-
-        .receipt-area { display: none; background: #fff; padding: 20px; border-radius: 20px; border-left: 8px solid var(--whatsapp); margin-top: 15px; }
-        .tracking-box { background: #eef2f3; padding: 15px; border-radius: 15px; margin-top: 15px; text-align: center; }
-        .pay-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
-        .pay-btn { padding: 10px; border-radius: 8px; text-decoration: none; text-align: center; font-weight: bold; color: white; font-size: 12px; }
+        :root { --primary: #00a8ff; --accent: #9c88ff; --dark: #2f3640; --whatsapp: #25D366; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; margin: 0; padding: 10px; color: #333; }
+        .app-card { max-width: 480px; margin: auto; background: #fff; border-radius: 35px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, var(--primary), var(--accent)); padding: 30px 20px; text-align: center; color: white; border-radius: 0 0 45px 45px; }
+        .steps { display: flex; justify-content: space-around; padding: 15px; margin: -30px 20px 0; background: white; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .s-item { text-align: center; font-size: 9px; font-weight: bold; color: var(--dark); }
+        .s-icon { font-size: 18px; margin-bottom: 3px; }
+        .container { padding: 25px 20px; }
+        .input-group { background: #f9f9f9; padding: 15px; border-radius: 20px; margin-bottom: 15px; border: 1px solid #eee; }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 12px; font-size: 14px; box-sizing: border-box; outline: none; transition: 0.3s; }
+        input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 8px rgba(0,168,255,0.2); }
+        .btn-main { background: var(--primary); color: white; border: none; padding: 16px; width: 100%; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,168,255,0.3); }
+        .btn-main:active { transform: scale(0.98); }
+        .receipt { display: none; padding: 20px; border-radius: 20px; border: 2px dashed var(--primary); margin-top: 20px; background: #fdfdfd; }
+        .track-box { background: #eef2f3; padding: 15px; border-radius: 15px; margin-top: 20px; text-align: center; }
+        .btn-wa { background: var(--whatsapp); margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="glass-card">
+<div class="app-card">
     <div class="header">
-        <div class="app-icon">🧺</div>
-        <h2 style="margin:0; color:var(--primary);">লন্ড্রি’ওয়ালা</h2>
-        <p style="font-size:10px; color:#666; margin-top:5px;">লন্ড্রি সেবা এখন আপনার হাতের মুঠোয়</p>
+        <h1 style="margin:0; font-size:30px;">🧺 লন্ড্রি’ওয়ালা</h1>
+        <p style="font-size:12px; opacity:0.9; letter-spacing: 1px;">PREMIUM LAUNDRY SOLUTION</p>
     </div>
 
-    <div class="step-container">
-        <div class="step-box"><div class="step-circle">📝</div><span class="step-label">Order</span></div>
-        <div class="step-box"><div class="step-circle">🔍</div><span class="step-label">Check</span></div>
-        <div class="step-box"><div class="step-circle">🧼</div><span class="step-label">Wash</span></div>
-        <div class="step-box"><div class="step-circle">💨</div><span class="step-label">Iron</span></div>
-        <div class="step-box"><div class="step-circle">🚚</div><span class="step-label">Delivery</span></div>
+    <div class="steps">
+        <div class="s-item"><div class="s-icon">📝</div>Order</div>
+        <div class="s-item"><div class="s-icon">🔍</div>Check</div>
+        <div class="s-item"><div class="s-icon">🧼</div>Wash</div>
+        <div class="s-item"><div class="s-icon">💨</div>Iron</div>
+        <div class="s-item"><div class="s-icon">🚚</div>Ready</div>
     </div>
 
-    <div class="input-group">
-        <input type="text" id="cName" placeholder="কাস্টমারের নাম">
-        <input type="tel" id="cMob" placeholder="মোবাইল নম্বর">
-        
-        <select id="item">
-            <option disabled selected>আমাদের ৫১টি আইটেম লিস্ট 👇</option>
-            <optgroup label="👔 পুরুষদের পোশাক">
-                <option value="60">শার্ট (ধোয়া+আয়রন) - ৬০</option>
-                <option value="50">শার্ট (শুধু আয়রন) - ৫০</option>
-                <option value="70">প্যান্ট/জিন্স - ৭০</option>
-                <option value="50">প্যান্ট (শুধু আয়রন) - ৫০</option>
-                <option value="80">পাঞ্জাবি (সুতি) - ৮০</option>
-                <option value="120">পাঞ্জাবি (কাজ করা) - ১২০</option>
-                <option value="60">পায়জামা - ৬০</option>
-                <option value="70">লুঙ্গি - ৭০</option>
-                <option value="60">গেঞ্জি/টি-শার্ট - ৬০</option>
-                <option value="250">ব্লেজার (ড্রাই ক্লিন) - ২৫০</option>
-                <option value="500">স্যুট (৩ পার্ট) - ৫০০</option>
-                <option value="40">মোজা/রুমাল - ৪০</option>
-            </optgroup>
-            <optgroup label="👗 মহিলাদের পোশাক">
-                <option value="100">শাড়ি (সুতি) - ১০০</option>
-                <option value="150">শাড়ি (জর্জেট/সিল্ক) - ১৫০</option>
-                <option value="300">শাড়ি (কাতান/ভারী) - ৩০০</option>
-                <option value="120">থ্রিপিস (সুতি) - ১২০</option>
-                <option value="180">থ্রিপিস (ভারী) - ১৮০</option>
-                <option value="80">বোরকা (সাধারণ) - ৮০</option>
-                <option value="150">বোরকা (ভারী কাজ) - ১৫০</option>
-                <option value="60">কামিজ/কুর্তি - ৬০</option>
-                <option value="80">হিজাব/ওড়না - ৮০</option>
-                <option value="450">লেহেঙ্গা - ৪৫০</option>
-            </optgroup>
-            <optgroup label="🧥 শীতের পোশাক">
-                <option value="120">সুয়েটার - ১২০</option>
-                <option value="150">হুডি - ১৫০</option>
-                <option value="200">জ্যাকেট (সাধারণ) - ২০০</option>
-                <option value="350">লেদার জ্যাকেট - ৩৫০</option>
-                <option value="400">লং কোট - ৪০০</option>
-            </optgroup>
-            <optgroup label="🏠 ঘরোয়া আইটেম">
-                <option value="250">কম্বল (সিঙ্গেল) - ২৫০</option>
-                <option value="450">কম্বল (ডাবল) - ৪৫০</option>
-                <option value="120">বেডশিট (সিঙ্গেল) - ১২০</option>
-                <option value="200">বেডশিট (ডাবল) - ২০০</option>
-                <option value="150">পর্দা (প্রতি পার্ট) - ১৫০</option>
-                <option value="150">জায়নামাজ - ১৫০</option>
-                <option value="100">টেবিল ক্লথ - ১০০</option>
-                <option value="300">সোফার কভার (সেট) - ৩০০</option>
-                <option value="80">তোয়ালে/গামছা - ৮০</option>
-            </optgroup>
-            <optgroup label="🎒 অন্যান্য">
-                <option value="150">কেডস/জুতা ওয়াশ - ১৫০</option>
-                <option value="100">স্কুল ব্যাগ - ১০০</option>
-                <option value="350">ট্রাভেল ব্যাগ - ৩৫০</option>
-                <option value="120">পুতুল/সফট টয় - ১২০</option>
-                <option value="200">কার সিট কভার - ২০০</option>
-            </optgroup>
-        </select>
-        
-        <input type="number" id="qty" value="1" min="1" placeholder="পরিমাণ">
-        <input type="number" id="disc" placeholder="ডিসকাউন্ট">
-    </div>
+    <div class="container">
+        <div class="input-group">
+            <input type="text" id="cName" placeholder="কাস্টমারের নাম">
+            <input type="tel" id="cMob" placeholder="মোবাইল নম্বর">
+            <select id="cItem">
+                <option disabled selected>আইটেম লিস্ট বেছে নিন (৭০+ অপশন)</option>
+                
+                <optgroup label="👔 পুরুষদের পোশাক (Men's)">
+                    <option value="60">শার্ট (ধোয়া+আয়রন) - ৬০</option>
+                    <option value="50">শার্ট (শুধু আয়রন) - ৫০</option>
+                    <option value="70">প্যান্ট/জিন্স (ধোয়া+আয়রন) - ৭০</option>
+                    <option value="50">প্যান্ট (শুধু আয়রন) - ৫০</option>
+                    <option value="80">পাঞ্জাবি (সুতি) - ৮০</option>
+                    <option value="120">পাঞ্জাবি (সিল্ক/কাজ করা) - ১২০</option>
+                    <option value="60">পায়জামা - ৬০</option>
+                    <option value="70">লুঙ্গি - ৭০</option>
+                    <option value="60">টি-শার্ট/গেঞ্জি - ৬০</option>
+                    <option value="250">ব্লেজার (ড্রাই ক্লিন) - ২৫০</option>
+                    <option value="500">স্যুট (৩ পার্ট) - ৫০০</option>
+                    <option value="150">কটি/ওয়েস্টকোট - ১৫০</option>
+                    <option value="40">মোজা/রুমাল - ৪০</option>
+                </optgroup>
 
-    <button class="btn-main" onclick="generate()">অর্ডার সেভ ও ট্র্যাকিং আইডি নিন ✨</button>
+                <optgroup label="👗 মহিলাদের পোশাক (Women's)">
+                    <option value="100">শাড়ি (সুতি) - ১০০</option>
+                    <option value="150">শাড়ি (জর্জেট/সিল্ক) - ১৫০</option>
+                    <option value="300">শাড়ি (কাতান/ভারী কাজ) - ৩০০</option>
+                    <option value="120">থ্রিপিস (সুতি) - ১২০</option>
+                    <option value="180">থ্রিপিস (ভারী/ডিজাইন) - ১৮০</option>
+                    <option value="80">বোরকা (সাধারণ) - ৮০</option>
+                    <option value="150">বোরকা (ভারী কাজ) - ১৫০</option>
+                    <option value="60">কামিজ/কুর্তি - ৬০</option>
+                    <option value="80">হিজাব/ওড়না - ৮০</option>
+                    <option value="450">লেহেঙ্গা - ৪৫০</option>
+                    <option value="200">নাইটি/ম্যাক্সি - ২০০</option>
+                </optgroup>
 
-    <div class="tracking-box">
-        <p style="margin:0 0 10px; font-size:12px; font-weight:bold;">অর্ডার ট্রাক করুন</p>
-        <input type="text" id="trackInput" placeholder="অর্ডার আইডি দিন">
-        <button onclick="trackOrder()" style="background:var(--dark); color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; font-size:12px;">Track Status</button>
-        <div id="statusResult"></div>
-    </div>
+                <optgroup label="🧥 শীতের পোশাক (Winter Care)">
+                    <option value="120">সুয়েটার (পাতলা) - ১২০</option>
+                    <option value="180">সুয়েটার (ভারী) - ১৮০</option>
+                    <option value="150">হুডি - ১৫০</option>
+                    <option value="200">জ্যাকেট (সাধারণ) - ২০০</option>
+                    <option value="350">লেদার জ্যাকেট - ৩৫০</option>
+                    <option value="400">লং কোট - ৪০০</option>
+                    <option value="80">মাফলার/কান টুপি - ৮০</option>
+                </optgroup>
 
-    <div id="receipt" class="receipt-area">
-        <h4 style="margin:0; color:var(--primary);">Memo ID: #<span id="rId"></span></h4>
-        <div id="rDetails" style="margin:10px 0; font-size:13px; line-height:1.6; color:#333;"></div>
-        <div id="points" style="background:#d4edda; color:#155724; padding:8px; border-radius:10px; font-size:12px; font-weight:bold; text-align:center;"></div>
-        
-        <div class="pay-grid">
-            <a href="tel:*247*1*01838051282%23" class="pay-btn" style="background:var(--bkash);">bKash</a>
-            <a href="tel:*167*1*01838051282%23" class="pay-btn" style="background:var(--nagad);">Nagad</a>
-            <button onclick="sendWA()" class="pay-btn" style="background:var(--whatsapp); grid-column: span 2; border:none; cursor:pointer;">WhatsApp-এ পাঠান</button>
+                <optgroup label="🏠 ঘরোয়া ও বিছানা (Home & Bedding)">
+                    <option value="250">কম্বল (সিঙ্গেল) - ২৫০</option>
+                    <option value="450">কম্বল (ডাবল) - ৪৫০</option>
+                    <option value="120">বেডশিট (সিঙ্গেল) - ১২০</option>
+                    <option value="200">বেডশিট (ডাবল) - ২০০</option>
+                    <option value="150">পর্দা (প্রতি পার্ট) - ১৫০</option>
+                    <option value="150">জায়নামাজ - ১৫০</option>
+                    <option value="100">টেবিল ক্লথ - ১০০</option>
+                    <option value="300">সোফার কভার (ফুল সেট) - ৩০০</option>
+                    <option value="80">তোয়ালে/গামছা - ৮০</option>
+                    <option value="60">বালিশের কভার (জোড়া) - ৬০</option>
+                    <option value="500">মশারি ওয়াশ - ৫০০</option>
+                </optgroup>
+
+                <optgroup label="🎒 ব্যাগ ও জুতা (Bags & Shoes)">
+                    <option value="150">কেডস/জুতা (ওয়াশ) - ১৫০</option>
+                    <option value="100">স্কুল ব্যাগ - ১০০</option>
+                    <option value="350">ট্রাভেল ব্যাগ - ৩৫০</option>
+                    <option value="120">সফট টয়/পুতুল - ১২০</option>
+                    <option value="200">কার সিট কভার - ২০০</option>
+                </optgroup>
+
+                <optgroup label="👶 শিশুদের পোশাক (Kids)">
+                    <option value="40">শিশুদের ড্রেস (ছোট) - ৪০</option>
+                    <option value="60">শিশুদের সেট - ৬০</option>
+                    <option value="100">শিশুদের শীতের পোশাক - ১০০</option>
+                </optgroup>
+            </select>
+            <input type="number" id="cQty" value="1" min="1" placeholder="পরিমাণ">
+            <input type="number" id="cDisc" placeholder="ডিসকাউন্ট">
+        </div>
+
+        <button class="btn-main" onclick="saveOrder()">অর্ডার কনফার্ম ও অনলাইন সেভ ✨</button>
+
+        <div id="receiptArea" class="receipt">
+            <h3 style="margin:0; color:var(--primary); text-align: center;">--- মেমো ---</h3>
+            <p style="text-align: center; font-size: 12px; margin-top: 5px;">ID: #<span id="rId"></span></p>
+            <div id="rDetails" style="margin:15px 0; font-size:15px; line-height:1.8;"></div>
+            <div id="rPoints" style="background:#d4edda; color:#155724; padding:10px; border-radius:12px; font-weight:bold; text-align:center; margin-bottom: 10px;"></div>
+            <button onclick="sendWhatsApp()" class="btn-main btn-wa">কাস্টমারকে WhatsApp-এ পাঠান 💬</button>
+        </div>
+
+        <div class="track-box">
+            <p style="margin:0 0 10px; font-weight:bold; font-size:14px;">অর্ডার ট্র্যাকিং</p>
+            <input type="text" id="tInput" placeholder="আপনার আইডি দিন (উদা: 7542)">
+            <button onclick="trackOrder()" style="background:var(--dark); color:white; border:none; padding:12px; border-radius:10px; width:100%; cursor:pointer; font-weight: bold;">Status Check</button>
+            <div id="tStatus" style="margin-top:12px; font-weight:bold; color:var(--primary); font-size: 15px;"></div>
         </div>
     </div>
-
-    <div style="text-align:center; margin-top:20px;">
-        <span onclick="openAdmin()" style="color:#bbb; cursor:pointer; font-size:10px;">🔒 ADMIN PANEL</span>
-    </div>
-
-    <div id="admin" style="display:none; background:var(--dark); color:white; border-radius:15px; padding:15px; margin-top:10px;">
-        <p style="font-size:12px;">আজকের অর্ডার: <span id="tOrd">0</span> | আয়: <span id="tCash">0</span> tk</p>
-        <hr>
-        <input type="text" id="upId" placeholder="আইডি" style="width:40%;">
-        <select id="upStatus" style="width:55%;">
-            <option value="🧼 ওয়াশ হচ্ছে...">Washing</option>
-            <option value="💨 আয়রন হচ্ছে...">Ironing</option>
-            <option value="🚚 ডেলিভারি হবে...">Ready</option>
-            <option value="✅ সম্পন্ন">Done</option>
-        </select>
-        <button onclick="update()" style="width:100%; padding:8px; background:var(--primary); border:none; color:white; border-radius:8px;">Update Status</button>
+    
+    <div style="text-align:center; padding:20px; font-size:11px; color:#999; border-top: 1px solid #eee;">
+        <b>লন্ড্রি’ওয়ালা ডিজিটাল সিস্টেম</b><br>
+        01872720582 | laundrywala72720@gmail.com
     </div>
 </div>
 
 <script>
-    let orders = {}; let tO = 0; let tC = 0;
+    // আপনার গুগল স্ক্রিপ্ট লিঙ্ক
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5mGElZZk4C5KMxypxyhbJx7w2ezYzOXe8c70s11ZH-34G6YH-knj8ZzDqkVJp3UV1/exec";
+    
+    let localDB = JSON.parse(localStorage.getItem('lw_orders')) || {};
 
-    function generate() {
-        let n = document.getElementById('cName').value, m = document.getElementById('cMob').value;
-        let p = parseInt(document.getElementById('item').value), q = parseInt(document.getElementById('qty').value);
-        let d = parseInt(document.getElementById('disc').value) || 0;
-        
-        if(!n || !m || isNaN(p)) return alert("সব তথ্য দিন!");
-        
+    async function saveOrder() {
+        let name = document.getElementById('cName').value;
+        let mob = document.getElementById('cMob').value;
+        let price = parseInt(document.getElementById('cItem').value);
+        let qty = parseInt(document.getElementById('cQty').value);
+        let disc = parseInt(document.getElementById('cDisc').value) || 0;
+
+        if(!name || !mob || isNaN(price)) return alert("দয়া করে সব তথ্য পূরণ করুন!");
+
         let id = Math.floor(1000 + Math.random() * 9000);
-        let total = (p * q) - d + ( (p*q >= 500) ? 0 : 40 );
-        let pts = Math.floor(total / 100);
+        let subtotal = price * qty;
+        let delivery = (subtotal >= 500) ? 0 : 40;
+        let bill = subtotal - disc + delivery;
+        let pts = Math.floor(bill / 100);
 
-        orders[id] = { n, total, status: "📝 অর্ডার রিসিভ হয়েছে", pts };
-        tO++; tC += total;
+        let orderData = { id: id, name: name, phone: mob, total: bill, points: pts, status: "📝 অর্ডার রিসিভ হয়েছে" };
 
+        // ১. গুগল শিটে ডেটা পাঠানো
+        try {
+            fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(orderData) });
+        } catch (e) { console.log("Sheet Error"); }
+
+        // ২. লোকাল মেমোরিতে সেভ
+        localDB[id] = orderData;
+        localStorage.setItem('lw_orders', JSON.stringify(localDB));
+
+        // ৩. রিসিট আপডেট
+        document.getElementById('receiptArea').style.display = 'block';
         document.getElementById('rId').innerText = id;
-        document.getElementById('tOrd').innerText = tO;
-        document.getElementById('tCash').innerText = tC;
-        document.getElementById('points').innerText = `🎁 পয়েন্ট অর্জন: ${pts} (১ পয়েন্ট = ১ টাকা)`;
-        document.getElementById('rDetails').innerHTML = `কাস্টমার: ${n}<br>সর্বমোট বিল: <b>${total} টাকা</b>`;
-        document.getElementById('receipt').style.display = 'block';
-        window.cur = {n, m, total, id, pts};
+        document.getElementById('rDetails').innerHTML = `
+            <b>কাস্টমার:</b> ${name}<br>
+            <b>আইটেম বিল:</b> ${subtotal} tk<br>
+            <b>ডেলিভারি:</b> ${delivery} tk<br>
+            <b>ডিসকাউন্ট:</b> ${disc} tk<br>
+            <hr>
+            <b>মোট বিল: ${bill} টাকা</b>
+        `;
+        document.getElementById('rPoints').innerText = `🎁 মেম্বারশিপ পয়েন্ট: ${pts}`;
+        
+        window.currentOrder = orderData;
+        alert("অর্ডার সফলভাবে অনলাইনে সেভ হয়েছে!");
     }
 
     function trackOrder() {
-        let id = document.getElementById('trackInput').value;
-        let res = document.getElementById('statusResult');
-        if(orders[id]) {
-            res.innerHTML = `<div style="background:var(--primary);color:white;padding:5px;border-radius:20px;margin-top:10px;font-size:12px;">${orders[id].status}</div>`;
-        } else { alert("আইডি পাওয়া যায়নি!"); }
+        let id = document.getElementById('tInput').value;
+        let result = document.getElementById('tStatus');
+        if(localDB[id]) {
+            result.innerText = "বর্তমান অবস্থা: " + localDB[id].status;
+        } else {
+            result.innerText = "দুঃখিত, আইডিটি পাওয়া যায়নি!";
+            result.style.color = "red";
+        }
     }
 
-    function update() {
-        let id = document.getElementById('upId').value;
-        let s = document.getElementById('upStatus').value;
-        if(orders[id]) { orders[id].status = s; alert("Updated!"); }
+    function sendWhatsApp() {
+        let o = window.currentOrder;
+        let msg = `*লন্ড্রি’ওয়ালা মেমো*\n--------------------\nID: #${o.id}\nনাম: ${o.name}\nমোট বিল: ${o.total} tk\nপয়েন্ট: ${o.points}\nবিকাশ/নগদ: 01838051282\n\nধন্যবাদ আমাদের সাথে থাকার জন্য!`;
+        window.open(`https://wa.me/88${o.phone}?text=${encodeURIComponent(msg)}`);
     }
-
-    function sendWA() {
-        let o = window.cur;
-        let msg = `*লন্ড্রি’ওয়ালা মেমো*\nID: #${o.id}\nকাস্টমার: ${o.n}\nবিল: ${o.total} tk\nপয়েন্ট: ${o.pts}\nbKash: 01838051282\nধন্যবাদ!`;
-        window.open(`https://wa.me/88${o.m}?text=${encodeURIComponent(msg)}`);
-    }
-
-    function openAdmin() { if(prompt("Pass:") === "admin123") document.getElementById('admin').style.display = 'block'; }
 </script>
 </body>
 </html>
