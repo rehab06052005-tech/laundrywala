@@ -3,122 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>লন্ড্রি’ওয়ালা | Fast • Secure • Clean</title>
-    <link rel="manifest" href="manifest.json">
+    <title>লন্ড্রি’ওয়ালা | আইটেম রেট চার্ট</title>
     <style>
-        :root { --primary: #2980b9; --secondary: #27ae60; --dark: #2c3e50; --orange: #e67e22; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f7f6; margin: 0; padding-bottom: 50px; }
-        .header { background: var(--dark); color: white; padding: 25px; text-align: center; border-bottom: 5px solid var(--primary); }
-        .container { max-width: 500px; margin: 20px auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .input-group { text-align: left; margin-bottom: 15px; }
-        label { font-weight: bold; display: block; margin-bottom: 5px; color: #555; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
-        .btn { background: var(--secondary); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-size: 18px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-        .summary-box { background: #e8f4fd; padding: 20px; border-radius: 10px; margin-top: 20px; display: none; border-left: 5px solid var(--primary); }
-        .payment-box { background: #fff3e0; padding: 20px; border-radius: 10px; margin-top: 20px; display: none; border: 2px dashed var(--orange); }
-        .admin-section { background: var(--dark); color: white; padding: 20px; border-radius: 15px; margin-top: 40px; display: none; }
-        .footer { text-align: center; padding: 20px; font-size: 13px; color: #666; }
+        :root { --primary: #2980b9; --dark: #2c3e50; --green: #27ae60; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 15px; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .header { text-align: center; border-bottom: 2px solid var(--primary); margin-bottom: 20px; padding-bottom: 10px; }
+        .price-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 15px; }
+        .price-table th, .price-table td { border: 1px solid #eee; padding: 12px; text-align: left; }
+        .price-table th { background: #f8f9fa; color: var(--dark); }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .btn { background: var(--green); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; font-size: 17px; font-weight: bold; transition: 0.3s; }
+        .btn:hover { background: #219150; }
+        #receipt { display:none; background: #e8f4fd; padding: 20px; border-radius: 10px; margin-top: 20px; border-left: 5px solid var(--primary); }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <h1 style="margin:0;">🧺 লন্ড্রি’ওয়ালা</h1>
-    <p style="color:#3498db; font-weight:bold; letter-spacing:2px;">FAST • SECURE • CLEAN</p>
-</div>
-
 <div class="container">
-    <h3>নতুন অর্ডার ফরম</h3>
+    <div class="header">
+        <h2 style="margin:0; color:var(--dark);">🧺 লন্ড্রি’ওয়ালা</h2>
+        <p style="margin:5px 0; color:var(--primary); font-size:14px;">আপনার কাপড়ের সঠিক যত্ন</p>
+    </div>
+    
+    <h3 style="text-align:center;">📋 রেট চার্ট (সর্বনিম্ন ৫০/-)</h3>
+    <table class="price-table">
+        <tr> <th>আইটেম</th> <th>ধোয়া + আয়রন</th> <th>শুধু আয়রন</th> </tr>
+        <tr> <td>শার্ট / প্যান্ট</td> <td>৬০ টাকা</td> <td>৫০ টাকা</td> </tr>
+        <tr> <td>পাঞ্জাবি / পাজামা</td> <td>৭০ টাকা</td> <td>৫০ টাকা</td> </tr>
+        <tr> <td>শাড়ি (সাধারণ)</td> <td>১০০ টাকা</td> <td>৬০ টাকা</td> </tr>
+        <tr> <td>শাড়ি (ভারী/সিল্ক)</td> <td>১৫০ টাকা</td> <td>৮০ টাকা</td> </tr>
+        <tr> <td>কোড / ব্লেজার</td> <td>২৫০ টাকা</td> <td>১০০ টাকা</td> </tr>
+        <tr> <td>কম্বল (সিঙ্গেল)</td> <td>২০০ টাকা</td> <td>-</td> </tr>
+    </table>
+
     <div class="input-group">
         <label>কাস্টমারের নাম:</label>
         <input type="text" id="custName" placeholder="নাম লিখুন">
     </div>
+
     <div class="input-group">
-        <label>মোবাইল নম্বর:</label>
-        <input type="tel" id="mobile" placeholder="01XXXXXXXXX">
-    </div>
-    <div class="input-group">
-        <label>সার্ভিস বাছাই করুন:</label>
-        <select id="service">
-            <option value="60">ধোয়া ও আয়রন (৬০ টাকা)</option>
-            <option value="40">শুধু আয়রন (৪০ টাকা)</option>
-            <option value="120">ড্রাই ক্লিন (১২০ টাকা)</option>
+        <label>আইটেম ও সার্ভিস বাছাই করুন:</label>
+        <select id="itemPrice">
+            <option value="60">শার্ট/প্যান্ট (ধোয়া + আয়রন) - ৬০টাকা</option>
+            <option value="50">শার্ট/প্যান্ট (শুধু আয়রন) - ৫০টাকা</option>
+            <option value="70">পাঞ্জাবি/পাজামা (ধোয়া + আয়রন) - ৭০টাকা</option>
+            <option value="100">শাড়ি (ধোয়া + আয়রন) - ১০০টাকা</option>
+            <option value="250">ব্লেজার (ড্রাই ক্লিন) - ২৫০টাকা</option>
+            <option value="200">কম্বল (ধোয়া) - ২০০টাকা</option>
         </select>
     </div>
+
     <div class="input-group">
-        <label>কাপড়ের পরিমাণ (পিস):</label>
+        <label>পরিমাণ (পিস):</label>
         <input type="number" id="qty" value="1" min="1">
     </div>
-    <button class="btn" onclick="calculateBill()">বিলের হিসাব দেখুন ➔</button>
 
-    <div id="summary" class="summary-box">
-        <h4 style="margin:0;">বিলের সারসংক্ষেপ</h4>
-        <p id="resSub"></p>
-        <p id="resDel"></p>
-        <h3 id="resTotal" style="color:var(--primary);"></h3>
+    <button class="btn" onclick="generateBill()">বিলের হিসাব দেখুন ➔</button>
+
+    <div id="receipt">
+        <h4 style="margin-top:0;">🧾 অর্ডারের সারসংক্ষেপ</h4>
+        <div id="billDetails" style="line-height:1.6;"></div>
+        <button class="btn" style="background:#25D366; margin-top:15px;" onclick="sendToWhatsApp()">WhatsApp-এ রিসিট পাঠান 💬</button>
     </div>
-
-    <div id="paymentBox" class="payment-box">
-        <button class="btn" style="background:#25D366;" onclick="sendWhatsApp()">WhatsApp রিসিট পাঠান 💬</button>
-        <button class="btn" style="background:var(--orange); margin-top:10px;" onclick="confirmOrder()">অর্ডার নিশ্চিত করুন (Admin Only)</button>
-    </div>
-</div>
-
-<div class="container admin-section" id="adminPanel">
-    <h3>📊 ডেইলি রিপোর্ট (অ্যাডমিন)</h3>
-    <p>আজকের মোট অর্ডার: <span id="totalOrders">0</span> টি</p>
-    <p>আজকের মোট বিক্রি: <span id="totalSales">0</span> টাকা</p>
-</div>
-
-<div style="text-align:center; margin-top:20px;">
-    <span onclick="showAdminPrompt()" style="color:#ccc; cursor:pointer; font-size:12px;">Admin Login</span>
 </div>
 
 <script>
-    let orders = 0; let sales = 0;
-
-    function calculateBill() {
+    function generateBill() {
         let name = document.getElementById('custName').value;
-        let rate = parseInt(document.getElementById('service').value);
+        let price = parseInt(document.getElementById('itemPrice').value);
         let qty = parseInt(document.getElementById('qty').value);
-        if(!name || !document.getElementById('mobile').value) { alert("নাম ও নম্বর দিন"); return; }
+        
+        if(!name) { alert("দয়া করে কাস্টমারের নাম লিখুন"); return; }
+        
+        let itemTotal = price * qty;
+        let delivery = (itemTotal >= 500) ? 0 : 40;
+        window.finalAmount = itemTotal + delivery;
 
-        let sub = (rate * qty < 40) ? 40 : rate * qty;
-        let del = (sub >= 500) ? 0 : 40;
-        let total = sub + del;
-        window.currentBill = total;
-
-        document.getElementById('summary').style.display = 'block';
-        document.getElementById('paymentBox').style.display = 'block';
-        document.getElementById('resSub').innerText = "কাপড়ের দাম: " + sub + " টাকা";
-        document.getElementById('resDel').innerText = "ডেলিভারি চার্জ: " + (del === 0 ? "ফ্রি" : del + " টাকা");
-        document.getElementById('resTotal').innerText = "মোট বিল: " + total + " টাকা";
+        document.getElementById('receipt').style.display = 'block';
+        document.getElementById('billDetails').innerHTML = `
+            <b>কাস্টমার:</b> ${name}<br>
+            <b>কাপড়ের বিল:</b> ${itemTotal} টাকা<br>
+            <b>ডেলিভারি চার্জ:</b> ${delivery === 0 ? "ফ্রি" : delivery + " টাকা"}<br>
+            <hr>
+            <b style="font-size:18px; color:#2980b9;">সর্বমোট বিল: ${window.finalAmount} টাকা</b>
+        `;
     }
 
-    function confirmOrder() {
-        orders++; sales += window.currentBill;
-        document.getElementById('totalOrders').innerText = orders;
-        document.getElementById('totalSales').innerText = sales;
-        alert("অর্ডার অ্যাডমিন প্যানেলে যোগ হয়েছে!");
-    }
-
-    function sendWhatsApp() {
+    function sendToWhatsApp() {
         let name = document.getElementById('custName').value;
-        let mobile = document.getElementById('mobile').value;
-        let total = window.currentBill;
-        let msg = `*লন্ড্রি’ওয়ালা কনফার্মেশন*%0Aপ্রিয় *${name}*, আপনার অর্ডারটি গ্রহণ করা হয়েছে। মোট বিল: *${total} টাকা*। ধন্যবাদ!`;
-        window.open(`https://wa.me/88${mobile}?text=${msg}`, '_blank');
-    }
-
-    function showAdminPrompt() {
-        let pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
-        if (pass === "laundry72") {
-            document.getElementById('adminPanel').style.display = 'block';
-            alert("অ্যাডমিন মোড চালু হয়েছে!");
-        } else {
-            alert("ভুল পাসওয়ার্ড!");
-        }
+        let msg = `*লন্ড্রি’ওয়ালা রিসিট*%0A--------------------------%0A*কাস্টমার:* ${name}%0A*মোট বিল:* ${window.finalAmount} টাকা%0A--------------------------%0Aধন্যবাদ আমাদের সাথে থাকার জন্য!`;
+        window.open(`https://wa.me/8801872720582?text=${msg}`, '_blank');
     }
 </script>
+
 </body>
 </html>
