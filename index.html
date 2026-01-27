@@ -156,40 +156,44 @@
         t.innerText = '৳' + sum;
     }
 
-function sendOrder() {
+function confirmOrder() {
+    // ইনপুট ফিল্ড থেকে তথ্য সংগ্রহ
     const name = document.getElementById('custName').value;
     const phone = document.getElementById('custPhone').value;
     const addr = document.getElementById('custAddr').value;
-    const total = document.getElementById('total-val').innerText;
+    const total = document.getElementById('total').innerText;
 
-    if(cart.length === 0) {
-        alert("আগে ঝুড়িতে আইটেম যোগ করুন!");
+    // তথ্য চেক করা (Validation)
+    if (!cart || cart.length === 0) {
+        alert(cur === 'bn' ? "আপনার ঝুড়ি খালি!" : "Your cart is empty!");
         return;
     }
-    if(!name || !phone || !addr) {
-        alert("দয়া করে নাম, ফোন এবং ঠিকানা দিন!");
+    if (!name || !phone || !addr) {
+        alert(cur === 'bn' ? "দয়া করে নাম, ফোন এবং ঠিকানা দিন!" : "Please provide name, phone and address!");
         return;
     }
-
-    // হোয়াটসঅ্যাপ মেসেজ ফরম্যাট
-    let msg = `*নতুন অর্ডার - Laundry Wala*%0A`;
+<script>
+    // হোয়াটসঅ্যাপ মেসেজ সাজানো
+    let msg = `*New Order - LaundryWala*%0A`;
     msg += `--------------------------%0A`;
-    msg += `👤 *নাম:* ${name}%0A`;
-    msg += `📞 *ফোন:* ${phone}%0A`;
-    msg += `📍 *ঠিকানা:* ${addr}%0A`;
+    msg += `👤 *Name:* ${name}%0A`;
+    msg += `📞 *Phone:* ${phone}%0A`;
+    msg += `📍 *Address:* ${addr}%0A`;
     msg += `--------------------------%0A`;
-    msg += `🧺 *আইটেম লিস্ট:*%0A`;
-    msg += cart.map(i => `• ${i.n} - ৳${i.p}`).join('%0A');
+    msg += `🧺 *Items:*%0A`;
+    msg += cart.map(i => `• ${i.n} (৳${i.p})`).join('%0A');
     msg += `%0A--------------------------%0A`;
-    msg += `💰 *মোট বিল: ${total}*`;
+    msg += `💰 *Total Bill: ${total}*`;
 
     // আপনার হোয়াটসঅ্যাপ নম্বর: 01872720582
     const whatsappUrl = `https://wa.me/8801872720582?text=${msg}`;
     window.location.href = whatsappUrl;
 }
 
+
     function adm() { if(prompt("Pass:")==="7272") { document.getElementById('admin').style.display='block'; document.getElementById('rev').innerText = '৳'+rev; } }
 </script>
 </body>
 </html>
+
 
