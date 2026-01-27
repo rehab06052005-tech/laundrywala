@@ -3,211 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laundry’Wala | Official App</title>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
+    <title>Laundry’Wala | The Ultimate Animated App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #2563eb; --bg: #ffffff; --text: #0f172a; --gray: #f8fafc; --accent: #fbbf24; --card-bg: #1e293b;
+        :root { --primary: #2563eb; --bg: #ffffff; --text: #0f172a; --glass: rgba(255, 255, 255, 0.9); --accent: #fbbf24; --wave-color: rgba(37, 99, 235, 0.1); }
+        .dark-mode { --bg: #030712; --text: #f8fafc; --glass: rgba(15, 23, 42, 0.95); --wave-color: rgba(37, 99, 235, 0.05); }
+
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif; transition: 0.3s; overflow-x: hidden; }
+        .container { max-width: 500px; margin: auto; padding: 20px; position: relative; z-index: 10; }
+
+        /* Water Wave Background */
+        .water-wave-bg {
+            position: fixed; inset: 0; z-index: -1;
+            background: linear-gradient(to top, var(--wave-color), transparent 50%);
+            animation: waveFlow 20s infinite linear;
+            background-size: 200% 200%;
+            pointer-events: none;
+        }
+        @keyframes waveFlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
         }
 
-        /* Dark Mode Colors */
-        .dark-mode {
-            --bg: #0f172a; --text: #f8fafc; --gray: #1e293b; --card-bg: #334155;
-        }
+        /* Header Tools & Logo */
+        .header-tools { display: flex; justify-content: flex-end; gap: 10px; padding: 10px 0; }
+        .tool-btn { background: var(--text); color: var(--bg); border: none; padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: 12px; font-weight: 700; }
+        .logo-text { font-size: 40px; font-weight: 800; color: var(--primary); text-align: center; margin: 20px 0 5px; }
 
-        body { 
-            margin: 0; font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif; 
-            background: var(--bg); color: var(--text); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        /* Glassmorphism Cards */
+        .glass-card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid rgba(0,0,0,0.1); padding: 20px; border-radius: 25px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 
-        /* --- Loader --- */
-        #loader { position: fixed; inset: 0; background: #fff; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .anim-box { width: 280px; height: 280px; }
+        /* Form Elements */
+        select, input, textarea { width: 100%; background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.1); padding: 15px; border-radius: 12px; font-size: 15px; margin-bottom: 12px; color: var(--text); box-sizing: border-box; outline: none; }
+        .btn-main { background: var(--primary); color: #fff; border: none; width: 100%; padding: 18px; border-radius: 12px; font-weight: 800; cursor: pointer; }
 
-        /* --- UI Elements --- */
-        #app { display: none; opacity: 0; transform: translateY(20px); transition: 1s ease; }
-        .app-active { display: block !important; opacity: 1 !important; transform: translateY(0) !important; }
-        .container { max-width: 500px; margin: auto; padding: 20px 20px 120px 20px; }
+        /* Payment & Contact Info */
+        .payment-box { background: #111; color: #fff; padding: 20px; border-radius: 20px; text-align: center; margin: 20px 0; border: 2px dashed var(--accent); }
+        .pay-num { font-size: 24px; font-weight: 800; color: var(--accent); display: block; margin-top: 5px; }
 
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; }
-        .logo { font-size: 24px; font-weight: 800; color: var(--primary); }
-        .slogan { font-size: 10px; letter-spacing: 3px; font-weight: 700; opacity: 0.5; text-transform: uppercase; }
+        /* Footer Navigation */
+        .footer-nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 450px; background: #111; padding: 10px; border-radius: 20px; display: flex; gap: 10px; z-index: 1000; }
+        .btn-wa { background: #25D366; color: #fff; flex: 1; text-align: center; text-decoration: none; padding: 14px; border-radius: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        .btn-toggle { background: var(--gray); border: none; padding: 10px; border-radius: 12px; cursor: pointer; color: var(--text); font-size: 14px; }
-
-        .card { 
-            background: linear-gradient(135deg, #1e293b, #0f172a); color: #fff; 
-            padding: 30px; border-radius: 30px; margin: 20px 0; box-shadow: 0 20px 40px rgba(0,0,0,0.15); 
-        }
-
-        select, input { 
-            width: 100%; background: var(--gray); border: 2px solid rgba(0,0,0,0.05); 
-            padding: 18px; border-radius: 15px; font-size: 15px; font-weight: 600; color: var(--text); 
-            margin-bottom: 12px; box-sizing: border-box; outline: none; transition: 0.3s;
-        }
-
-        .btn-add { background: var(--primary); color: #fff; border: none; width: 100%; padding: 18px; border-radius: 15px; font-size: 16px; font-weight: 700; cursor: pointer; }
-        
-        .footer-sticky { 
-            position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg); 
-            padding: 15px; border-top: 1px solid rgba(0,0,0,0.05); box-shadow: 0 -10px 30px rgba(0,0,0,0.05); 
-            display: flex; gap: 10px; max-width: 500px; margin: auto; z-index: 1000;
-        }
-        .btn-wa { background: #25D366; color: #fff; flex: 1; border: none; padding: 16px; border-radius: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; font-size: 15px; }
-
-        #admin-panel { display: none; background: var(--gray); border: 2px solid var(--primary); border-radius: 25px; padding: 20px; margin-top: 30px; }
+        /* Welcome Modal */
+        #welcome-note { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px; }
     </style>
 </head>
-<body>
+<body class="dark-mode">
 
-    <div id="loader">
-        <div class="anim-box">
-            <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_m6cuL6.json" background="transparent" speed="1.2" style="width: 100%; height: 100%;" loop autoplay></lottie-player>
+<div id="welcome-note">
+    <div class="glass-card" style="text-align: center; max-width: 300px;">
+        <i class="fas fa-hand-sparkles" style="font-size: 40px; color: var(--accent);"></i>
+        <h2 id="welcome-title">স্বাগতম!</h2>
+        <p id="welcome-text">Laundry’Wala-তে আপনাকে স্বাগতম। আমরা দিচ্ছি সেরা ক্লিনিং সার্ভিস।</p>
+        <button class="btn-main" onclick="document.getElementById('welcome-note').remove()">শুরু করুন</button>
+    </div>
+</div>
+
+<div class="water-wave-bg"></div>
+
+<div class="container">
+    <div class="header-tools">
+        <button class="tool-btn" onclick="toggleLang()" id="lang-btn">BN / EN</button>
+        <button class="tool-btn" onclick="document.body.classList.toggle('dark-mode')"><i class="fas fa-adjust"></i> থিম</button>
+    </div>
+
+    <h1 class="logo-text">Laundry’Wala</h1>
+    <p style="text-align: center; opacity: 0.6; font-weight: 700; letter-spacing: 2px; margin-bottom: 30px;">FAST • SECURE • CLEAN</p>
+
+    <div class="glass-card">
+        <h3 id="order-form-title">অর্ডার ফরম</h3>
+        <input type="text" id="cust-name" placeholder="আপনার নাম">
+        <select id="item-select">
+            <option value="" id="default-option" disabled selected>৭০+ আইটেম থেকে বেছে নিন</option>
+            <optgroup label="Men's Collection (Wash & Iron)">
+                <option value="60">Shirt - ৳60</option><option value="70">Pant/Jeans - ৳70</option>
+                <option value="120">Panjabi (Cotton) - ৳120</option><option value="150">Panjabi (Silk) - ৳150</option>
+                <option value="80">T-Shirt - ৳80</option><option value="100">Pajama - ৳100</option>
+                <option value="150">Lungi - ৳150</option><option value="60">Genji/Underwear - ৳60</option>
+                <option value="200">Kotta/Fatua - ৳200</option><option value="150">Waistcoat - ৳150</option>
+            </optgroup>
+            <optgroup label="Men's (Only Iron)">
+                <option value="30">Shirt Iron - ৳30</option><option value="30">Pant Iron - ৳30</option>
+                <option value="50">Panjabi Iron - ৳50</option><option value="100">Blazer Iron - ৳100</option>
+            </optgroup>
+            <optgroup label="Dry Cleaning (Premium)">
+                <option value="250">Blazer - ৳250</option><option value="500">Suit (2-Piece) - ৳500</option>
+                <option value="700">Suit (3-Piece) - ৳700</option><option value="400">Sherwani - ৳400</option>
+                <option value="300">Prince Coat - ৳300</option><option value="250">Overcoat - ৳250</option>
+                <option value="300">Leather Jacket - ৳300</option><option value="200">Sweater/Cardigan - ৳200</option>
+            </optgroup>
+            <optgroup label="Women's Wear">
+                <option value="150">Saree (Cotton) - ৳150</option><option value="300">Saree (Silk/Katan) - ৳300</option>
+                <option value="500">Saree (Stone/Heavy) - ৳500</option><option value="180">Three Piece - ৳180</option>
+                <option value="150">Borkha - ৳150</option><option value="100">Hijab/Dupatta - ৳100</option>
+                <option value="800">Lehenga - ৳800</option><option value="250">Gown - ৳250</option>
+                <option value="80">Blouse - ৳80</option><option value="80">Peticoat - ৳80</option>
+            </optgroup>
+            <optgroup label="Bedding & Winter">
+                <option value="500">Double Blanket - ৳500</option><option value="300">Single Blanket - ৳300</option>
+                <option value="400">Comforter - ৳400</option><option value="600">Double Quilt (Lep) - ৳600</option>
+                <option value="200">Bed Sheet (Double) - ৳200</option><option value="150">Bed Sheet (Single) - ৳150</option>
+                <option value="50">Pillow Cover - ৳50</option><option value="150">Curtain (Per Pcs) - ৳150</option>
+                <option value="250">Table Cloth - ৳250</option><option value="100">Towel (Gamcha) - ৳100</option>
+            </optgroup>
+            <optgroup label="Shoes & Bags">
+                <option value="200">Sneaker Wash - ৳200</option><option value="300">Leather Shoe Polish - ৳300</option>
+                <option value="150">School Bag - ৳150</option><option value="300">Travel Bag - ৳300</option>
+                <option value="100">Ladies Vanity Bag - ৳100</option><option value="80">Cap/Hat - ৳80</option>
+            </optgroup>
+            <optgroup label="Household Items">
+                <option value="500">Carpet (Per Sqft 20) - ৳500</option><option value="150">Door Mat - ৳150</option>
+                <option value="200">Prayer Mat (Janamaj) - ৳200</option><option value="100">Soft Toys (Small) - ৳100</option>
+                <option value="300">Soft Toys (Large) - ৳300</option>
+            </optgroup>
+        </select>
+        <button class="btn-main" onclick="addItem()" id="add-item-btn">তালিকায় যোগ করুন</button>
+    </div>
+
+    <div id="cart-display" class="glass-card" style="display: none;">
+        <div id="item-list"></div>
+        <div style="margin-top: 15px; font-weight: 800; font-size: 22px; display: flex; justify-content: space-between;">
+            <span id="total-text">Total:</span> <span id="total-price">৳0</span>
         </div>
-        <div id="load-status" style="font-weight: 800; color: #2563eb; letter-spacing: 2px;">STARTING...</div>
     </div>
 
-    <div id="app">
-        <div class="container">
-            <header class="header">
-                <div>
-                    <div class="logo">Laundry’Wala</div>
-                    <div class="slogan">Fast • Secure • Clean</div>
-                </div>
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn-toggle" onclick="toggleLang()" id="langBtn">EN</button>
-                    <button class="btn-toggle" onclick="toggleDarkMode()"><i class="fas fa-moon" id="themeIcon"></i></button>
-                </div>
-            </header>
-
-            <div class="card">
-                <div id="txt-points-label" style="opacity: 0.6; font-size: 11px; font-weight: 700;">লয়্যালটি পয়েন্ট</div>
-                <div style="font-size: 42px; font-weight: 800; margin: 5px 0;">150 <small id="txt-pts" style="font-size: 16px; font-weight: 400;">পয়েন্ট</small></div>
-                <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
-                    <span id="txt-premium" style="font-size: 10px; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 8px;">প্রিমিয়াম ইউজার</span>
-                    <i class="fas fa-crown" style="color: var(--accent);"></i>
-                </div>
-            </div>
-
-            <h3 id="txt-order-title" style="font-size: 18px; font-weight: 800; margin-bottom: 15px;">নতুন অর্ডার করুন</h3>
-            <input type="text" id="cust-name" placeholder="আপনার নাম লিখুন">
-            
-            <select id="item-select">
-                <option value="" disabled selected id="txt-select-item">৭০+ সার্ভিস থেকে বেছে নিন</option>
-                <optgroup label="Men's Wear">
-                    <option value="60">Shirt (Wash & Iron) - 60</option>
-                    <option value="40">Shirt (Only Iron) - 40</option>
-                    <option value="70">Pant/Jeans - 70</option>
-                    <option value="250">Blazer (Dry Clean) - 250</option>
-                </optgroup>
-                <optgroup label="Household">
-                    <option value="500">Double Blanket - 500</option>
-                    <option value="150">Sneaker Wash - 150</option>
-                </optgroup>
-            </select>
-
-            <button class="btn-add" id="txt-add-btn" onclick="addItem()">তালিকায় যোগ করুন</button>
-
-            <div id="cart-container" style="display: none; margin-top: 25px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 20px;">
-                <div id="cart-list"></div>
-                <div style="display: flex; justify-content: space-between; margin-top: 15px; font-weight: 800; font-size: 18px;">
-                    <span id="txt-total">মোট বিল:</span> <span id="total-price">৳0</span>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 40px; padding: 25px; background: var(--gray); border-radius: 24px; font-size: 13px;">
-                <strong id="txt-contact">যোগাযোগ ও পেমেন্ট</strong><br>
-                laundrywala72720@gmail.com<br>
-                WhatsApp/Bikash: 01872720582
-            </div>
-
-            <div style="text-align: center; margin-top: 30px; padding-bottom: 40px;">
-                <button onclick="openAdmin()" style="background:none; border:none; opacity:0.3; font-size:10px; color:var(--text);">🔒 ADMIN ACCESS</button>
-                <div id="admin-panel">
-                    <div id="admin-stats"></div>
-                </div>
-            </div>
-        </div>
+    <div class="payment-box">
+        <div id="pay-to-text" style="font-size: 11px; color: var(--accent); font-weight: 800;">পেমেন্ট করুন (বিকাশ/নগদ)</div>
+        <span class="pay-num">01838051282</span>
     </div>
 
-    <div class="footer-sticky">
-        <button class="btn-wa" onclick="sendOrder()">
-            <i class="fab fa-whatsapp"></i> <span id="txt-confirm">অর্ডার কনফার্ম করুন</span>
-        </button>
+    <div class="glass-card">
+        <h3 id="review-form-title">রিভিউ দিন</h3>
+        <textarea id="rev-text" rows="3" placeholder="আপনার মতামত লিখুন..."></textarea>
+        <button class="btn-main" style="background:#444;" onclick="alert('ধন্যবাদ! আপনার রিভিউ আমাদের কাছে পৌঁছেছে।')" id="submit-review-btn">রিভিউ জমা দিন</button>
     </div>
 
-    <script>
-        let cart = [], total = 0, currentLang = 'bn';
+    <div style="text-align: center; margin-bottom: 120px; font-size: 11px; opacity: 0.5;">
+        Mail: laundrywala72720@gmail.com | WhatsApp Support: 01872720582
+        <button onclick="if(prompt('Admin Pass:')=='7272') alert('Login Successful')" style="background:none; border:none; color:inherit; margin-top:15px; cursor:pointer; font-size:10px;">🔒 Admin Panel</button>
+    </div>
+</div>
 
-        // Language Toggle Logic
-        const langs = {
-            en: {
-                points: "LOYALTY POINTS", pts: "Points", prem: "PREMIUM USER", order: "Create New Order",
-                name: "Enter Your Name", select: "Select from 70+ Services", add: "Add to List", total: "Total Bill:",
-                contact: "Contact & Payment", confirm: "Confirm via WhatsApp", load: "STARTING..."
-            },
-            bn: {
-                points: "লয়্যালটি পয়েন্ট", pts: "পয়েন্ট", prem: "প্রিমিয়াম ইউজার", order: "নতুন অর্ডার করুন",
-                name: "আপনার নাম লিখুন", select: "৭০+ সার্ভিস থেকে বেছে নিন", add: "তালিকায় যোগ করুন", total: "মোট বিল:",
-                contact: "যোগাযোগ ও পেমেন্ট", confirm: "অর্ডার কনফার্ম করুন", load: "শুরু হচ্ছে..."
+<div class="footer-nav">
+    <a href="tel:01872720582" class="btn-wa" id="call-btn" style="background: #333;"><i class="fas fa-phone"></i> কল করুন</a>
+    <a href="javascript:sendWA()" class="btn-wa" id="confirm-order-btn"><i class="fab fa-whatsapp"></i> অর্ডার পাঠান</a>
+</div>
+
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+    let cart = [], total = 0, isBN = true;
+
+    // GSAP Animations
+    gsap.from(".glass-card", {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+            trigger: ".container",
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+        }
+    });
+    gsap.from(".logo-text", { opacity: 0, y: -20, duration: 1, ease: "power2.out" });
+
+    // Language Toggle
+    const langElements = {
+        'welcome-title': { bn: 'স্বাগতম!', en: 'Welcome!' },
+        'welcome-text': { bn: 'Laundry’Wala-তে আপনাকে স্বাগতম। আমরা দিচ্ছি সেরা ক্লিনিং সার্ভিস।', en: 'Welcome to Laundry’Wala. We provide the best cleaning service.' },
+        'order-form-title': { bn: 'কাপড়ের তালিকা তৈরি করুন', en: 'Create Order List' },
+        'cust-name': { placeholder: { bn: 'আপনার নাম লিখুন', en: 'Enter Your Name' } },
+        'default-option': { bn: '৭০+ আইটেম থেকে বেছে নিন', en: 'Choose from 70+ Items' },
+        'add-item-btn': { bn: 'তালিকায় যোগ করুন', en: 'Add to List' },
+        'total-text': { bn: 'মোট বিল:', en: 'Total Bill:' },
+        'pay-to-text': { bn: 'পেমেন্ট করুন (বিকাশ/নগদ)', en: 'Pay To (Bikash/Nagad)' },
+        'review-form-title': { bn: 'রিভিউ দিন', en: 'Give a Review' },
+        'rev-text': { placeholder: { bn: 'আপনার মতামত লিখুন...', en: 'Write your feedback...' } },
+        'submit-review-btn': { bn: 'রিভিউ জমা দিন', en: 'Submit Review' },
+        'call-btn': { bn: 'কল করুন', en: 'Call' },
+        'confirm-order-btn': { bn: 'অর্ডার পাঠান', en: 'Send Order' },
+        'lang-btn': { bn: 'BN / EN', en: 'EN / BN' }
+    };
+
+    function toggleLang() {
+        isBN = !isBN;
+        for (const id in langElements) {
+            const element = document.getElementById(id);
+            if (!element) continue;
+
+            if (langElements[id].bn && langElements[id].en) {
+                element.innerText = isBN ? langElements[id].bn : langElements[id].en;
             }
-        };
-
-        function toggleLang() {
-            currentLang = currentLang === 'bn' ? 'en' : 'bn';
-            document.getElementById('langBtn').innerText = currentLang === 'bn' ? 'EN' : 'BN';
-            const l = langs[currentLang];
-            document.getElementById('txt-points-label').innerText = l.points;
-            document.getElementById('txt-pts').innerText = l.pts;
-            document.getElementById('txt-premium').innerText = l.prem;
-            document.getElementById('txt-order-title').innerText = l.order;
-            document.getElementById('cust-name').placeholder = l.name;
-            document.getElementById('txt-select-item').innerText = l.select;
-            document.getElementById('txt-add-btn').innerText = l.add;
-            document.getElementById('txt-total').innerText = l.total;
-            document.getElementById('txt-contact').innerText = l.contact;
-            document.getElementById('txt-confirm').innerText = l.confirm;
-        }
-
-        // Dark Mode Toggle
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            const icon = document.getElementById('themeIcon');
-            icon.className = document.body.classList.contains('dark-mode') ? 'fas fa-sun' : 'fas fa-moon';
-        }
-
-        // Loader
-        setTimeout(() => {
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('app').classList.add('app-active');
-        }, 4000);
-
-        function addItem() {
-            let s = document.getElementById('item-select');
-            let name = s.options[s.selectedIndex].text, price = parseInt(s.value);
-            if(!price) return;
-            cart.push({name, price}); total += price;
-            document.getElementById('cart-container').style.display = 'block';
-            document.getElementById('cart-list').innerHTML += `<div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(0,0,0,0.05);"><span>${name}</span><b>৳${price}</b></div>`;
-            document.getElementById('total-price').innerText = '৳' + total;
-        }
-
-        function sendOrder() {
-            let name = document.getElementById('cust-name').value;
-            if(!name || cart.length === 0) return alert(currentLang === 'bn' ? "নাম এবং আইটেম দিন!" : "Enter Name & Items!");
-            let items = cart.map(i => '- ' + i.name).join('%0A');
-            let msg = `*Laundry’Wala Order*%0AName: ${name}%0ATotal: ৳${total}%0AItems:%0A${items}`;
-            window.location.href = `https://wa.me/8801872720582?text=${msg}`;
-        }
-
-        function openAdmin() {
-            if(prompt("Admin Password:") === "7272") {
-                document.getElementById('admin-panel').style.display = 'block';
-                document.getElementById('admin-stats').innerHTML = `Revenue: ৳${total} | Orders: ${cart.length > 0 ? 1 : 0}`;
+            if (langElements[id].placeholder) {
+                element.placeholder = isBN ? langElements[id].placeholder.bn : langElements[id].placeholder.en;
             }
         }
-    </script>
+    }
+
+    // Add Item to Cart
+    function addItem() {
+        let sel = document.getElementById('item-select');
+        let name = sel.options[sel.selectedIndex].text, price = parseInt(sel.value.match(/\d+/)[0]); // Extract number from string
+        if(isNaN(price)) return; // Ensure price is a number
+
+        cart.push({name, price}); total += price;
+        document.getElementById('cart-display').style.display = 'block';
+        document.getElementById('item-list').innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:5px; font-size:14px;"><span>${name.split(' - ')[0]}</span><b>৳${price}</b></div>`;
+        document.getElementById('total-price').innerText = '৳' + total;
+    }
+
+    // Send Order via WhatsApp
+    function sendWA() {
+        let name = document.getElementById('cust-name').value;
+        if(!name || cart.length === 0) return alert(isBN ? "দয়া করে নাম এবং আইটেম যোগ করুন!" : "Please fill in your name and add items!");
+        let items = cart.map(i => '- ' + i.name.split(' - ')[0]).join('%0A'); // Clean item name for WA
+        
+        const waMessage = `*Laundry’Wala New Order*%0A*Name:* ${name}%0A*Total:* ৳${total}%0A*Items:*%0A${items}%0A%0A_Payment to: 01838051282 (Bikash/Nagad)_`;
+        window.location.href = `https://wa.me/8801872720582?text=${encodeURIComponent(waMessage)}`;
+    }
+</script>
 </body>
 </html>
