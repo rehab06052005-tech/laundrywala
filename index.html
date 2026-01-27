@@ -1,25 +1,31 @@
-
-Rehab <rehab06052005@gmail.com>
-17:33 (0 minutes ago)
-to me
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>লন্ড্রি’ওয়ালা | ইনভয়েস ও রিসিট</title>
+    <title>লন্ড্রি’ওয়ালা | স্মার্ট ইনভয়েস</title>
     <style>
-        :root { --primary: #2980b9; --dark: #2c3e50; --green: #27ae60; --orange: #e67e22; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 10px; }
-        .container { max-width: 480px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .header { text-align: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 20px; }
-        .input-box { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .receipt-card { border: 2px solid var(--primary); padding: 20px; border-radius: 10px; margin-top: 20px; display: none; background: #fff; border-left: 8px solid var(--primary); }
-        .btn { background: var(--green); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 10px; }
-        .step-row { display: flex; align-items: center; gap: 15px; background: #f9f9f9; padding: 10px; border-radius: 10px; margin-bottom: 8px; border-left: 4px solid var(--primary); font-size: 14px; }
-        .step-num { background: var(--primary); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
-        .admin-panel { display: none; background: var(--dark); color: white; padding: 20px; border-radius: 10px; margin-top: 20px; }
+        :root { --primary: #2980b9; --dark: #2c3e50; --green: #27ae60; --bkash: #d12053; --nagad: #f7941d; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 10px; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .header { text-align: center; border-bottom: 2px solid var(--primary); padding-bottom: 15px; margin-bottom: 20px; }
+        
+        /* 5-Step Animation */
+        .step-card { display: flex; align-items: center; gap: 15px; background: #fff; padding: 12px; border-radius: 12px; margin-bottom: 10px; border-left: 5px solid var(--primary); box-shadow: 0 4px 6px rgba(0,0,0,0.05); transform: translateX(-50px); opacity: 0; animation: slideIn 0.5s forwards; }
+        @keyframes slideIn { to { transform: translateX(0); opacity: 1; } }
+        .step-icon { font-size: 22px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-8px);} }
+        .step-card:nth-child(1) { animation-delay: 0.1s; } .step-card:nth-child(2) { animation-delay: 0.3s; }
+        .step-card:nth-child(3) { animation-delay: 0.5s; } .step-card:nth-child(4) { animation-delay: 0.7s; }
+        .step-card:nth-child(5) { animation-delay: 0.9s; }
+
+        .input-box { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        .btn { background: var(--green); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 10px; transition: 0.3s; }
+        .receipt-card { border: 2px solid var(--primary); padding: 20px; border-radius: 15px; margin-top: 20px; display: none; background: #fff; border-left: 10px solid var(--primary); }
+        
+        .pay-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; border-radius: 8px; color: white; text-decoration: none; font-weight: bold; margin-top: 10px; font-size: 14px; }
+        .bkash { background: var(--bkash); } .nagad { background: var(--nagad); }
+        .admin-panel { display: none; background: var(--dark); color: white; padding: 20px; border-radius: 15px; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -27,110 +33,124 @@ to me
 <div class="container">
     <div class="header">
         <h2 style="margin:0; color:var(--primary);">🧺 লন্ড্রি’ওয়ালা</h2>
-        <p style="margin:5px 0; color:#666;">মোবাইল: 01872720582</p>
+        <p style="margin:5px 0; color:#666; font-size:13px;">📞 WhatsApp: 01872720582</p>
+        <p style="margin:2px 0; color:#888; font-size:11px;">✉️ laundrywala72720@gmail.com</p>
     </div>
 
-    <h3 style="font-size:15px;">🛡️ আমাদের কাজের ধাপসমূহ:</h3>
-    <div class="step-row"><div class="step-num">১</div> <span>অর্ডার কনফার্ম করা 📝</span></div>
-    <div class="step-row"><div class="step-num">২</div> <span>কাপড় যাচাই-বাছাই 🔍</span></div>
-    <div class="step-row"><div class="step-num">৩</div> <span>উন্নত মানের ওয়াশ 🧼</span></div>
-    <div class="step-row"><div class="step-num">৪</div> <span>নিখুঁতভাবে আয়রন 💨</span></div>
-    <div class="step-row"><div class="step-num">৫</div> <span>দ্রুত ডেলিভারি 🚚</span></div>
+    <h3 style="font-size: 16px; color: var(--dark); margin-bottom: 15px;">🚀 আমাদের সার্ভিস প্রসেস:</h3>
+    <div>
+        <div class="step-card"><span class="step-icon">📝</span> <div><b>১. অর্ডার কনফার্ম</b></div></div>
+        <div class="step-card"><span class="step-icon">🔍</span> <div><b>২. কাপড় যাচাই-বাছাই</b></div></div>
+        <div class="step-card"><span class="step-icon">🧼</span> <div><b>৩. উন্নত ওয়াশ (Wash)</b></div></div>
+        <div class="step-card"><span class="step-icon">💨</span> <div><b>৪. নিখুঁত আয়রন (Iron)</b></div></div>
+        <div class="step-card"><span class="step-icon">🚚</span> <div><b>৫. দ্রুত হোম ডেলিভারি</b></div></div>
+    </div>
 
-    <hr style="margin:20px 0; border: 1px dashed #ccc;">
+    <hr style="margin:25px 0; border: 1px dashed #ddd;">
 
-    <input type="text" id="custName" class="input-box" placeholder="কাস্টমারের নাম">
-    <input type="tel" id="custMobile" class="input-box" placeholder="হোয়াটসঅ্যাপ নম্বর">
+    <label>কাস্টমারের নাম:</label>
+    <input type="text" id="custName" class="input-box" placeholder="নাম লিখুন">
+    <label>কাস্টমার হোয়াটসঅ্যাপ নম্বর:</label>
+    <input type="tel" id="custMobile" class="input-box" placeholder="01XXXXXXXXX">
     
-    <label style="font-weight:bold; font-size:14px;">আইটেম বাছাই করুন (সব ৫০+):</label>
+    <label>আইটেম বাছাই করুন (৫০+ রেট):</label>
     <select id="itemPrice" class="input-box">
         <option value="60">শার্ট (ধোয়া+আয়রন) - ৬০/-</option>
         <option value="50">শার্ট (শুধু আয়রন) - ৫০/-</option>
         <option value="60">প্যান্ট/জিন্স (ধোয়া+আয়রন) - ৬০/-</option>
-        <option value="50">প্যান্ট (শুধু আয়রন) - ৫০/-</option>
         <option value="70">পাঞ্জাবি (ধোয়া+আয়রন) - ৭০/-</option>
-        <option value="50">পায়জামা (ধোয়া+আয়রন) - ৫০/-</option>
-        <option value="120">শেরওয়ানি (ড্রাই ক্লিন) - ১২০/-</option>
-        <option value="100">শাড়ি (সুতি/সাধারণ) - ১০০/-</option>
-        <option value="150">শাড়ি (সিল্ক/জর্জেট) - ১৫০/-</option>
-        <option value="250">শাড়ি (কাতান/ভারী) - ২৫০/-</option>
-        <option value="80">সুয়েটার/হুডি - ৮০/-</option>
+        <option value="100">শাড়ি (সুতি) - ১০০/-</option>
+        <option value="180">শাড়ি (কাতান/সিল্ক) - ১৮০/-</option>
         <option value="250">ব্লেজার / কোট - ২৫০/-</option>
-        <option value="150">জ্যাকেট (সাধারণ) - ১৫০/-</option>
-        <option value="300">লেদার জ্যাকেট - ৩০০/-</option>
         <option value="200">কম্বল (সিঙ্গেল) - ২০০/-</option>
         <option value="350">কম্বল (ডাবল) - ৩৫০/-</option>
-        <option value="80">বেডশিট / চাদর - ৮০/-</option>
+        <option value="80">সুয়েটার / হুডি - ৮০/-</option>
         <option value="120">পর্দা (প্রতি পিস) - ১২০/-</option>
-        <option value="60">বোরকা / আবায়া - ৬০/-</option>
-        <option value="50">লুঙ্গি (ধোয়া+আয়রন) - ৫০/-</option>
+        <option value="80">চাদর / বেডশিট - ৮০/-</option>
     </select>
     
+    <label>পরিমাণ (পিস):</label>
     <input type="number" id="qty" class="input-box" value="1" min="1">
-    <input type="number" id="discount" class="input-box" value="0" placeholder="ডিসকাউন্ট (টাকা)">
+    <label>ডিসকাউন্ট (টাকা):</label>
+    <input type="number" id="discount" class="input-box" value="0">
     
-    <button class="btn" onclick="generateReceipt()">রিসিট দেখুন ➔</button>
+    <button class="btn" onclick="generateReceipt()">রিসিট ও পেমেন্ট দেখুন ➔</button>
 
     <div id="receipt" class="receipt-card">
-        <h3 style="text-align:center; margin:0;">অর্ডার রিসিট</h3>
-        <p style="text-align:center; font-size:11px;">আইডি: #LW<span id="rId"></span></p>
+        <h3 style="text-align:center; color:var(--primary); margin:0;">অর্ডার মেমো</h3>
+        <p id="rDate" style="text-align:center; font-size:11px;"></p>
         <hr>
-        <p id="rBody"></p>
-        <h3 id="rTotalDisplay" style="text-align:center; color:var(--primary);"></h3>
-        <button class="btn" style="background:#25D366;" onclick="shareWA()">WhatsApp-এ পুরো রিসিট পাঠান 💬</button>
-        <button class="btn" style="background:var(--primary);" onclick="saveToAdmin()">অর্ডার সেভ করুন (Admin)</button>
+        <div id="rBody" style="line-height:1.8;"></div>
+        <h3 id="rTotal" style="text-align:center; color:var(--primary); margin: 15px 0;"></h3>
+        
+        <p style="font-weight:bold; margin-bottom:5px; color: var(--dark);">💳 পেমেন্ট করুন:</p>
+        <a href="tel:*247*1#" class="pay-btn bkash">bKash (01838051282)</a>
+        <a href="tel:*167#" class="pay-btn nagad">Nagad (01872720582)</a>
+        
+        <button class="btn" style="background:#25D366; margin-top:20px;" onclick="shareWA()">WhatsApp-এ রিসিট পাঠান 💬</button>
+        <button class="btn" style="background:var(--primary);" onclick="saveToAdmin()">অর্ডার কনফার্ম (অ্যাডমিন)</button>
     </div>
 
-    <div style="text-align:center; margin-top:30px;">
-        <span onclick="loginAdmin()" style="color:#ddd; cursor:pointer; font-size:11px;">Admin Login</span>
+    <div style="text-align:center; margin-top:40px;">
+        <span onclick="document.getElementById('loginBox').style.display='block'" style="color:#ddd; cursor:pointer; font-size:10px;">Admin Access</span>
+    </div>
+
+    <div id="loginBox" style="display:none; background:#eee; padding:15px; border-radius:10px; margin-top:10px;">
+        <input type="text" id="admID" class="input-box" placeholder="Admin ID">
+        <input type="password" id="admPass" class="input-box" placeholder="Password">
+        <button class="btn" onclick="checkAdmin()">লগইন</button>
     </div>
 
     <div id="adminArea" class="admin-panel">
         <h3 style="text-align:center;">📊 ডেইলি রিপোর্ট</h3>
-        <p>মোট অর্ডার: <span id="totalOrders">0</span></p>
-        <p>মোট বিক্রি: <span id="totalSales">0</span> টাকা</p>
+        <p>মোট অর্ডার: <span id="count">0</span></p>
+        <p>মোট বিক্রি: <span id="sales">0</span> টাকা</p>
         <button class="btn" style="background:#c0392b;" onclick="document.getElementById('adminArea').style.display='none'">বন্ধ করুন</button>
     </div>
 </div>
 
 <script>
-    let sales = 0; let count = 0;
+    let totalSales = 0; let orderCount = 0;
 
     function generateReceipt() {
         let name = document.getElementById('custName').value;
         let mobile = document.getElementById('custMobile').value;
         let price = parseInt(document.getElementById('itemPrice').value);
-        let qty = document.getElementById('qty').value;
+        let qty = parseInt(document.getElementById('qty').value);
         let disc = parseInt(document.getElementById('discount').value) || 0;
 
-        if(!name || !mobile) { alert("নাম ও নম্বর দিন"); return; }
+        if(!name || !mobile) { alert("কাস্টমারের নাম ও নম্বর দিন"); return; }
 
         let sub = price * qty;
         let del = (sub >= 500) ? 0 : 40;
         let total = (sub - disc) + del;
-        window.tempOrder = { name, mobile, total, disc, sub, del, id: Math.floor(1000 + Math.random() * 9000) };
+        window.currentOrder = { name, mobile, total, disc, sub, del, id: Math.floor(1000 + Math.random() * 9000) };
 
         document.getElementById('receipt').style.display = 'block';
-        document.getElementById('rId').innerText = window.tempOrder.id;
-        document.getElementById('rBody').innerHTML = `<b>কাস্টমার:</b> ${name}<br><b>বিল:</b> ${sub} টাকা<br><b>ডিসকাউন্ট:</b> -${disc} টাকা<br><b>ডেলিভারি:</b> ${del === 0 ? "ফ্রি" : del + " টাকা"}`;
-        document.getElementById('rTotalDisplay').innerText = `সর্বমোট: ${total} টাকা`;
+        document.getElementById('rDate').innerText = "ID: #LW" + window.currentOrder.id + " | Date: " + new Date().toLocaleDateString();
+        document.getElementById('rBody').innerHTML = `<b>কাস্টমার:</b> ${name}<br><b>আইটেম বিল:</b> ${sub} টাকা<br><b>ডিসকাউন্ট:</b> -${disc} টাকা<br><b>ডেলিভারি:</b> ${del === 0 ? "ফ্রি" : del + " টাকা"}`;
+        document.getElementById('rTotal').innerText = `সর্বমোট বিল: ${total} টাকা`;
+        document.getElementById('receipt').scrollIntoView({ behavior: 'smooth' });
     }
 
     function shareWA() {
-        let d = window.tempOrder;
-        let text = `*লন্ড্রি’ওয়ালা রিসিট*\n--------------------------\n*আইডি:* #LW${d.id}\n*কাস্টমার:* ${d.name}\n*আইটেম বিল:* ${d.sub} টাকা\n*ডিসকাউন্ট:* -${d.disc} টাকা\n*ডেলিভারি:* ${d.del === 0 ? "ফ্রি" : d.del + " টাকা"}\n--------------------------\n*মোট বিল: ${d.total} টাকা*\n--------------------------\nধন্যবাদ!`;
-        window.open(`https://wa.me/88${d.mobile}?text=${encodeURIComponent(text)}`, '_blank');
+        let d = window.currentOrder;
+        let msg = `*লন্ড্রি’ওয়ালা ডিজিটাল রিসিট*\n--------------------------\nID: #LW${d.id}\nকাস্টমার: ${d.name}\nবিল: ${d.sub} টাকা\nডিসকাউন্ট: -${d.disc} টাকা\nডেলিভারি: ${d.del === 0 ? "ফ্রি" : d.del + " টাকা"}\n*মোট বিল: ${d.total} টাকা*\n--------------------------\n💳 পেমেন্ট (bKash): 01838051282\nধন্যবাদ!`;
+        window.open(`https://wa.me/88${d.mobile}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
     function saveToAdmin() {
-        count++; sales += window.tempOrder.total;
-        document.getElementById('totalOrders').innerText = count;
-        document.getElementById('totalSales').innerText = sales;
-        alert("অর্ডার সেভ হয়েছে!");
+        orderCount++; totalSales += window.currentOrder.total;
+        document.getElementById('count').innerText = orderCount;
+        document.getElementById('sales').innerText = totalSales;
+        alert("অর্ডার সাকসেসফুলি সেভ হয়েছে!");
     }
 
-    function loginAdmin() {
-        if(prompt("পাসওয়ার্ড:") === "laundry72") document.getElementById('adminArea').style.display = 'block';
+    function checkAdmin() {
+        if(document.getElementById('admID').value === "laundry72" && document.getElementById('admPass').value === "admin123") {
+            document.getElementById('loginBox').style.display = 'none';
+            document.getElementById('adminArea').style.display = 'block';
+        } else { alert("ভুল আইডি বা পাসওয়ার্ড!"); }
     }
 </script>
 </body>
