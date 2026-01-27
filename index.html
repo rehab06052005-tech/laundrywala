@@ -16,8 +16,7 @@
         .btn { background: var(--secondary); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-size: 18px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
         .summary-box { background: #e8f4fd; padding: 20px; border-radius: 10px; margin-top: 20px; display: none; border-left: 5px solid var(--primary); }
         .payment-box { background: #fff3e0; padding: 20px; border-radius: 10px; margin-top: 20px; display: none; border: 2px dashed var(--orange); }
-        .admin-section { background: var(--dark); color: white; padding: 20px; border-radius: 15px; margin-top: 40px; }
-        .v-card { background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); color: white; padding: 20px; border-radius: 15px; text-align: center; margin-top: 30px; }
+        .admin-section { background: var(--dark); color: white; padding: 20px; border-radius: 15px; margin-top: 40px; display: none; }
         .footer { text-align: center; padding: 20px; font-size: 13px; color: #666; }
     </style>
 </head>
@@ -57,52 +56,25 @@
         <p id="resSub"></p>
         <p id="resDel"></p>
         <h3 id="resTotal" style="color:var(--primary);"></h3>
-        <p id="resPoints" style="color:var(--orange); font-weight:bold;"></p>
     </div>
 
     <div id="paymentBox" class="payment-box">
-        <h4>পেমেন্ট করুন</h4>
-        <p>বিকাশ/নগদ (Personal): <b>01838051282</b></p>
-        <input type="text" id="trxId" placeholder="Transaction ID লিখুন">
-        <button class="btn" style="background:var(--orange);" onclick="confirmOrder()">অর্ডার নিশ্চিত করুন</button>
         <button class="btn" style="background:#25D366;" onclick="sendWhatsApp()">WhatsApp রিসিট পাঠান 💬</button>
+        <button class="btn" style="background:var(--orange); margin-top:10px;" onclick="confirmOrder()">অর্ডার নিশ্চিত করুন (Admin Only)</button>
     </div>
 </div>
 
-<div class="container admin-section" id="adminPanel" style="display:none; cursor: pointer;" ondblclick="checkAdmin()">
+<div class="container admin-section" id="adminPanel">
     <h3>📊 ডেইলি রিপোর্ট (অ্যাডমিন)</h3>
     <p>আজকের মোট অর্ডার: <span id="totalOrders">0</span> টি</p>
     <p>আজকের মোট বিক্রি: <span id="totalSales">0</span> টাকা</p>
 </div>
 
-<div style="text-align:center; margin-top:10px;">
-    <small onclick="showAdminPrompt()" style="color:#ddd; cursor:pointer;">Admin Login</small>
+<div style="text-align:center; margin-top:20px;">
+    <span onclick="showAdminPrompt()" style="color:#ccc; cursor:pointer; font-size:12px;">Admin Login</span>
 </div>
 
 <script>
-    // Admin Password Logic
-    function showAdminPrompt() {
-        let pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
-        if (pass === "admin123") { // Apni ekhane password bodlate paren
-            document.getElementById('adminPanel').style.display = 'block';
-            alert("অ্যাডমিন মোড চালু হয়েছে।");
-        } else {
-            alert("ভুল পাসওয়ার্ড!");
-        }
-    }
-</script>
-
-
-<div class="container v-card">
-    <h2>🧺 লন্ড্রি’ওয়ালা</h2>
-    <p>কল করুন: 01872720582</p>
-    <small>৫০০+ অর্ডারে ডেলিভারি ফ্রি!</small>
-</div>
-
-<div class="footer">© ২০২৬ লন্ড্রি’ওয়ালা | সার্ভিস আইডি: LW7272</div>
-
-<script>
-    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
     let orders = 0; let sales = 0;
 
     function calculateBill() {
@@ -121,22 +93,31 @@
         document.getElementById('resSub').innerText = "কাপড়ের দাম: " + sub + " টাকা";
         document.getElementById('resDel').innerText = "ডেলিভারি চার্জ: " + (del === 0 ? "ফ্রি" : del + " টাকা");
         document.getElementById('resTotal').innerText = "মোট বিল: " + total + " টাকা";
-        document.getElementById('resPoints').innerText = "পয়েন্ট পাবেন: " + Math.floor(sub/100) + " টি";
     }
 
     function confirmOrder() {
         orders++; sales += window.currentBill;
         document.getElementById('totalOrders').innerText = orders;
         document.getElementById('totalSales').innerText = sales;
-        alert("অর্ডার ডাটাবেসে সেভ হয়েছে!");
+        alert("অর্ডার অ্যাডমিন প্যানেলে যোগ হয়েছে!");
     }
 
     function sendWhatsApp() {
         let name = document.getElementById('custName').value;
         let mobile = document.getElementById('mobile').value;
         let total = window.currentBill;
-        let message = *লন্ড্রি’ওয়ালা কনফার্মেশন*%0Aপ্রিয় *${name}*, আপনার অর্ডারটি সফল হয়েছে। মোট বিল: *${total} টাকা*। ধন্যবাদ!;
-        window.open(https://wa.me/88${mobile}?text=${message}, '_blank');
+        let msg = `*লন্ড্রি’ওয়ালা কনফার্মেশন*%0Aপ্রিয় *${name}*, আপনার অর্ডারটি গ্রহণ করা হয়েছে। মোট বিল: *${total} টাকা*। ধন্যবাদ!`;
+        window.open(`https://wa.me/88${mobile}?text=${msg}`, '_blank');
+    }
+
+    function showAdminPrompt() {
+        let pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
+        if (pass === "laundry72") {
+            document.getElementById('adminPanel').style.display = 'block';
+            alert("অ্যাডমিন মোড চালু হয়েছে!");
+        } else {
+            alert("ভুল পাসওয়ার্ড!");
+        }
     }
 </script>
 </body>
