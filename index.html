@@ -54,13 +54,16 @@
     <div style="display:flex; justify-content:space-between; margin-top:15px; font-size:22px; font-weight:800; border-top: 2px solid var(--main); padding-top: 10px;">
         <span id="t1">মোট:</span><span id="total">৳০</span>
     </div>
-    <div class="pay-box">
-        <p style="margin:0 0 10px 0; font-weight:bold;" id="p1">পেমেন্ট নম্বর (মার্চেন্ট):</p>
-        <div><span style="background:var(--bkash); color:#fff; padding:2px 6px; border-radius:4px; font-size:12px;">বিকাশ</span> <b>01838051282</b></div>
-        <div style="margin-top:5px;"><span style="background:var(--nagad); color:#fff; padding:2px 6px; border-radius:4px; font-size:12px;">নগদ</span> <b>01838051282</b></div>
-    </div>
-    <button class="btn-order" onclick="send()" id="b1"><i class="fab fa-whatsapp"></i> অর্ডার পাঠান</button>
+    <div class="pay-box" style="margin-top:20px; text-align:left;">
+    <p style="font-weight:bold; margin-bottom:10px;"><i class="fas fa-user"></i> কাস্টমার তথ্য দিন (Customer Info):</p>
+    <input type="text" id="custName" placeholder="আপনার নাম (Name)" style="width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:1px solid var(--border);">
+    <input type="text" id="custPhone" placeholder="মোবাইল নম্বর (Phone)" style="width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:1px solid var(--border);">
+    <textarea id="custAddr" placeholder="পুরো ঠিকানা (Address)" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border); height:60px;"></textarea>
 </div>
+
+<button class="btn-order" onclick="sendOrder()" id="b1" style="width:100%; background:#25D366; color:#fff; padding:15px; border-radius:15px; border:none; font-size:18px; font-weight:bold; margin-top:15px; cursor:pointer;">
+    <i class="fab fa-whatsapp"></i> অর্ডার কনফার্ম করুন
+</button>
 
 <div style="text-align:center; opacity:0.1; font-size:10px; padding:20px;" onclick="adm()">ADMIN</div>
 
@@ -153,15 +156,40 @@
         t.innerText = '৳' + sum;
     }
 
-    function send() {
-        if(!cart.length) return;
-        const total = document.getElementById('total').innerText;
-        rev += parseInt(total.replace('৳',''));
-        const msg = `*Laundry Order*%0A${cart.map(i=>'• '+i.n).join('%0A')}%0A*Total: ${total}*`;
-        window.location.href = `https://wa.me/8801872720582?text=${msg}`;
+function sendOrder() {
+    const name = document.getElementById('custName').value;
+    const phone = document.getElementById('custPhone').value;
+    const addr = document.getElementById('custAddr').value;
+    const total = document.getElementById('total-val').innerText;
+
+    if(cart.length === 0) {
+        alert("আগে ঝুড়িতে আইটেম যোগ করুন!");
+        return;
     }
+    if(!name || !phone || !addr) {
+        alert("দয়া করে নাম, ফোন এবং ঠিকানা দিন!");
+        return;
+    }
+
+    // হোয়াটসঅ্যাপ মেসেজ ফরম্যাট
+    let msg = `*নতুন অর্ডার - Laundry Wala*%0A`;
+    msg += `--------------------------%0A`;
+    msg += `👤 *নাম:* ${name}%0A`;
+    msg += `📞 *ফোন:* ${phone}%0A`;
+    msg += `📍 *ঠিকানা:* ${addr}%0A`;
+    msg += `--------------------------%0A`;
+    msg += `🧺 *আইটেম লিস্ট:*%0A`;
+    msg += cart.map(i => `• ${i.n} - ৳${i.p}`).join('%0A');
+    msg += `%0A--------------------------%0A`;
+    msg += `💰 *মোট বিল: ${total}*`;
+
+    // আপনার হোয়াটসঅ্যাপ নম্বর: 01872720582
+    const whatsappUrl = `https://wa.me/8801872720582?text=${msg}`;
+    window.location.href = whatsappUrl;
+}
 
     function adm() { if(prompt("Pass:")==="7272") { document.getElementById('admin').style.display='block'; document.getElementById('rev').innerText = '৳'+rev; } }
 </script>
 </body>
 </html>
+
