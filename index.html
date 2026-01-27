@@ -1,20 +1,25 @@
+
+Rehab <rehab06052005@gmail.com>
+17:33 (0 minutes ago)
+to me
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>লন্ড্রি’ওয়ালা | ডিসকাউন্ট ও রিসিট</title>
+    <title>লন্ড্রি’ওয়ালা | ইনভয়েস ও রিসিট</title>
     <style>
-        :root { --primary: #2980b9; --dark: #2c3e50; }
+        :root { --primary: #2980b9; --dark: #2c3e50; --green: #27ae60; --orange: #e67e22; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 10px; }
-        .container { max-width: 480px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .header { text-align: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 15px; }
-        .input-box { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
-        .price-list { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 13px; }
-        .price-list th, .price-list td { border: 1px solid #eee; padding: 8px; text-align: left; }
-        .receipt-card { border: 2px solid #2980b9; padding: 20px; border-radius: 10px; margin-top: 20px; display: none; background: #fff; }
-        .btn { background: #27ae60; color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        .discount-label { color: #e67e22; font-weight: bold; font-size: 14px; }
+        .container { max-width: 480px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .header { text-align: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 20px; }
+        .input-box { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .receipt-card { border: 2px solid var(--primary); padding: 20px; border-radius: 10px; margin-top: 20px; display: none; background: #fff; border-left: 8px solid var(--primary); }
+        .btn { background: var(--green); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 10px; }
+        .step-row { display: flex; align-items: center; gap: 15px; background: #f9f9f9; padding: 10px; border-radius: 10px; margin-bottom: 8px; border-left: 4px solid var(--primary); font-size: 14px; }
+        .step-num { background: var(--primary); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+        .admin-panel { display: none; background: var(--dark); color: white; padding: 20px; border-radius: 10px; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -22,79 +27,110 @@
 <div class="container">
     <div class="header">
         <h2 style="margin:0; color:var(--primary);">🧺 লন্ড্রি’ওয়ালা</h2>
-        <p style="margin:5px 0; color:#666; font-size: 12px;">অর্ডার ও ডিসকাউন্ট ম্যানেজমেন্ট</p>
+        <p style="margin:5px 0; color:#666;">মোবাইল: 01872720582</p>
     </div>
 
-    <label>কাস্টমারের নাম:</label>
-    <input type="text" id="custName" class="input-box" placeholder="নাম লিখুন">
+    <h3 style="font-size:15px;">🛡️ আমাদের কাজের ধাপসমূহ:</h3>
+    <div class="step-row"><div class="step-num">১</div> <span>অর্ডার কনফার্ম করা 📝</span></div>
+    <div class="step-row"><div class="step-num">২</div> <span>কাপড় যাচাই-বাছাই 🔍</span></div>
+    <div class="step-row"><div class="step-num">৩</div> <span>উন্নত মানের ওয়াশ 🧼</span></div>
+    <div class="step-row"><div class="step-num">৪</div> <span>নিখুঁতভাবে আয়রন 💨</span></div>
+    <div class="step-row"><div class="step-num">৫</div> <span>দ্রুত ডেলিভারি 🚚</span></div>
 
-    <label>হোয়াটসঅ্যাপ নম্বর:</label>
-    <input type="tel" id="custMobile" class="input-box" placeholder="01XXXXXXXXX">
+    <hr style="margin:20px 0; border: 1px dashed #ccc;">
+
+    <input type="text" id="custName" class="input-box" placeholder="কাস্টমারের নাম">
+    <input type="tel" id="custMobile" class="input-box" placeholder="হোয়াটসঅ্যাপ নম্বর">
     
-    <label>আইটেম বাছাই করুন:</label>
+    <label style="font-weight:bold; font-size:14px;">আইটেম বাছাই করুন (সব ৫০+):</label>
     <select id="itemPrice" class="input-box">
-        <option value="60">শার্ট/প্যান্ট (ধোয়া+আয়রন) - ৬০/-</option>
-        <option value="50">শার্ট/প্যান্ট (শুধু আয়রন) - ৫০/-</option>
-        <option value="70">পাঞ্জাবি/পাজামা (ধোয়া+আয়রন) - ৭০/-</option>
-        <option value="100">শাড়ি (সুতি) - ১০০/-</option>
-        <option value="180">শাড়ি (কাতান/সিল্ক) - ১৮০/-</option>
+        <option value="60">শার্ট (ধোয়া+আয়রন) - ৬০/-</option>
+        <option value="50">শার্ট (শুধু আয়রন) - ৫০/-</option>
+        <option value="60">প্যান্ট/জিন্স (ধোয়া+আয়রন) - ৬০/-</option>
+        <option value="50">প্যান্ট (শুধু আয়রন) - ৫০/-</option>
+        <option value="70">পাঞ্জাবি (ধোয়া+আয়রন) - ৭০/-</option>
+        <option value="50">পায়জামা (ধোয়া+আয়রন) - ৫০/-</option>
+        <option value="120">শেরওয়ানি (ড্রাই ক্লিন) - ১২০/-</option>
+        <option value="100">শাড়ি (সুতি/সাধারণ) - ১০০/-</option>
+        <option value="150">শাড়ি (সিল্ক/জর্জেট) - ১৫০/-</option>
+        <option value="250">শাড়ি (কাতান/ভারী) - ২৫০/-</option>
+        <option value="80">সুয়েটার/হুডি - ৮০/-</option>
         <option value="250">ব্লেজার / কোট - ২৫০/-</option>
+        <option value="150">জ্যাকেট (সাধারণ) - ১৫০/-</option>
+        <option value="300">লেদার জ্যাকেট - ৩০০/-</option>
         <option value="200">কম্বল (সিঙ্গেল) - ২০০/-</option>
-        <option value="300">কম্বল (ডাবল) - ৩০০/-</option>
+        <option value="350">কম্বল (ডাবল) - ৩৫০/-</option>
+        <option value="80">বেডশিট / চাদর - ৮০/-</option>
+        <option value="120">পর্দা (প্রতি পিস) - ১২০/-</option>
+        <option value="60">বোরকা / আবায়া - ৬০/-</option>
+        <option value="50">লুঙ্গি (ধোয়া+আয়রন) - ৫০/-</option>
     </select>
     
-    <label>কাপড়ের পরিমাণ (পিস):</label>
     <input type="number" id="qty" class="input-box" value="1" min="1">
-
-    <label class="discount-label">ডিসকাউন্ট (টাকা):</label>
-    <input type="number" id="discount" class="input-box" value="0" placeholder="কত টাকা ছাড় দেবেন?">
+    <input type="number" id="discount" class="input-box" value="0" placeholder="ডিসকাউন্ট (টাকা)">
     
-    <button class="btn" onclick="generateReceipt()">হিসাব ও রিসিট দেখুন</button>
+    <button class="btn" onclick="generateReceipt()">রিসিট দেখুন ➔</button>
 
     <div id="receipt" class="receipt-card">
-        <h3 style="text-align:center; color:var(--primary); margin:0;">অর্ডার রিসিট</h3>
-        <p style="text-align:center; font-size:11px;">আইডি: #LW<span id="rId"></span> | তারিখ: <span id="rDate"></span></p>
+        <h3 style="text-align:center; margin:0;">অর্ডার রিসিট</h3>
+        <p style="text-align:center; font-size:11px;">আইডি: #LW<span id="rId"></span></p>
         <hr>
-        <p><b>কাস্টমার:</b> <span id="rName"></span></p>
-        <p><b>আইটেম বিল:</b> <span id="rSub"></span> টাকা</p>
-        <p style="color:#e67e22;"><b>ডিসকাউন্ট:</b> -<span id="rDisc"></span> টাকা</p>
-        <p><b>ডেলিভারি চার্জ:</b> <span id="rDel"></span> টাকা</p>
-        <hr>
-        <h3 style="color:var(--primary); text-align:center;">সর্বমোট বিল: <span id="rTotal"></span> টাকা</h3>
-        <button class="btn" style="background:#25D366;" onclick="shareWA()">WhatsApp-এ রিসিট কপি পাঠান</button>
+        <p id="rBody"></p>
+        <h3 id="rTotalDisplay" style="text-align:center; color:var(--primary);"></h3>
+        <button class="btn" style="background:#25D366;" onclick="shareWA()">WhatsApp-এ পুরো রিসিট পাঠান 💬</button>
+        <button class="btn" style="background:var(--primary);" onclick="saveToAdmin()">অর্ডার সেভ করুন (Admin)</button>
+    </div>
+
+    <div style="text-align:center; margin-top:30px;">
+        <span onclick="loginAdmin()" style="color:#ddd; cursor:pointer; font-size:11px;">Admin Login</span>
+    </div>
+
+    <div id="adminArea" class="admin-panel">
+        <h3 style="text-align:center;">📊 ডেইলি রিপোর্ট</h3>
+        <p>মোট অর্ডার: <span id="totalOrders">0</span></p>
+        <p>মোট বিক্রি: <span id="totalSales">0</span> টাকা</p>
+        <button class="btn" style="background:#c0392b;" onclick="document.getElementById('adminArea').style.display='none'">বন্ধ করুন</button>
     </div>
 </div>
 
 <script>
+    let sales = 0; let count = 0;
+
     function generateReceipt() {
         let name = document.getElementById('custName').value;
         let mobile = document.getElementById('custMobile').value;
         let price = parseInt(document.getElementById('itemPrice').value);
-        let qty = parseInt(document.getElementById('qty').value);
+        let qty = document.getElementById('qty').value;
         let disc = parseInt(document.getElementById('discount').value) || 0;
-        
+
         if(!name || !mobile) { alert("নাম ও নম্বর দিন"); return; }
-        
+
         let sub = price * qty;
         let del = (sub >= 500) ? 0 : 40;
         let total = (sub - disc) + del;
-        
-        window.finalData = { name, mobile, total, disc, sub, del, id: Math.floor(1000 + Math.random() * 9000) };
+        window.tempOrder = { name, mobile, total, disc, sub, del, id: Math.floor(1000 + Math.random() * 9000) };
 
         document.getElementById('receipt').style.display = 'block';
-        document.getElementById('rName').innerText = name;
-        document.getElementById('rSub').innerText = sub;
-        document.getElementById('rDisc').innerText = disc;
-        document.getElementById('rDel').innerText = del === 0 ? "ফ্রি" : del;
-        document.getElementById('rTotal').innerText = total;
-        document.getElementById('rDate').innerText = new Date().toLocaleDateString();
-        document.getElementById('rId').innerText = window.finalData.id;
+        document.getElementById('rId').innerText = window.tempOrder.id;
+        document.getElementById('rBody').innerHTML = `<b>কাস্টমার:</b> ${name}<br><b>বিল:</b> ${sub} টাকা<br><b>ডিসকাউন্ট:</b> -${disc} টাকা<br><b>ডেলিভারি:</b> ${del === 0 ? "ফ্রি" : del + " টাকা"}`;
+        document.getElementById('rTotalDisplay').innerText = `সর্বমোট: ${total} টাকা`;
     }
 
     function shareWA() {
-        let d = window.finalData;
-        let msg = `*লন্ড্রি’ওয়ালা অনলাইন রিসিট*%0A--------------------------%0Aআইডি: #LW${d.id}%0Aকাস্টমার: ${d.name}%0Aআইটেম বিল: ${d.sub} টাকা%0Aডিসকাউন্ট: -${d.disc} টাকা%0Aডেলিভারি: ${d.del} টাকা%0A*সর্বমোট বিল: ${d.total} টাকা*%0A--------------------------%0Aধন্যবাদ!`;
-        window.open(`https://wa.me/88${d.mobile}?text=${msg}`, '_blank');
+        let d = window.tempOrder;
+        let text = `*লন্ড্রি’ওয়ালা রিসিট*\n--------------------------\n*আইডি:* #LW${d.id}\n*কাস্টমার:* ${d.name}\n*আইটেম বিল:* ${d.sub} টাকা\n*ডিসকাউন্ট:* -${d.disc} টাকা\n*ডেলিভারি:* ${d.del === 0 ? "ফ্রি" : d.del + " টাকা"}\n--------------------------\n*মোট বিল: ${d.total} টাকা*\n--------------------------\nধন্যবাদ!`;
+        window.open(`https://wa.me/88${d.mobile}?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function saveToAdmin() {
+        count++; sales += window.tempOrder.total;
+        document.getElementById('totalOrders').innerText = count;
+        document.getElementById('totalSales').innerText = sales;
+        alert("অর্ডার সেভ হয়েছে!");
+    }
+
+    function loginAdmin() {
+        if(prompt("পাসওয়ার্ড:") === "laundry72") document.getElementById('adminArea').style.display = 'block';
     }
 </script>
 </body>
