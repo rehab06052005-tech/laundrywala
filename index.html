@@ -3,131 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laundry’Wala | Animation Pro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Laundry’Wala | Official Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root { --primary: #00d2ff; --bg: #030712; --card: rgba(255, 255, 255, 0.05); --text: #fff; }
-        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Hind Siliguri', sans-serif; overflow-x: hidden; }
-        .container { max-width: 450px; margin: auto; padding: 20px; padding-bottom: 100px; }
-
-        .logo { font-size: 35px; font-weight: 800; text-align: center; background: linear-gradient(to right, #00d2ff, #3a7bd5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 20px 0; letter-spacing: -1px; }
-
-        /* --- MAGIC ANIMATIONS START --- */
-        .process-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        .ani-card { background: var(--card); border: 1px solid rgba(255,255,255,0.1); padding: 25px; border-radius: 25px; text-align: center; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
-        .ani-card:active { transform: scale(0.95); background: rgba(0, 210, 255, 0.1); }
-        .ani-card i { font-size: 45px; color: var(--primary); margin-bottom: 10px; display: inline-block; }
-
-        /* 1. Truck Animation */
-        .drive-mode { animation: drive 1.2s infinite ease-in-out; }
-        @keyframes drive { 0% { transform: translateX(0); } 50% { transform: translateX(20px) skewY(-2deg); } 100% { transform: translateX(0); } }
-
-        /* 2. Spin Animation */
-        .wash-mode { animation: spin 0.8s infinite linear; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        /* 3. Iron Animation */
-        .iron-mode { animation: iron 0.6s infinite ease-in-out; }
-        @keyframes iron { 0%, 100% { transform: translateX(0) rotate(0); } 50% { transform: translateX(15px) rotate(10deg); } }
-
-        /* 4. Delivery Animation */
-        .bounce-mode { animation: bounce 0.6s infinite alternate; }
-        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-20px); } }
-
-        /* Search & Price List */
-        .search-box { width: 100%; padding: 15px; border-radius: 15px; border: 1px solid var(--primary); background: rgba(255,255,255,0.05); color: #fff; margin-bottom: 20px; outline: none; }
-        .price-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
-
-        /* Bottom Nav */
-        .navbar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 85%; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(15px); display: flex; justify-content: space-around; padding: 15px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .nav-item { color: #fff; opacity: 0.4; font-size: 22px; cursor: pointer; transition: 0.3s; }
-        .nav-item.active { opacity: 1; color: var(--primary); transform: translateY(-5px); }
+        :root { --main: #00d2ff; --dark: #0f172a; --glass: rgba(255, 255, 255, 0.03); }
         
-        .page { display: none; animation: fadeIn 0.5s; }
-        .active-page { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        body { 
+            margin: 0; background: #020617; color: #fff; 
+            font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(2,6,23,0.5), #020617), url('https://images.unsplash.com/photo-1545173168-9f1947e96a3e?auto=format&fit=crop&q=80&w=1600') center/cover;
+            text-align: center;
+        }
+
+        .hero h1 { font-size: 60px; margin: 0; letter-spacing: -2px; }
+        .hero p { font-size: 18px; color: var(--main); letter-spacing: 5px; text-transform: uppercase; }
+
+        /* Main Website Layout */
+        .main-container { max-width: 1200px; margin: -50px auto 100px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; padding: 0 20px; }
+
+        .content-box { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 30px; }
+
+        /* Search & Table */
+        .search-bar { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid var(--main); background: #000; color: #fff; margin-bottom: 20px; outline: none; }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; color: var(--main); border-bottom: 2px solid var(--main); padding: 10px; }
+        td { padding: 15px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .add-btn { background: var(--main); border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+
+        /* Bill Receipt */
+        .receipt { position: sticky; top: 20px; }
+        .receipt h3 { border-bottom: 1px solid var(--main); padding-bottom: 10px; }
+        .bill-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; }
+        .total-box { border-top: 1px solid var(--main); margin-top: 20px; padding-top: 20px; font-size: 20px; font-weight: 800; display: flex; justify-content: space-between; }
+
+        .order-btn { width: 100%; background: #25D366; color: #fff; padding: 15px; border: none; border-radius: 10px; font-weight: 800; font-size: 18px; cursor: pointer; margin-top: 20px; }
+
+        @media (max-width: 768px) { .main-container { grid-template-columns: 1fr; } .hero h1 { font-size: 40px; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="logo">Laundry’Wala</div>
+<section class="hero">
+    <p>Premium Laundry Service</p>
+    <h1>Laundry’Wala</h1>
+    <div style="margin-top: 20px; font-weight: 700; color: #fbbf24;">Contact: 01872720582</div>
+</section>
 
-    <section id="home" class="page active-page">
-        <h3 style="text-align: center; opacity: 0.7;">আমাদের সার্ভিস (টাচ করুন)</h3>
-        <div class="process-grid">
-            <div class="ani-card" onclick="this.querySelector('i').classList.toggle('drive-mode')">
-                <i class="fas fa-truck-fast"></i><p>পিক-আপ</p>
-            </div>
-            <div class="ani-card" onclick="this.querySelector('i').classList.toggle('wash-mode')">
-                <i class="fas fa-soap"></i><p>ওয়াশ</p>
-            </div>
-            <div class="ani-card" onclick="this.querySelector('i').classList.toggle('iron-mode')">
-                <i class="fas fa-tshirt"></i><p>আয়রন</p>
-            </div>
-            <div class="ani-card" onclick="this.querySelector('i').classList.toggle('bounce-mode')">
-                <i class="fas fa-box-open"></i><p>ডেলিভারি</p>
-            </div>
-        </div>
-        
-        <div class="ani-card" style="margin-top:20px; background: linear-gradient(45deg, #00d2ff22, #3a7bd522);">
-            <p>বিকাশ/নগদ পেমেন্ট</p>
-            <h2 style="color:#fbbf24; margin:0;">01838051282</h2>
-        </div>
-    </section>
+<div class="main-container">
+    <div class="content-box">
+        <input type="text" class="search-bar" id="search" placeholder="আইটেমের নাম লিখে সার্চ করুন (যেমন: শার্ট, কম্বল...)" onkeyup="filterTable()">
+        <table>
+            <thead>
+                <tr>
+                    <th>পরিষেবা</th>
+                    <th>মূল্য</th>
+                    <th>অ্যাকশন</th>
+                </tr>
+            </thead>
+            <tbody id="price-table">
+                </tbody>
+        </table>
+    </div>
 
-    <section id="search" class="page">
-        <input type="text" id="srch" class="search-box" placeholder="আইটেম খুঁজুন..." onkeyup="searchFn()">
-        <div class="ani-card">
-            <div id="list">
-                </div>
+    <div class="receipt content-box">
+        <h3>আপনার অর্ডার লিস্ট</h3>
+        <div id="selected-items">
+            <p style="opacity: 0.5; text-align: center;">কোনো আইটেম যোগ করা হয়নি</p>
         </div>
-    </section>
+        <div class="total-box">
+            <span>মোট বিল:</span>
+            <span id="grand-total">৳০</span>
+        </div>
+        <button class="order-btn" onclick="sendOrder()"><i class="fab fa-whatsapp"></i> হোয়াটসঅ্যাপে অর্ডার দিন</button>
+    </div>
 </div>
 
-<nav class="navbar">
-    <div class="nav-item active" onclick="tab('home', this)"><i class="fas fa-home"></i></div>
-    <div class="nav-item" onclick="tab('search', this)"><i class="fas fa-search"></i></div>
-    <div class="nav-item" onclick="window.location.href='https://wa.me/8801872720582'"><i class="fab fa-whatsapp"></i></div>
-</nav>
-
 <script>
-    function tab(p, el) {
-        document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active-page'));
-        document.getElementById(p).classList.add('active-page');
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        el.classList.add('active');
-    }
+    const inventory = [
+        ["শার্ট (ওয়াশ ও আয়রন)", 60], ["প্যান্ট (ওয়াশ ও আয়রন)", 70], ["পাঞ্জাবি", 120], 
+        ["ব্লেজার ড্রাই ক্লিন", 250], ["কম্বল (ডাবল)", 500], ["বেডশিট (ডাবল)", 200],
+        ["সিল্ক শাড়ি", 350], ["বোরকা", 150], ["স্নিকার্স ওয়াশ", 250], ["পর্দা", 150]
+    ];
 
-    const items = [
-        ["শার্ট ওয়াশ", 60], ["প্যান্ট ওয়াশ", 70], ["পাঞ্জাবি", 120], ["ব্লেজার", 250], 
-        ["কম্বল ডাবল", 500], ["বেডশিট", 150], ["স্নিকার ওয়াশ", 200], ["বোরকা", 150],
-        ["শাড়ি সুতি", 150], ["শাড়ি সিল্ক", 300], ["সুয়েটার", 200], ["জ্যাকেট", 250]
-    ]; // ৭৫টি করতে নিচে লুপ চালানো হয়েছে
+    let cart = [];
+    let totalBill = 0;
 
-    const listDiv = document.getElementById('list');
-    function loadItems() {
+    function loadTable() {
+        const table = document.getElementById('price-table');
         for(let i=0; i<75; i++) {
-            let item = items[i % items.length];
-            listDiv.innerHTML += `
-                <div class="price-row">
-                    <span>${item[0]} ${Math.floor(i/items.length) || ''}</span>
-                    <b>৳${item[1]}</b>
-                </div>`;
+            let item = inventory[i % inventory.length];
+            table.innerHTML += `
+                <tr class="item-row">
+                    <td>${item[0]}</td>
+                    <td><b>৳${item[1]}</b></td>
+                    <td><button class="add-btn" onclick="addToCart('${item[0]}', ${item[1]})">যোগ করুন</button></td>
+                </tr>
+            `;
         }
     }
 
-    function searchFn() {
-        let input = document.getElementById('srch').value.toLowerCase();
-        let rows = document.querySelectorAll('.price-row');
+    function addToCart(name, price) {
+        cart.push({name, price});
+        totalBill += price;
+        updateReceipt();
+    }
+
+    function updateReceipt() {
+        const list = document.getElementById('selected-items');
+        list.innerHTML = cart.map(i => `<div class="bill-item"><span>${i.name}</span><span>৳${i.price}</span></div>`).join('');
+        document.getElementById('grand-total').innerText = `৳${totalBill}`;
+    }
+
+    function filterTable() {
+        let input = document.getElementById('search').value.toLowerCase();
+        let rows = document.querySelectorAll('.item-row');
         rows.forEach(r => {
-            r.style.display = r.innerText.toLowerCase().includes(input) ? "flex" : "none";
+            r.style.display = r.innerText.toLowerCase().includes(input) ? '' : 'none';
         });
     }
 
-    loadItems();
+    function sendOrder() {
+        if(cart.length === 0) return alert("দয়া করে আইটেম যোগ করুন");
+        let msg = `নতুন অর্ডার ফ্রম ওয়েবসাইট:%0A${cart.map(i => '- '+i.name).join('%0A')}%0A%0A*সর্বমোট: ৳${totalBill}*`;
+        window.location.href = `https://wa.me/8801872720582?text=${msg}`;
+    }
+
+    loadTable();
 </script>
+
 </body>
 </html>
