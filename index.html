@@ -60,4 +60,175 @@
         <p id="liveDate">Loading...</p>
         <p id="liveTime">00:00:00</p>
     </div>
-    <div style="text-
+    <div style="text-align: right;">
+        <p style="margin:0; font-size:11px; font-weight:bold; color:var(--primary);">HOTLINE</p>
+        <a href="tel:01872720582" style="text-decoration:none; color:var(--text); font-weight:800;">01872720582</a>
+    </div>
+</header>
+
+<nav class="nav">
+    <a href="#" class="logo">Laundry’Wala</a>
+    <div class="nav-btns">
+        <button class="btn-icon" onclick="swapLang()" id="langBtn">EN</button>
+        <button class="btn-icon" onclick="toggleDark()"><i class="fas fa-moon"></i></button>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1 id="h1" style="font-size: 32px; letter-spacing: -1px; margin-bottom: 20px;">আপনার কাপড়ের সেরা যত্ন এখন উত্তরার ডিজিটাল লন্ড্রিতে।</h1>
+    <div class="search-container">
+        <input type="text" id="in" class="search-bar" placeholder="কি পরিষ্কার করতে চান? লিখুন..." onkeyup="srch()">
+        <div id="res"></div>
+    </div>
+</section>
+
+<div class="main-wrapper">
+    <div class="card">
+        <div class="card-title" id="c1"><i class="fas fa-shopping-basket"></i> আপনার ঝুড়ি</div>
+        <div id="list"><p style="text-align:center; opacity:0.4; padding:40px;">ঝুড়ি বর্তমানে খালি।</p></div>
+        <div style="display:flex; justify-content:space-between; margin-top:20px; padding-top:20px; border-top: 2px solid var(--border);">
+            <span id="t1" style="font-weight:700; font-size:22px;">মোট বিল:</span>
+            <span id="total" style="font-weight:800; font-size:26px; color:var(--primary);">৳০</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title"><i class="fas fa-truck"></i> ডেলিভারি তথ্য</div>
+        <input type="text" id="custName" placeholder="আপনার নাম">
+        <input type="tel" id="custPhone" placeholder="মোবাইল নম্বর">
+        <select id="pickupTime">
+            <option value="সকাল">পিকআপ: সকাল (১০টা - ১টা)</option>
+            <option value="বিকাল">পিকআপ: বিকাল (৪টা - ৭টা)</option>
+            <option value="রাত">পিকআপ: রাত (৮টা - ১০টা)</option>
+        </select>
+        <textarea id="custAddr" placeholder="পুরো ঠিকানা (রোড, বাসা নং)"></textarea>
+        <button class="btn-order" onclick="sendOrder()">
+            <i class="fab fa-whatsapp"></i> <span id="orderBtn">অর্ডার কনফার্ম করুন</span>
+        </button>
+    </div>
+</div>
+
+<section style="max-width: 1200px; margin: 30px auto; padding: 0 20px;">
+    <div class="card">
+        <div class="card-title"><i class="fas fa-star"></i> কাস্টমার রিভিউ</div>
+        <div id="review-display" style="display: flex; overflow-x: auto; padding-bottom: 15px;"></div>
+        <div style="margin-top:20px;">
+            <div id="star-rating" style="color: #ffbc00; font-size: 22px; cursor: pointer; margin-bottom: 10px;">
+                <i class="far fa-star" onclick="setRate(1)"></i><i class="far fa-star" onclick="setRate(2)"></i><i class="far fa-star" onclick="setRate(3)"></i><i class="far fa-star" onclick="setRate(4)"></i><i class="far fa-star" onclick="setRate(5)"></i>
+            </div>
+            <textarea id="revMsg" placeholder="আপনার মন্তব্য লিখুন..." style="height: 80px;"></textarea>
+            <button onclick="saveReview()" class="btn-icon" style="margin-top:10px; width: 100%;">রিভিউ দিন</button>
+        </div>
+    </div>
+</section>
+
+<div style="text-align:center; opacity:0.1; padding:30px; cursor:pointer;" onclick="showAdmin()">ADMIN</div>
+
+<footer class="footer">
+    <p>© 2026 Laundry’Wala Uttara. Digital Solution.</p>
+</footer>
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3ji9vnOXLUkXLMTFHLbRNXYjn2L8gTUJXn2OAlQ8yyymwcwd/exec';
+
+    const items = [
+        ["Shirt (Wash/Iron)", 60], ["Shirt (Iron)", 20], ["Formal Pant", 70], ["Jeans Pant", 80], ["Panjabi", 100], ["T-Shirt", 50], ["Saree (Silk)", 400], ["Three Piece", 150], ["Blanket", 500], ["Sneakers", 200]
+    ];
+
+    const lang = {
+        bn: { h1: "আপনার কাপড়ের সেরা যত্ন এখন উত্তরার ডিজিটাল লন্ড্রিতে।", search: "কি পরিষ্কার করতে চান? লিখুন...", c1: "আপনার ঝুড়ি", t1: "মোট বিল:", orderBtn: "অর্ডার কনফার্ম করুন" },
+        en: { h1: "Premium laundry care delivered to your door in Uttara.", search: "What to clean? Search...", c1: "Your Basket", t1: "Total Bill:", orderBtn: "Confirm Order" }
+    };
+
+    let cart = JSON.parse(localStorage.getItem('lw_cart')) || [];
+    let curLang = 'bn';
+    let currentRating = 0;
+
+    function updateTime() {
+        const now = new Date();
+        document.getElementById('liveTime').innerText = now.toLocaleTimeString('en-US', { hour12: false });
+        document.getElementById('liveDate').innerText = now.toLocaleDateString(curLang === 'bn' ? 'bn-BD' : 'en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+    }
+    setInterval(updateTime, 1000); updateTime();
+
+    function toggleDark() { 
+        const body = document.body;
+        const currentTheme = body.getAttribute('data-theme');
+        body.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+    }
+
+    function swapLang() {
+        curLang = curLang === 'bn' ? 'en' : 'bn';
+        document.getElementById('langBtn').innerText = curLang === 'bn' ? 'EN' : 'BN';
+        document.getElementById('h1').innerText = lang[curLang].h1;
+        document.getElementById('in').placeholder = lang[curLang].search;
+        document.getElementById('c1').innerHTML = `<i class="fas fa-shopping-basket"></i> ${lang[curLang].c1}`;
+        document.getElementById('t1').innerText = lang[curLang].t1;
+        document.getElementById('orderBtn').innerText = lang[curLang].orderBtn;
+        updateTime(); render();
+    }
+
+    function srch() {
+        const v = document.getElementById('in').value.toLowerCase();
+        const r = document.getElementById('res');
+        if(!v) { r.style.display='none'; return; }
+        let f = items.filter(i => i[0].toLowerCase().includes(v));
+        r.style.display='block';
+        r.innerHTML = f.map(i => `<div class="res-item" onclick="add('${i[0]}',${i[1]})"><span>${i[0]}</span><b>৳${i[1]}</b></div>`).join('');
+    }
+
+    function add(n, p) {
+        const found = cart.find(i => i.n === n);
+        if (found) { found.qty++; } else { cart.push({ n, p, qty: 1 }); }
+        save(); document.getElementById('in').value=''; document.getElementById('res').style.display='none'; render();
+    }
+
+    function changeQty(n, delta) {
+        const found = cart.find(i => i.n === n);
+        if (found) { found.qty += delta; if (found.qty < 1) cart = cart.filter(i => i.n !== n); }
+        save(); render();
+    }
+
+    function save() { localStorage.setItem('lw_cart', JSON.stringify(cart)); }
+
+    function render() {
+        const l = document.getElementById('list');
+        const t = document.getElementById('total');
+        if (!cart.length) { l.innerHTML = `<p style="text-align:center; opacity:0.4; padding:40px;">ঝুড়ি খালি।</p>`; t.innerText = "৳০"; return; }
+        let sum = 0;
+        l.innerHTML = cart.map(i => {
+            sum += (i.p * i.qty);
+            return `<div class="item-row">
+                <div style="flex:1;"><b>${i.n}</b><br><small>৳${i.p}</small></div>
+                <div class="qty-controls">
+                    <button class="qty-btn" onclick="changeQty('${i.n}', -1)">−</button>
+                    <span style="font-weight:700;">${i.qty}</span>
+                    <button class="qty-btn" onclick="changeQty('${i.n}', 1)">+</button>
+                    <b style="min-width:70px; text-align:right; color:var(--primary);">৳${i.p * i.qty}</b>
+                </div>
+            </div>`;
+        }).join('');
+        t.innerText = "৳" + sum;
+    }
+
+    function setRate(r) {
+        currentRating = r;
+        const stars = document.getElementById('star-rating').children;
+        for(let i=0; i<5; i++) stars[i].className = i < r ? "fas fa-star" : "far fa-star";
+    }
+
+    function sendOrder() {
+        const name = document.getElementById('custName').value;
+        const phone = document.getElementById('custPhone').value;
+        const addr = document.getElementById('custAddr').value;
+        if(!cart.length || !name || !phone || !addr) return alert("সব তথ্য পূরণ করুন!");
+        const orderId = "LW-" + Math.floor(1000+Math.random()*9000);
+        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ orderId, name, phone, address: addr, total: document.getElementById('total').innerText }) });
+        let details = cart.map(i => `• ${i.n} (${i.qty}pc)`).join('%0A');
+        window.location.href = `https://wa.me/8801872720582?text=*Order: ${orderId}*%0A👤 Name: ${name}%0A👕 Items:%0A${details}%0A💰 Total: ${document.getElementById('total').innerText}`;
+        cart = []; save(); render();
+    }
+    render();
+</script>
+</body>
+</html>
