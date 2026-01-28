@@ -3,122 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laundry’Wala | Premium Fabric Care</title>
+    <title>Laundry’Wala | Future of Fabric Care</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-
         :root { --bg: #F9FAFB; --white: #FFFFFF; --primary: #0066FF; --text: #111827; --border: #E5E7EB; --accent: #22C55E; }
         [data-theme="dark"] { --bg: #0B0F1A; --white: #161B2E; --primary: #3B82F6; --text: #F9FAFB; --border: #2D3748; }
         
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 120px; transition: 0.3s; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 0; transition: 0.3s; overflow-x: hidden; }
         
         /* Header */
-        .header { background: var(--white); padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 20px; font-weight: 800; color: var(--primary); text-decoration:none; }
+        .header { background: var(--white); padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
+        .logo { font-size: 20px; font-weight: 800; color: var(--primary); text-decoration:none; letter-spacing: -1px; }
         
-        /* Theme Toggle */
-        .theme-btn { background: var(--bg); border: 1px solid var(--border); padding: 8px; border-radius: 12px; cursor: pointer; color: var(--text); }
-
-        /* Hero Section */
-        .hero { background: var(--white); padding: 25px 20px; border-bottom: 1px solid var(--border); }
-        .search-bar { background: #F3F4F6; border: none; padding: 15px 20px; border-radius: 15px; width: 100%; box-sizing: border-box; font-size: 15px; margin-top: 15px; outline: none; color: #111; }
+        /* Animated Hero Section */
+        .hero { position: relative; overflow: hidden; background: var(--white); padding: 80px 20px; border-bottom: 1px solid var(--border); }
+        .shape { position: absolute; border-radius: 50%; filter: blur(60px); z-index: 1; pointer-events: none; }
+        .hero-content { position: relative; z-index: 10; text-align: center; }
         
-        .categories { display: flex; gap: 10px; overflow-x: auto; padding: 15px 0 5px; scrollbar-width: none; }
-        .cat-btn { background: var(--white); border: 1px solid var(--border); padding: 10px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; color: var(--text); }
-        .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        h1#heroTitle { font-size: 48px; font-weight: 800; letter-spacing: -2px; margin: 0; background: linear-gradient(to right, var(--primary), #60A5FA); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* Modern Inputs */
+        .search-container { max-width: 500px; margin: 30px auto; }
+        .search-bar { width: 100%; background: var(--bg); border: 1px solid var(--border); padding: 18px 25px; border-radius: 20px; box-sizing: border-box; font-size: 16px; outline: none; transition: 0.3s; }
+        .search-bar:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(0,102,255,0.1); }
 
-        /* Membership Card */
-        #memberCard { background: linear-gradient(135deg, #0066FF, #003399); color: white; padding: 20px; border-radius: 20px; margin: 15px; display: none; }
+        /* Categories */
+        .categories { display: flex; gap: 10px; overflow-x: auto; padding: 20px; scrollbar-width: none; justify-content: center; }
+        .cat-btn { background: var(--white); border: 1px solid var(--border); padding: 12px 24px; border-radius: 50px; font-weight: 600; cursor: pointer; transition: 0.3s; color: var(--text); white-space: nowrap; }
+        .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 10px 20px rgba(0,102,255,0.2); }
 
-        /* Product Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 15px; }
-        .card { background: var(--white); padding: 15px; border-radius: 20px; border: 1px solid var(--border); position: relative; transition: 0.2s; }
-        .card h3 { font-size: 14px; margin: 10px 0; font-weight: 700; height: 38px; overflow: hidden; }
-        .card .price { font-size: 18px; font-weight: 800; color: var(--primary); }
+        /* Glassmorphism Product Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; padding: 20px; }
+        .card { background: var(--white); padding: 20px; border-radius: 25px; border: 1px solid var(--border); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0; transform: translateY(30px); }
+        .card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.05); border-color: var(--primary); }
+        .card h3 { font-size: 15px; margin: 10px 0; font-weight: 700; height: 40px; }
+        .price { font-size: 18px; font-weight: 800; color: var(--primary); }
 
-        /* Product +/- Controls */
-        .item-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
-        .ctrl-btn { background: var(--primary); color: white; border: none; width: 32px; height: 32px; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; }
-        .qty-val { font-weight: 800; font-size: 16px; }
+        /* Item Controls */
+        .item-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 15px; }
+        .ctrl-btn { background: var(--primary); color: white; border: none; width: 35px; height: 35px; border-radius: 12px; cursor: pointer; font-size: 18px; transition: 0.2s; }
+        .ctrl-btn:active { transform: scale(0.9); }
 
         /* Floating Cart Bar */
-        .cart-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: #000; color: white; padding: 15px 25px; border-radius: 20px; display: none; justify-content: space-between; align-items: center; z-index: 1001; box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+        .cart-bar { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: #000; color: white; padding: 15px 25px; border-radius: 22px; display: none; justify-content: space-between; align-items: center; z-index: 1001; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
 
-        /* Modals & Sheets */
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; z-index: 2000; backdrop-filter: blur(5px); }
-        .sheet { position: absolute; bottom: 0; background: var(--white); width: 100%; border-radius: 30px 30px 0 0; padding: 30px; box-sizing: border-box; max-height: 85vh; overflow-y: auto; }
-        
-        .btn-order { width: 100%; padding: 18px; background: var(--primary); color: white; border: none; border-radius: 15px; font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 15px; }
-        input, textarea { width: 100%; padding: 15px; margin-top: 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg); color: var(--text); box-sizing: border-box; }
+        /* Membership Card */
+        #memberCard { background: linear-gradient(135deg, #0066FF, #003399); color: white; padding: 25px; border-radius: 25px; margin: 20px; display: none; position: relative; overflow: hidden; }
 
-        .admin-link { text-align: center; margin-top: 40px; opacity: 0.1; cursor: pointer; font-size: 12px; font-weight: bold; }
+        /* Sheets & Overlays */
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; z-index: 2000; backdrop-filter: blur(8px); }
+        .sheet { position: absolute; bottom: 0; background: var(--white); width: 100%; border-radius: 35px 35px 0 0; padding: 35px; box-sizing: border-box; max-height: 85vh; overflow-y: auto; }
+        .btn-order { width: 100%; padding: 20px; background: var(--primary); color: white; border: none; border-radius: 18px; font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 20px; box-shadow: 0 10px 20px rgba(0,102,255,0.2); }
+
+        input[type="text"], input[type="tel"], textarea { width: 100%; padding: 18px; margin-top: 12px; border: 1px solid var(--border); border-radius: 15px; background: var(--bg); color: var(--text); box-sizing: border-box; outline: none; }
+
+        /* Footer */
+        footer { background: var(--white); padding: 50px 20px; border-top: 1px solid var(--border); margin-top: 50px; }
+        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
     </style>
 </head>
 <body data-theme="light">
 
 <header class="header">
     <a href="#" class="logo">LAUNDRY’WALA</a>
-    <button class="theme-btn" onclick="toggleTheme()"><i class="fas fa-adjust"></i></button>
+    <button onclick="toggleTheme()" style="background:none; border:none; font-size:20px; cursor:pointer; color:var(--text);"><i class="fas fa-moon"></i></button>
 </header>
 
-<div id="memberCard">
-    <div style="font-size: 12px; opacity: 0.8;">Membership Points</div>
-    <div id="uPoints" style="font-size: 32px; font-weight: 800;">0</div>
-    <div style="font-size: 11px; margin-top: 5px;">১ পয়েন্ট = ১ টাকা ছাড় | প্রতি ১০০ টাকায় ১ পয়েন্ট লাভ</div>
-    <button onclick="applyPoints()" style="margin-top:10px; background:white; color:#0066FF; border:none; padding:8px 15px; border-radius:10px; font-weight:800; cursor:pointer;">REDEEM NOW</button>
-</div>
-
 <section class="hero">
-    <h1 style="font-size: 26px; font-weight: 800; letter-spacing: -1px; margin: 0;">উত্তরা’র সেরা লন্ড্রি সার্ভিস</h1>
-    <input type="text" class="search-bar" id="searchInp" placeholder="৩০০+ আইটেম থেকে সার্চ করুন..." onkeyup="search()">
-    <div class="categories">
-        <button class="cat-btn active" onclick="filterCat('All')">সকল আইটেম</button>
-        <button class="cat-btn" onclick="filterCat('Men')">Men's Wear</button>
-        <button class="cat-btn" onclick="filterCat('Women')">Women's Wear</button>
-        <button class="cat-btn" onclick="filterCat('Household')">Household</button>
+    <div class="shape" style="top: -10%; right: -5%; width: 300px; height: 300px; background: rgba(0,102,255,0.15);"></div>
+    <div class="shape" style="bottom: -10%; left: -5%; width: 250px; height: 250px; background: rgba(34,197,94,0.1);"></div>
+    
+    <div class="hero-content">
+        <h1 id="heroTitle">Laundry’Wala</h1>
+        <p id="heroSub" style="font-weight: 600; opacity: 0.6; margin-top: 10px;">Premium Online Fabric Care</p>
+        <div class="search-container">
+            <input type="text" class="search-bar" id="searchInp" placeholder="Search 300+ items..." onkeyup="search()">
+        </div>
     </div>
 </section>
+
+<div id="memberCard">
+    <div style="font-size: 12px; opacity: 0.8; font-weight: 600;">LOYALTY POINTS</div>
+    <div id="uPoints" style="font-size: 42px; font-weight: 800;">0</div>
+    <p style="font-size: 13px; margin: 10px 0;">১ পয়েন্ট = ১ টাকা ছাড়</p>
+    <button onclick="applyPoints()" style="background:white; color:var(--primary); border:none; padding:10px 20px; border-radius:12px; font-weight:800; cursor:pointer;">REDEEM NOW</button>
+</div>
+
+<div class="categories">
+    <button class="cat-btn active" onclick="filterCat('All')">All Items</button>
+    <button class="cat-btn" onclick="filterCat('Men')">Men's Wear</button>
+    <button class="cat-btn" onclick="filterCat('Women')">Women's Wear</button>
+    <button class="cat-btn" onclick="filterCat('Household')">Household</button>
+</div>
 
 <div class="grid" id="productGrid"></div>
 
 <div class="cart-bar" id="cartBar">
-    <div id="cartStatus" style="font-weight: 600;">০টি আইটেম | ৳০</div>
-    <button onclick="toggleOverlay('checkout-sheet', true)" style="background:var(--primary); color:white; border:none; padding:10px 20px; border-radius:12px; font-weight:800;">অর্ডার করুন</button>
+    <div id="cartStatus" style="font-weight: 700; font-size: 16px;">০ আইটেম | ৳০</div>
+    <button onclick="toggleOverlay('checkout-sheet', true)" style="background:var(--primary); color:white; border:none; padding:12px 20px; border-radius:14px; font-weight:800; cursor:pointer;">CHECKOUT</button>
 </div>
 
 <div id="checkout-sheet" class="overlay">
     <div class="sheet">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h2 style="margin:0; font-weight:800;">আপনার বাস্কেট</h2>
-            <button onclick="toggleOverlay('checkout-sheet', false)" style="border:none; background:none; font-size:28px;">×</button>
+            <h2 style="margin:0; font-weight:800;">Your Basket</h2>
+            <button onclick="toggleOverlay('checkout-sheet', false)" style="border:none; background:none; font-size:30px; cursor:pointer;">&times;</button>
         </div>
-        <div id="basketItems" style="margin-top:20px;"></div>
-        <div style="margin-top:20px; border-top: 1px solid var(--border); padding-top:20px;">
-            <input type="tel" id="cPhone" placeholder="মোবাইল নম্বর (পয়েন্ট চেক করার জন্য)" oninput="checkLoyalty()">
-            <input type="text" id="cName" placeholder="আপনার নাম">
-            <textarea id="cAddr" placeholder="পুরো ঠিকানা (রোড, বাসা, সেক্টর)"></textarea>
-            <div id="discountNote" style="margin-top:10px; color:var(--accent); font-weight:bold; display:none;"></div>
-            <button class="btn-order" onclick="confirmOrder()">হোয়াটসঅ্যাপে অর্ডার পাঠান</button>
-        </div>
+        <div id="basketItems" style="margin-top:25px; max-height: 200px; overflow-y: auto;"></div>
+        <input type="tel" id="cPhone" placeholder="Mobile Number (Points check)" oninput="checkLoyalty()">
+        <input type="text" id="cName" placeholder="Full Name">
+        <textarea id="cAddr" placeholder="Delivery Address"></textarea>
+        <div id="discountNote" style="margin-top:15px; color:var(--accent); font-weight:bold; display:none;"></div>
+        <button class="btn-order" onclick="confirmOrder()">Confirm via WhatsApp</button>
     </div>
 </div>
 
-<div id="admin-sheet" class="overlay">
-    <div class="sheet">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h2 style="margin:0;">অ্যাডমিন প্যানেল</h2>
-            <button onclick="toggleOverlay('admin-sheet', false)" style="border:none; background:none; font-size:24px;">×</button>
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h2 style="color:var(--primary); font-weight:800; margin-bottom:15px;">LAUNDRY’WALA</h2>
+            <p style="font-size:14px; opacity:0.7; line-height:1.6;">উত্তরা’র ১ নম্বর অনলাইন প্রিমিয়াম লন্ড্রি সার্ভিস।</p>
         </div>
-        <div id="adminStats" style="display:flex; gap:10px; margin-bottom:20px;"></div>
-        <div id="orderLog"></div>
+        <div>
+            <h4 style="margin-bottom:15px;">Contact</h4>
+            <p style="font-size:14px; opacity:0.7;">WhatsApp: 01872720582<br>Email: laundrywala72720@gmail.com</p>
+        </div>
     </div>
-</div>
+    <div style="text-align:center; margin-top:40px; opacity:0.3; font-size:12px;">
+        <p onclick="adminLogin()" style="cursor:pointer; margin-bottom:10px;">SYSTEM ADMIN LOGIN</p>
+        <p>&copy; 2026 Laundry’Wala Online Store</p>
+    </div>
+</footer>
 
-<div class="admin-link" onclick="adminLogin()">SYSTEM ADMIN LOGIN</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 <script>
-   const items = [
+ const items = [
     // --- Men's Wear (Wash & Iron) ---
     {n: "Shirt (Wash & Iron)", p: 60, c: "Men"}, {n: "Shirt (Premium/Silk)", p: 100, c: "Men"},
     {n: "Formal Pant (W&I)", p: 70, c: "Men"}, {n: "Jeans Pant (W&I)", p: 80, c: "Men"},
@@ -191,7 +213,7 @@
                     <div class="price">৳${i.p}</div>
                     <div class="item-controls">
                         <button class="ctrl-btn" onclick="updateQty('${i.n}', ${i.p}, -1)">-</button>
-                        <span class="qty-val">${inCart.q}</span>
+                        <span style="font-weight:800;">${inCart.q}</span>
                         <button class="ctrl-btn" onclick="updateQty('${i.n}', ${i.p}, 1)">+</button>
                     </div>
                 </div>
@@ -201,12 +223,8 @@
 
     function updateQty(n, p, d) {
         const i = cart.find(x => x.n === n);
-        if(i) {
-            i.q += d;
-            if(i.q < 1) cart = cart.filter(x => x.n !== n);
-        } else if(d > 0) {
-            cart.push({n, p, q: 1});
-        }
+        if(i) { i.q += d; if(i.q < 1) cart = cart.filter(x => x.n !== n); }
+        else if(d > 0) cart.push({n, p, q: 1});
         updateUI();
         render(items);
     }
@@ -215,17 +233,44 @@
         const count = cart.reduce((s, i) => s + i.q, 0);
         const subtotal = cart.reduce((s, i) => s + (i.p * i.q), 0);
         const final = subtotal - discount;
-        
-        const bar = document.getElementById('cartBar');
-        bar.style.display = count > 0 ? 'flex' : 'none';
-        document.getElementById('cartStatus').innerText = `${count}টি আইটেম | ৳${final}`;
-        
+        document.getElementById('cartBar').style.display = count > 0 ? 'flex' : 'none';
+        document.getElementById('cartStatus').innerText = `${count} Items | ৳${final}`;
         document.getElementById('basketItems').innerHTML = cart.map(i => `
-            <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #eee;">
+            <div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border);">
                 <span>${i.n} (x${i.q})</span>
                 <b>৳${i.p * i.q}</b>
             </div>
         `).join('');
+    }
+
+    // GSAP Animations
+    window.onload = () => {
+        const tl = gsap.timeline();
+        tl.from(".header", { y: -50, opacity: 0, duration: 0.8 });
+        tl.from("#heroTitle", { y: 50, opacity: 0, duration: 1, ease: "expo.out" }, "-=0.4");
+        tl.from(".search-container", { scaleX: 0.8, opacity: 0, duration: 0.8, ease: "back.out" }, "-=0.5");
+        
+        gsap.to(".shape", { y: 30, duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut", stagger: 0.5 });
+        
+        render(items);
+        animateCards();
+    };
+
+    function animateCards() {
+        gsap.to(".card", { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" });
+    }
+
+    function filterCat(c) {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        const filtered = c === 'All' ? items : items.filter(i => i.c === c);
+        render(filtered);
+        gsap.from(".card", { opacity: 0, scale: 0.9, duration: 0.4, stagger: 0.05 });
+    }
+
+    function search() {
+        const q = document.getElementById('searchInp').value.toLowerCase();
+        render(items.filter(i => i.n.toLowerCase().includes(q)));
     }
 
     function checkLoyalty() {
@@ -233,74 +278,56 @@
         if(phone.length === 11) {
             const pts = parseInt(localStorage.getItem('pts_' + phone)) || 0;
             document.getElementById('uPoints').innerText = pts;
-            document.getElementById('memberCard').style.display = 'block';
+            gsap.fromTo("#memberCard", {display: 'none', scale: 0.8}, {display: 'block', scale: 1, duration: 0.5, ease: "back.out"});
         }
     }
 
     function applyPoints() {
         const pts = parseInt(document.getElementById('uPoints').innerText);
-        if(pts > 0) {
-            discount = pts;
-            document.getElementById('discountNote').innerText = `৳${discount} মেম্বারশিপ ছাড় যোগ করা হয়েছে!`;
-            document.getElementById('discountNote').style.display = 'block';
-            updateUI();
-        }
+        if(pts > 0) { discount = pts; document.getElementById('discountNote').innerText = `৳${discount} Discount Applied!`; document.getElementById('discountNote').style.display = 'block'; updateUI(); }
     }
 
     function confirmOrder() {
         const name = document.getElementById('cName').value;
         const phone = document.getElementById('cPhone').value;
         const addr = document.getElementById('cAddr').value;
-        if(!name || !phone || !addr) return alert("দয়া করে সব তথ্য পূরণ করুন!");
+        if(!name || !phone || !addr) return alert("Fill all details");
 
         const subtotal = cart.reduce((s, i) => s + (i.p * i.q), 0);
         const finalTotal = subtotal - discount;
         const earned = Math.floor(finalTotal / 100);
 
-        // Save Points
         let currentPts = parseInt(localStorage.getItem('pts_' + phone)) || 0;
         localStorage.setItem('pts_' + phone, (currentPts - discount) + earned);
 
-        // Save Order for Admin
         orders.push({id: "#"+(1000+orders.length), name, total: finalTotal, date: new Date().toLocaleDateString()});
         localStorage.setItem('lw_orders', JSON.stringify(orders));
 
-        // WhatsApp Send
         let itemsTxt = cart.map(i => `• ${i.n} (x${i.q})`).join('%0A');
-        let msg = `*LAUNDRY’WALA ORDER*%0AName: ${name}%0APhone: ${phone}%0AItems:%0A${itemsTxt}%0A---%0ATotal: ৳${subtotal}%0ADiscount: ৳${discount}%0A*Payable: ৳${finalTotal}*%0A_Earned Points: ${earned}_`;
-        
+        let msg = `*NEW LAUNDRY ORDER*%0A---%0AName: ${name}%0APhone: ${phone}%0AAddress: ${addr}%0A---%0AItems:%0A${itemsTxt}%0A---%0A*Total: ৳${finalTotal}*`;
         window.location.href = `https://wa.me/8801872720582?text=${msg}`;
     }
 
     function adminLogin() {
-        if(prompt("Admin Password:") === "7272") {
-            toggleOverlay('admin-sheet', true);
+        const pass = prompt("Admin Password:");
+        if(pass === "7272") {
             const sales = orders.reduce((s, o) => s + o.total, 0);
-            document.getElementById('adminStats').innerHTML = `
-                <div style="flex:1; background:var(--primary); color:white; padding:15px; border-radius:15px;">অর্ডার: ${orders.length}</div>
-                <div style="flex:1; background:var(--accent); color:white; padding:15px; border-radius:15px;">বিক্রি: ৳${sales}</div>
-            `;
-            document.getElementById('orderLog').innerHTML = orders.reverse().map(o => `
-                <div style="padding:10px; border-bottom:1px solid #eee;">
-                    <b>${o.id} - ${o.name}</b> <br> <small>৳${o.total} | ${o.date}</small>
-                </div>
-            `).join('');
+            alert(`ADMIN DASHBOARD\nTotal Orders: ${orders.length}\nTotal Revenue: ৳${sales}`);
         }
     }
 
-    function toggleOverlay(id, show) { document.getElementById(id).style.display = show ? 'block' : 'none'; }
-    function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
-    function filterCat(c) { 
-        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-        event.target.classList.add('active');
-        render(c === 'All' ? items : items.filter(i => i.c === c)); 
-    }
-    function search() { 
-        const q = document.getElementById('searchInp').value.toLowerCase(); 
-        render(items.filter(i => i.n.toLowerCase().includes(q))); 
+    function toggleTheme() {
+        const body = document.body;
+        const isDark = body.getAttribute('data-theme') === 'dark';
+        body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        document.querySelector('.header button i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
     }
 
-    render(items);
+    function toggleOverlay(id, show) {
+        const el = document.getElementById(id);
+        if(show) { el.style.display = 'block'; gsap.from(el.querySelector('.sheet'), {y: 500, duration: 0.6, ease: "power4.out"}); }
+        else { gsap.to(el.querySelector('.sheet'), {y: 500, duration: 0.4, onComplete: () => el.style.display = 'none'}); }
+    }
 </script>
     <footer style="background: var(--white); padding: 40px 20px; border-top: 1px solid var(--border); margin-top: 50px; font-family: 'Plus Jakarta Sans', sans-serif;">
     <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
@@ -339,13 +366,6 @@
         <p onclick="adminLogin()" style="cursor: pointer; margin-bottom: 10px;">SYSTEM ADMIN LOGIN</p>
         <p>&copy; 2026 Laundry’Wala Online. All Rights Reserved.</p>
     </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-
-</script>
+</footer>
 </body>
 </html>
-
-
-
-
