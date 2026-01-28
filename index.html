@@ -12,7 +12,7 @@
         [data-theme="dark"] { --bg: #0f172a; --text: #f8fafc; --card: #1e293b; --border: #334155; }
         body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Hind Siliguri', sans-serif; transition: 0.3s; }
         .header { background: var(--main); color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; }
-        .nav { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); sticky: top; background: var(--bg); }
+        .nav { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 1000; }
         .btn-tool { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 8px 15px; border-radius: 10px; cursor: pointer; font-weight: bold; }
         .hero { text-align: center; padding: 40px 20px; }
         .search-bar { width: 100%; max-width: 500px; padding: 18px; border-radius: 30px; border: 2px solid var(--main); outline: none; background: var(--bg); color: var(--text); }
@@ -23,71 +23,11 @@
         .pay-box { margin-top: 20px; padding: 15px; border-radius: 12px; background: rgba(0,210,255,0.05); border: 1px dashed var(--main); }
         .btn-order { width: 100%; background: #25D366; color: #fff; padding: 18px; border: none; border-radius: 15px; font-weight: 800; font-size: 18px; cursor: pointer; margin-top: 15px; }
         #admin { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 999; padding: 20px; box-sizing: border-box; }
-        /* উত্তরা নোটিশ স্টাইল */
-.uttara-notice {
-    background: linear-gradient(90deg, #00d2ff, #3a7bd5);
-    color: white;
-    text-align: center;
-    padding: 12px;
-    font-size: 15px;
-    animation: slideIn 1s ease-out;
-}
-
-/* ফুটার স্টাইল */
-.main-footer {
-    background: #1e293b;
-    color: #f8fafc;
-    padding: 40px 20px;
-    margin-top: 50px;
-    text-align: center;
-    border-top: 4px solid var(--main);
-}
-
-.footer-logo {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--main);
-    margin-bottom: 10px;
-}
-
-.footer-links a {
-    color: #cbd5e1;
-    text-decoration: none;
-    display: inline-block;
-    margin: 5px 0;
-    font-size: 14px;
-}
-
-@keyframes slideIn {
-    from { transform: translateY(-20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-.qr-section {
-    max-width: 600px;
-    width: 92%;
-    margin: 40px auto;
-    background: var(--card);
-    padding: 30px;
-    border-radius: 25px;
-    border: 2px dashed var(--main);
-    text-align: center;
-    box-sizing: border-box;
-    transition: 0.3s;
-}
-
-.qr-img {
-    background: white;
-    padding: 12px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,210,255,0.15);
-    border: 1px solid var(--border);
-}
-
-.qr-section:hover {
-    border-style: solid;
-    transform: translateY(-5px);
-}
-
+        .main-footer { background: #1e293b; color: #f8fafc; padding: 40px 20px; margin-top: 50px; text-align: center; border-top: 4px solid var(--main); }
+        .footer-logo { font-size: 24px; font-weight: 800; color: var(--main); margin-bottom: 10px; }
+        .footer-links a { color: #cbd5e1; text-decoration: none; display: inline-block; margin: 5px 0; font-size: 14px; }
+        .qr-section { max-width: 600px; width: 92%; margin: 40px auto; background: var(--card); padding: 30px; border-radius: 25px; border: 2px dashed var(--main); text-align: center; box-sizing: border-box; transition: 0.3s; }
+        .qr-img { background: white; padding: 12px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,210,255,0.15); border: 1px solid var(--border); }
     </style>
 </head>
 <body data-theme="light">
@@ -119,17 +59,17 @@
     <div style="display:flex; justify-content:space-between; margin-top:15px; font-size:22px; font-weight:800; border-top: 2px solid var(--main); padding-top: 10px;">
         <span id="t1">মোট:</span><span id="total">৳০</span>
     </div>
-    <div class="pay-box" style="margin-top:20px; text-align:left;">
-    <p style="font-weight:bold; margin-bottom:10px;"><i class="fas fa-user"></i> কাস্টমার তথ্য দিন (Customer Info):</p>
-    <input type="text" id="custName" placeholder="আপনার নাম (Name)" style="width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:1px solid var(--border);">
-    <input type="text" id="custPhone" placeholder="মোবাইল নম্বর (Phone)" style="width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:1px solid var(--border);">
-    <textarea id="custAddr" placeholder="পুরো ঠিকানা (Address)" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border); height:60px;"></textarea>
+    <div class="pay-box">
+        <p style="font-weight:bold; margin-bottom:10px;"><i class="fas fa-user"></i> কাস্টমার তথ্য দিন (Customer Info):</p>
+        <input type="text" id="custName" placeholder="আপনার নাম (Name)" style="width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:1px solid var(--border); box-sizing: border-box;">
+        <input type="text" id="custPhone" placeholder="মোবাইল নম্বর (Phone)" style="width:100%; padding:10px; margin-bottom:10px; border-radius:8px; border:1px solid var(--border); box-sizing: border-box;">
+        <textarea id="custAddr" placeholder="পুরো ঠিকানা (Address)" style="width:100%; padding:10px; border-radius:8px; border:1px solid var(--border); height:60px; box-sizing: border-box;"></textarea>
+    </div>
+
+    <button class="btn-order" onclick="sendOrder()">
+        <i class="fab fa-whatsapp"></i> অর্ডার কনফার্ম করুন
+    </button>
 </div>
-
-<button class="btn-order" onclick="sendOrder()">
-    <i class="fab fa-whatsapp"></i> অর্ডার কনফার্ম করুন
-</button>
-
 
 <div style="text-align:center; opacity:0.1; font-size:10px; padding:20px;" onclick="adm()">ADMIN</div>
 
@@ -142,31 +82,22 @@
 </div>
 
 <script>
-     const items = [
-        // পুরুষদের পোশাক
+    const items = [
         ["Shirt (Wash/Iron)", 60], ["Pant (Wash/Iron)", 70], ["Jeans Pant", 80], 
         ["Panjabi (Basic)", 100], ["Panjabi (Silk)", 150], ["Pajama", 60], 
         ["Lungi", 50], ["T-Shirt", 50], ["Blazer", 300], ["Suit (2pc)", 500], 
         ["Suit (3pc)", 700], ["West Coat", 150], ["Sherwani", 800], ["Jacket", 250], 
         ["Leather Jacket", 500], ["Hoodie", 150], ["Sweater", 200], ["Underwear", 40],
-
-        // মহিলাদের পোশাক
         ["Saree (Cotton)", 150], ["Saree (Georgette)", 200], ["Saree (Silk)", 400], 
         ["Saree (Katan)", 500], ["Saree (Jamdani)", 700], ["Three Piece", 150], 
         ["Kameez", 80], ["Salwar", 70], ["Borka", 180], ["Hijab/Orna", 50], 
         ["Lehenga", 1000], ["Blouse", 50], ["Petticoat", 50], ["Gown", 500], ["Kurti", 100],
-
-        // শীতকালীন ও ভারী আইটেম
         ["Blanket (Single)", 350], ["Blanket (Double)", 550], ["Lep Cover", 150], 
         ["Bed Sheet (Single)", 120], ["Bed Sheet (Double)", 180], ["Pillow Cover", 30], 
         ["Cushion Cover", 50], ["Curtain (Heavy)", 180], ["Curtain (Thin)", 100], 
         ["Sofa Cover", 120], ["Carpet (sq.ft)", 30], ["Mosquito Net", 120],
-
-        // জুতা ও ব্যাগ
         ["Sneakers", 200], ["Boots", 400], ["Leather Shoes", 250], 
         ["Handbag", 300], ["Travel Bag", 500], ["School Bag", 200],
-
-        // অন্যান্য
         ["Towel (Small)", 40], ["Towel (Large)", 80], ["Janamaz", 80], 
         ["Topi (Cap)", 40], ["Tie", 50], ["Handkerchief", 20], ["Socks (Pair)", 30],
         ["Apron", 80], ["Table Cloth", 150], ["Baby Set", 80], ["Soft Toy", 200],
@@ -175,9 +106,10 @@
     ];
 
     const lang = {
-        bn: { h1: "আপনি কি পরিষ্কার করতে চান?", in: "আইটেম সার্চ করুন...", c1: "আপনার ঝুড়ি", t1: "মোট:", b1: "অর্ডার পাঠান", p1: "পেমেন্ট নম্বর (মার্চেন্ট):", empty: "ঝুড়ি খালি", lBtn: "EN" },
-        en: { h1: "What to clean?", in: "Search items...", c1: "Your Cart", t1: "Total:", b1: "Send Order", p1: "Payment (Merchant):", empty: "Cart empty", lBtn: "BN" }
+        bn: { h1: "আপনি কি পরিষ্কার করতে চান?", in: "আইটেম সার্চ করুন...", c1: "আপনার ঝুড়ি", t1: "মোট:", empty: "ঝুড়ি খালি", lBtn: "EN" },
+        en: { h1: "What to clean?", in: "Search items...", c1: "Your Cart", t1: "Total:", empty: "Cart empty", lBtn: "BN" }
     };
+
     let cart = [], cur = 'bn', rev = 0;
 
     function tick() {
@@ -193,8 +125,6 @@
         document.getElementById('in').placeholder = l.in;
         document.getElementById('c1').innerHTML = `<i class="fas fa-shopping-basket"></i> ${l.c1}`;
         document.getElementById('t1').innerText = l.t1;
-        document.getElementById('b1').innerHTML = `<i class="fab fa-whatsapp"></i> ${l.b1}`;
-        document.getElementById('p1').innerText = l.p1;
         document.getElementById('lBtn').innerText = l.lBtn;
         render();
     }
@@ -214,70 +144,69 @@
     function del(id) { cart = cart.filter(i => i.id !== id); render(); }
 
     function render() {
-    const l = document.getElementById('list');
-    const t = document.getElementById('total');
-    if (!cart.length) {
-        l.innerHTML = `<p style="text-align:center;opacity:0.5">${lang[cur].empty}</p>`;
-        t.innerText = '৳০';
-        return;
-    }
-    let sum = 0;
-    l.innerHTML = cart.map(i => {
-        sum += i.p;
-        return `<div class="cart-row"><span>${i.n}</span><span>৳${i.p} <i class="fas fa-times-circle" style="color:red;cursor:pointer" onclick="del(${i.id})"></i></span></div>`
-    }).join('');
-    t.innerText = '৳' + sum;
-} // লাইন ২৩০: এখানে শুধু একটি ব্র্যাকেট থাকবে।
-
-const scriptURL = 'https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3ji9vnOXLUkXLMTFHLbRNXYjn2L8gTUJXn2OAlQ8yyymwcwd/exec';
-
-function sendOrder() { // লাইন ২৩৪: এখান থেকে নতুন ফাংশন শুরু।
-
-    // কার্ট চেক
-    if (!cart.length) {
-        alert(cur === 'bn' ? "আপনার ঝুড়ি খালি!" : "Your cart is empty!");
-        return;
+        const l = document.getElementById('list');
+        const t = document.getElementById('total');
+        if (!cart.length) {
+            l.innerHTML = `<p style="text-align:center;opacity:0.5">${lang[cur].empty}</p>`;
+            t.innerText = '৳০';
+            return;
+        }
+        let sum = 0;
+        l.innerHTML = cart.map(i => {
+            sum += i.p;
+            return `<div class="cart-row"><span>${i.n}</span><span>৳${i.p} <i class="fas fa-times-circle" style="color:red;cursor:pointer" onclick="del(${i.id})"></i></span></div>`
+        }).join('');
+        t.innerText = '৳' + sum;
     }
 
-    // ইনপুট চেক
-    if (!name || !phone || !addr) {
-        alert(cur === 'bn' ? "দয়া করে নাম, ফোন এবং ঠিকানা দিন!" : "Please provide name, phone and address!");
-        return;
+    const scriptURL = 'https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3ji9vnOXLUkXLMTFHLbRNXYjn2L8gTUJXn2OAlQ8yyymwcwd/exec';
+
+    function sendOrder() {
+        const name = document.getElementById('custName').value;
+        const phone = document.getElementById('custPhone').value;
+        const addr = document.getElementById('custAddr').value;
+        const total = document.getElementById('total').innerText;
+
+        if (!cart.length) {
+            alert(cur === 'bn' ? "আপনার ঝুড়ি খালি!" : "Your cart is empty!");
+            return;
+        }
+
+        if (!name || !phone || !addr) {
+            alert(cur === 'bn' ? "দয়া করে নাম, ফোন এবং ঠিকানা দিন!" : "Please provide name, phone and address!");
+            return;
+        }
+
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, phone, address: addr, total })
+        })
+        .then(() => console.log("Success! Data sent to Sheet"))
+        .catch(error => console.error('Error!', error.message));
+
+        let amount = parseInt(total.replace(/[^\d]/g, '')) || 0;
+        rev += amount;
+
+        let msg = `*New Order - LaundryWala*%0A`;
+        msg += `--------------------------%0A`;
+        msg += `👤 *Name:* ${name}%0A`;
+        msg += `📞 *Phone:* ${phone}%0A`;
+        msg += `📍 *Address:* ${addr}%0A`;
+        msg += `--------------------------%0A`;
+        msg += `👕 *Items:*%0A`;
+        msg += cart.map(i => ` • ${i.n} (৳${i.p})`).join('%0A');
+        msg += `%0A--------------------------%0A`;
+        msg += `💰 *Total Bill: ${total}*`;
+
+        window.location.href = `https://wa.me/8801872720582?text=${msg}`;
     }
-
-    // ১. গুগল শিটে ডাটা পাঠানো
-    fetch(scriptURL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, address: addr, total })
-    })
-    .then(() => console.log("Success! Data sent to Sheet"))
-    .catch(error => console.error('Error!', error.message));
-
-    // ২. অ্যাডমিন প্যানেলের জন্য রেভিনিউ আপডেট
-    let amount = parseInt(total.replace(/[^\d]/g, '')) || 0;
-    rev += amount;
-
-    // ৩. হোয়াটসঅ্যাপ মেসেজ তৈরি
-    let msg = `*New Order - LaundryWala*%0A`;
-    msg += `--------------------------%0A`;
-    msg += `👤 *Name:* ${name}%0A`;
-    msg += `📞 *Phone:* ${phone}%0A`;
-    msg += `📍 *Address:* ${addr}%0A`;
-    msg += `--------------------------%0A`;
-    msg += `👕 *Items:*%0A`;
-    msg += cart.map(i => ` • ${i.n} (৳${i.p})`).join('%0A');
-    msg += `%0A--------------------------%0A`;
-    msg += `💰 *Total Bill: ${total}*`;
-
-    // ৪. হোয়াটসঅ্যাপে পাঠানো
-    window.location.href = `https://wa.me/8801872720582?text=${msg}`;
-}
 
     function adm() { if(prompt("Pass:")==="7272") { document.getElementById('admin').style.display='block'; document.getElementById('rev').innerText = '৳'+rev; } }
 </script> 
-    <footer class="main-footer">
+
+<footer class="main-footer">
     <div class="footer-content">
         <div class="footer-logo">Laundry’Wala</div>
         <p>উত্তরা’র সবচেয়ে বিশ্বস্ত অনলাইন লন্ড্রি সার্ভিস।</p>
@@ -288,27 +217,14 @@ function sendOrder() { // লাইন ২৩৪: এখান থেকে ন�
         <hr style="border: 0.5px solid rgba(255,255,255,0.1); margin: 15px 0;">
         <p style="font-size: 12px; opacity: 0.7;">&copy; 2026 Laundry’Wala - Uttara, Dhaka.</p>
     </div> 
-        <div class="qr-section">
-    <h3 style="margin-bottom: 10px;"><i class="fas fa-qrcode"></i> স্ক্যান করে অর্ডার করুন</h3>
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://rehab06052005-tech.github.io/laundrywala/" alt="LaundryWala QR" class="qr-img">
-    <p style="font-size: 14px; color: var(--text); opacity: 0.8; margin-top: 15px; font-weight: bold;">
-        Laundry’Wala - উত্তরা সার্ভিস
-    </p>
-</div>
-
+    <div class="qr-section">
+        <h3 style="margin-bottom: 10px; color: var(--text);"><i class="fas fa-qrcode"></i> স্ক্যান করে অর্ডার করুন</h3>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://rehab06052005-tech.github.io/laundrywala/" alt="LaundryWala QR" class="qr-img">
+        <p style="font-size: 14px; color: var(--text); opacity: 0.8; margin-top: 15px; font-weight: bold;">
+            Laundry’Wala - উত্তরা সার্ভিস
+        </p>
+    </div>
 </footer>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
