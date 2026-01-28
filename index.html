@@ -214,18 +214,24 @@
     function del(id) { cart = cart.filter(i => i.id !== id); render(); }
 
     function render() {
-        const l = document.getElementById('list');
-        const t = document.getElementById('total');
-        if(!cart.length) { l.innerHTML = `<p style="text-align:center;opacity:0.5">${lang[cur].empty}</p>`; t.innerText = '৳০'; return; }
-        let sum = 0;
-        l.innerHTML = cart.map(i => { sum += i.p; return `<div class="cart-row"><span>${i.n}</span><span>৳${i.p} <i class="fas fa-times-circle" style="color:var(--red);cursor:pointer" onclick="del(${i.id})"></i></span></div>`}).join('');
-        t.innerText = '৳' + sum;
+    const l = document.getElementById('list');
+    const t = document.getElementById('total');
+    if (!cart.length) {
+        l.innerHTML = `<p style="text-align:center;opacity:0.5">${lang[cur].empty}</p>`;
+        t.innerText = '৳০';
+        return;
+    }
+    let sum = 0;
+    l.innerHTML = cart.map(i => {
+        sum += i.p;
+        return `<div class="cart-row"><span>${i.n}</span><span>৳${i.p} <i class="fas fa-times-circle" style="color:red;cursor:pointer" onclick="del(${i.id})"></i></span></div>`
+    }).join('');
+    t.innerText = '৳' + sum;
+} // লাইন ২৩০: এখানে শুধু একটি ব্র্যাকেট থাকবে।
+
 const scriptURL = 'https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3ji9vnOXLUkXLMTFHLbRNXYjn2L8gTUJXn2OAlQ8yyymwcwd/exec';
-   function sendOrder() {
-    const name = document.getElementById('custName').value;
-    const phone = document.getElementById('custPhone').value;
-    const addr = document.getElementById('custAddr').value;
-    const total = document.getElementById('total').innerText;
+
+function sendOrder() { // লাইন ২৩৪: এখান থেকে নতুন ফাংশন শুরু।
 
     // কার্ট চেক
     if (!cart.length) {
@@ -294,6 +300,7 @@ const scriptURL = 'https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3j
 
 </body>
 </html>
+
 
 
 
