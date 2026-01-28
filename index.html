@@ -243,7 +243,7 @@ const scriptURL = 'https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3j
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, phone, address: addr, total })
-    })
+    
     .then(() => console.log("Success! Data sent to Sheet"))
     .catch(error => console.error('Error!', error.message));
 
@@ -293,6 +293,7 @@ const scriptURL = 'https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3j
 
 </body>
 </html>
+
 
 
 
