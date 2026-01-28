@@ -1,272 +1,256 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laundry’Wala | Membership & Premium Care</title>
+    <title>Laundry’Wala | Premium Fabric Care</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { --bg: #F9FAFB; --white: #FFFFFF; --primary: #0066FF; --text: #111827; --border: #E5E7EB; --accent: #22C55E; }
         [data-theme="dark"] { --bg: #0B0F1A; --white: #161B2E; --primary: #3B82F6; --text: #F9FAFB; --border: #2D3748; }
         
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 100px; transition: 0.3s; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 120px; transition: 0.3s; }
         
+        /* Header */
         .header { background: var(--white); padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 18px; font-weight: 800; color: var(--primary); text-decoration:none; letter-spacing: -1px; }
-
-        /* Hero & Search */
-        .hero { background: var(--white); padding: 20px; border-bottom: 1px solid var(--border); }
-        .search-bar { background: #F3F4F6; border: none; padding: 15px 20px; border-radius: 12px; width: 100%; box-sizing: border-box; outline: none; font-size: 15px; margin: 15px 0; }
+        .logo { font-size: 20px; font-weight: 800; color: var(--primary); text-decoration:none; }
         
-        .categories { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
-        .cat-btn { background: var(--white); border: 1px solid var(--border); padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; color: var(--text); }
+        /* Theme Toggle */
+        .theme-btn { background: var(--bg); border: 1px solid var(--border); padding: 8px; border-radius: 12px; cursor: pointer; color: var(--text); }
+
+        /* Hero Section */
+        .hero { background: var(--white); padding: 25px 20px; border-bottom: 1px solid var(--border); }
+        .search-bar { background: #F3F4F6; border: none; padding: 15px 20px; border-radius: 15px; width: 100%; box-sizing: border-box; font-size: 15px; margin-top: 15px; outline: none; color: #111; }
+        
+        .categories { display: flex; gap: 10px; overflow-x: auto; padding: 15px 0 5px; scrollbar-width: none; }
+        .cat-btn { background: var(--white); border: 1px solid var(--border); padding: 10px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; color: var(--text); }
         .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
         /* Membership Card */
-        .member-card { background: linear-gradient(135deg, #0066FF, #003399); color: white; padding: 20px; border-radius: 20px; margin: 20px; display: none; position: relative; overflow: hidden; }
-        .member-card::after { content: '\f0d6'; font-family: 'Font Awesome 6 Free'; position: absolute; right: -10px; bottom: -10px; font-size: 80px; opacity: 0.1; }
+        #memberCard { background: linear-gradient(135deg, #0066FF, #003399); color: white; padding: 20px; border-radius: 20px; margin: 15px; display: none; }
 
-        /* Grid */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; padding: 15px; }
-        .product-card { background: var(--white); padding: 12px; border-radius: 18px; border: 1px solid var(--border); position: relative; transition: 0.2s; }
-        .product-card h3 { font-size: 13px; margin: 8px 0; font-weight: 700; height: 35px; overflow: hidden; }
-        .add-btn { position: absolute; bottom: 12px; right: 12px; background: var(--primary); color: white; border: none; width: 30px; height: 30px; border-radius: 10px; cursor: pointer; }
+        /* Product Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 15px; }
+        .card { background: var(--white); padding: 15px; border-radius: 20px; border: 1px solid var(--border); position: relative; transition: 0.2s; }
+        .card h3 { font-size: 14px; margin: 10px 0; font-weight: 700; height: 38px; overflow: hidden; }
+        .card .price { font-size: 18px; font-weight: 800; color: var(--primary); }
 
-        /* Floating Cart */
-        .cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 480px; background: #111; color: white; padding: 15px 20px; border-radius: 20px; display: none; justify-content: space-between; align-items: center; z-index: 1001; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        /* Product +/- Controls */
+        .item-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+        .ctrl-btn { background: var(--primary); color: white; border: none; width: 32px; height: 32px; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; }
+        .qty-val { font-weight: 800; font-size: 16px; }
 
-        /* Sheet UI */
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; z-index: 2000; backdrop-filter: blur(4px); }
-        .sheet { position: absolute; bottom: 0; background: var(--white); width: 100%; border-radius: 25px 25px 0 0; padding: 25px; box-sizing: border-box; max-height: 85vh; overflow-y: auto; }
+        /* Floating Cart Bar */
+        .cart-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: #000; color: white; padding: 15px 25px; border-radius: 20px; display: none; justify-content: space-between; align-items: center; z-index: 1001; box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+
+        /* Modals & Sheets */
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; z-index: 2000; backdrop-filter: blur(5px); }
+        .sheet { position: absolute; bottom: 0; background: var(--white); width: 100%; border-radius: 30px 30px 0 0; padding: 30px; box-sizing: border-box; max-height: 85vh; overflow-y: auto; }
         
-        .item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
-        .qty-box { display: flex; align-items: center; gap: 12px; background: var(--bg); padding: 5px 12px; border-radius: 10px; }
-        .qty-btn { border: none; background: none; font-weight: 800; color: var(--primary); font-size: 18px; cursor: pointer; }
+        .btn-order { width: 100%; padding: 18px; background: var(--primary); color: white; border: none; border-radius: 15px; font-size: 16px; font-weight: 800; cursor: pointer; margin-top: 15px; }
+        input, textarea { width: 100%; padding: 15px; margin-top: 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg); color: var(--text); box-sizing: border-box; }
 
-        .btn-main { width: 100%; padding: 18px; background: var(--primary); color: white; border: none; border-radius: 15px; font-size: 16px; font-weight: 800; margin-top: 15px; cursor: pointer; }
-        input, textarea { width: 100%; padding: 14px; margin-top: 10px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg); color: var(--text); box-sizing: border-box; }
-
-        .points-badge { background: var(--accent); color: white; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; }
+        .admin-link { text-align: center; margin-top: 40px; opacity: 0.1; cursor: pointer; font-size: 12px; font-weight: bold; }
     </style>
 </head>
-<body>
+<body data-theme="light">
 
 <header class="header">
     <a href="#" class="logo">LAUNDRY’WALA</a>
-    <div style="display:flex; gap:10px;">
-        <button class="cat-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
-    </div>
+    <button class="theme-btn" onclick="toggleTheme()"><i class="fas fa-adjust"></i></button>
 </header>
 
-<div id="memberCard" class="member-card">
-    <div style="font-size: 13px; opacity: 0.8;">Membership Points</div>
-    <div id="userPoints" style="font-size: 32px; font-weight: 800;">0</div>
-    <div style="font-size: 11px; margin-top: 5px;">1 Point = ৳1 Discount | Earn 1 point per ৳100</div>
-    <button id="redeemBtn" onclick="usePoints()" style="margin-top:12px; background:white; color:#0066FF; border:none; padding:8px 15px; border-radius:10px; font-weight:800; font-size:12px; cursor:pointer;">REDEEM POINTS</button>
+<div id="memberCard">
+    <div style="font-size: 12px; opacity: 0.8;">Membership Points</div>
+    <div id="uPoints" style="font-size: 32px; font-weight: 800;">0</div>
+    <div style="font-size: 11px; margin-top: 5px;">১ পয়েন্ট = ১ টাকা ছাড় | প্রতি ১০০ টাকায় ১ পয়েন্ট লাভ</div>
+    <button onclick="applyPoints()" style="margin-top:10px; background:white; color:#0066FF; border:none; padding:8px 15px; border-radius:10px; font-weight:800; cursor:pointer;">REDEEM NOW</button>
 </div>
 
 <section class="hero">
-    <h1 style="font-size: 24px; font-weight: 800; margin:0;">Premium Care.</h1>
-    <input type="text" class="search-bar" id="searchInp" placeholder="Search from 300+ services..." onkeyup="filterItems()">
+    <h1 style="font-size: 26px; font-weight: 800; letter-spacing: -1px; margin: 0;">উত্তরা’র সেরা লন্ড্রি সার্ভিস</h1>
+    <input type="text" class="search-bar" id="searchInp" placeholder="৩০০+ আইটেম থেকে সার্চ করুন..." onkeyup="search()">
     <div class="categories">
-        <button class="cat-btn active" onclick="filterCat('All')">All</button>
-        <button class="cat-btn" onclick="filterCat('Men')">Men's</button>
-        <button class="cat-btn" onclick="filterCat('Women')">Women's</button>
-        <button class="cat-btn" onclick="filterCat('Kids')">Kids</button>
+        <button class="cat-btn active" onclick="filterCat('All')">সকল আইটেম</button>
+        <button class="cat-btn" onclick="filterCat('Men')">Men's Wear</button>
+        <button class="cat-btn" onclick="filterCat('Women')">Women's Wear</button>
         <button class="cat-btn" onclick="filterCat('Household')">Household</button>
     </div>
 </section>
 
-<div class="product-grid" id="productGrid"></div>
+<div class="grid" id="productGrid"></div>
 
 <div class="cart-bar" id="cartBar">
-    <div id="cartStatus" style="font-weight: 700;">0 Items | ৳0</div>
-    <button class="view-btn" onclick="toggleOverlay('cart-overlay', true)">CHECKOUT</button>
+    <div id="cartStatus" style="font-weight: 600;">০টি আইটেম | ৳০</div>
+    <button onclick="toggleOverlay('checkout-sheet', true)" style="background:var(--primary); color:white; border:none; padding:10px 20px; border-radius:12px; font-weight:800;">অর্ডার করুন</button>
 </div>
 
-<div id="cart-overlay" class="overlay">
+<div id="checkout-sheet" class="overlay">
     <div class="sheet">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h2 style="margin:0; font-weight:800;">My Basket</h2>
-            <button onclick="toggleOverlay('cart-overlay', false)" style="border:none; background:none; font-size:24px;">×</button>
+            <h2 style="margin:0; font-weight:800;">আপনার বাস্কেট</h2>
+            <button onclick="toggleOverlay('checkout-sheet', false)" style="border:none; background:none; font-size:28px;">×</button>
         </div>
-        <div id="cartItems" style="margin-top:15px;"></div>
-        
-        <div style="margin-top:20px;">
-            <input type="tel" id="custPhone" placeholder="Mobile Number (For Points)" oninput="checkMember()">
-            <input type="text" id="custName" placeholder="Full Name">
-            <textarea id="custAddr" placeholder="Address (Road, House, Sector)"></textarea>
-            
-            <div id="discountInfo" style="margin-top:15px; color:var(--accent); font-weight:700; display:none;"></div>
-            
-            <button class="btn-main" onclick="processOrder()">Confirm via WhatsApp</button>
+        <div id="basketItems" style="margin-top:20px;"></div>
+        <div style="margin-top:20px; border-top: 1px solid var(--border); padding-top:20px;">
+            <input type="tel" id="cPhone" placeholder="মোবাইল নম্বর (পয়েন্ট চেক করার জন্য)" oninput="checkLoyalty()">
+            <input type="text" id="cName" placeholder="আপনার নাম">
+            <textarea id="cAddr" placeholder="পুরো ঠিকানা (রোড, বাসা, সেক্টর)"></textarea>
+            <div id="discountNote" style="margin-top:10px; color:var(--accent); font-weight:bold; display:none;"></div>
+            <button class="btn-order" onclick="confirmOrder()">হোয়াটসঅ্যাপে অর্ডার পাঠান</button>
         </div>
     </div>
 </div>
 
-<div style="text-align:center; padding:40px; opacity:0.1; font-size:10px; cursor:pointer;" onclick="adminLogin()">ADMIN</div>
+<div id="admin-sheet" class="overlay">
+    <div class="sheet">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h2 style="margin:0;">অ্যাডমিন প্যানেল</h2>
+            <button onclick="toggleOverlay('admin-sheet', false)" style="border:none; background:none; font-size:24px;">×</button>
+        </div>
+        <div id="adminStats" style="display:flex; gap:10px; margin-bottom:20px;"></div>
+        <div id="orderLog"></div>
+    </div>
+</div>
+
+<div class="admin-link" onclick="adminLogin()">SYSTEM ADMIN LOGIN</div>
 
 <script>
-    const SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL'; 
     const items = [
-    // --- Men's Wear (Wash & Iron) ---
-    {n: "Shirt (Wash & Iron)", p: 60, c: "Men"}, {n: "Shirt (Premium/Silk)", p: 100, c: "Men"},
-    {n: "Formal Pant (W&I)", p: 70, c: "Men"}, {n: "Jeans Pant (W&I)", p: 80, c: "Men"},
-    {n: "Gabardine Pant (W&I)", p: 80, c: "Men"}, {n: "Panjabi (Simple)", p: 100, c: "Men"},
-    {n: "Panjabi (Designer/Silk)", p: 200, c: "Men"}, {n: "Pyjama (W&I)", p: 60, c: "Men"},
-    {n: "Fatua (W&I)", p: 70, c: "Men"}, {n: "T-Shirt (W&I)", p: 50, c: "Men"},
-    {n: "Polo Shirt (W&I)", p: 60, c: "Men"}, {n: "Waistcoat (Koti)", p: 150, c: "Men"},
-    {n: "Suit/Blazer (2pc)", p: 350, c: "Men"}, {n: "Suit/Blazer (3pc)", p: 450, c: "Men"},
-    {n: "Jacket (Light)", p: 180, c: "Men"}, {n: "Jacket (Heavy)", p: 400, c: "Men"},
-    {n: "Sweater (W&I)", p: 120, c: "Men"}, {n: "Hoodie (W&I)", p: 150, c: "Men"},
-    {n: "Tracksuit (Full)", p: 200, c: "Men"}, {n: "Lungi (W&I)", p: 50, c: "Men"},
-    {n: "Sherwani (Normal)", p: 700, c: "Men"}, {n: "Sherwani (Heavy)", p: 1500, c: "Men"},
-    {n: "Men's Vest/Sando", p: 40, c: "Men"}, {n: "Briefs/Underwear", p: 40, c: "Men"},
-    {n: "Men's Scarf/Rumal", p: 60, c: "Men"}, {n: "Tie (Clean)", p: 50, c: "Men"},
-    {n: "Men's Cap/Toppi", p: 40, c: "Men"}, {n: "Socks (Pair)", p: 30, c: "Men"},
-    {n: "Raincoat (Clean)", p: 150, c: "Men"}, {n: "Leather Jacket (Polish)", p: 500, c: "Men"},
-    {n: "Twill Pant (W&I)", p: 80, c: "Men"}, {n: "Shorts/Half Pant", p: 50, c: "Men"},
-
-    // --- Women's Wear (Wash & Iron) ---
-    {n: "Saree (Cotton)", p: 150, c: "Women"}, {n: "Saree (Silk)", p: 350, c: "Women"},
-    {n: "Saree (Katan)", p: 450, c: "Women"}, {n: "Saree (Stone Work)", p: 600, c: "Women"},
-    {n: "Saree (Jamdani)", p: 500, c: "Women"}, {n: "Three Piece (Normal)", p: 150, c: "Women"},
-    {n: "Three Piece (Party)", p: 300, c: "Women"}, {n: "Kameez (W&I)", p: 90, c: "Women"},
-    {n: "Salwar (W&I)", p: 80, c: "Women"}, {n: "Orna (Chiffon)", p: 60, c: "Women"},
-    {n: "Borka (Simple)", p: 180, c: "Women"}, {n: "Borka (Design)", p: 350, c: "Women"},
-    {n: "Hijab/Jilbab", p: 80, c: "Women"}, {n: "Abaya (Dubai)", p: 400, c: "Women"},
-    {n: "Lehenga (Normal)", p: 800, c: "Women"}, {n: "Lehenga (Bridal)", p: 2000, c: "Women"},
-    {n: "Gown (Party)", p: 500, c: "Women"}, {n: "Skirt (Long)", p: 150, c: "Women"},
-    {n: "Ladies Tops", p: 110, c: "Women"}, {n: "Blouse (Simple)", p: 70, c: "Women"},
-    {n: "Blouse (Work)", p: 130, c: "Women"}, {n: "Petticoat", p: 60, c: "Women"},
-    {n: "Ladies Blazer", p: 300, c: "Women"}, {n: "Nighty/Nightdress", p: 100, c: "Women"},
-    {n: "Ladies Jeans", p: 90, c: "Women"}, {n: "Leggings", p: 70, c: "Women"},
-    {n: "Shawl (Ladies)", p: 150, c: "Women"}, {n: "Kaftan", p: 250, c: "Women"},
-    {n: "Ladies Cardigan", p: 120, c: "Women"}, {n: "Ladies Overcoat", p: 350, c: "Women"},
-
-    // --- Kids Wear ---
-    {n: "Kids Shirt", p: 60, c: "Kids"}, {n: "Kids Pant", p: 60, c: "Kids"},
-    {n: "Kids T-Shirt", p: 50, c: "Kids"}, {n: "Kids Frock", p: 100, c: "Kids"},
-    {n: "Kids Panjabi", p: 90, c: "Kids"}, {n: "Kids Jacket", p: 120, c: "Kids"},
-    {n: "Kids Sweater", p: 80, c: "Kids"}, {n: "Kids Blazer", p: 200, c: "Kids"},
-    {n: "Baby Blanket", p: 150, c: "Kids"}, {n: "Kids School Dress", p: 120, c: "Kids"},
-    {n: "Kids Party Suit", p: 400, c: "Kids"}, {n: "Kids Hoodie", p: 100, c: "Kids"},
-
-    // --- Household & Others ---
-    {n: "Bed Sheet (Single)", p: 120, c: "Household"}, {n: "Bed Sheet (Double)", p: 220, c: "Household"},
-    {n: "Bed Sheet (King)", p: 280, c: "Household"}, {n: "Pillow Cover", p: 50, c: "Household"},
-    {n: "Cushion Cover", p: 60, c: "Household"}, {n: "Blanket (Single)", p: 400, c: "Household"},
-    {n: "Blanket (Double)", p: 600, c: "Household"}, {n: "Comforter (Single)", p: 450, c: "Household"},
-    {n: "Comforter (Double)", p: 750, c: "Household"}, {n: "Curtain (Small)", p: 100, c: "Household"},
-    {n: "Curtain (Large)", p: 200, c: "Household"}, {n: "Table Cloth", p: 150, c: "Household"},
-    {n: "Sofa Cover (Seat)", p: 150, c: "Household"}, {n: "Prayer Mat (Janamaz)", p: 100, c: "Household"},
-    {n: "Mosquito Net", p: 150, c: "Household"}, {n: "Door Mat", p: 80, c: "Household"},
-    {n: "Carpet (per sqft)", p: 40, c: "Household"}, {n: "Kitchen Apron", p: 60, c: "Household"},
-    {n: "Fridge Cover", p: 100, c: "Household"}, {n: "Sneakers (Deep Clean)", p: 300, c: "Household"},
-    {n: "Leather Shoes", p: 150, c: "Household"}, {n: "Backpack", p: 250, c: "Household"},
-    {n: "Travel Bag", p: 450, c: "Household"}, {n: "Quilt (Kanth)", p: 300, c: "Household"},
-    {n: "Nokshi Kanth", p: 500, c: "Household"}, {n: "Towel (Gamcha)", p: 40, c: "Household"},
-    {n: "Bath Towel (Large)", p: 100, c: "Household"}
-];
+        {n: "Shirt (Wash & Iron)", p: 60, c: "Men"}, {n: "Formal Pant (W&I)", p: 70, c: "Men"},
+        {n: "Jeans Pant (W&I)", p: 80, c: "Men"}, {n: "Panjabi (Wash & Iron)", p: 100, c: "Men"},
+        {n: "Suit/Blazer (2pc)", p: 350, c: "Men"}, {n: "Lungi (Wash & Iron)", p: 50, c: "Men"},
+        {n: "Saree (Cotton)", p: 150, c: "Women"}, {n: "Saree (Silk)", p: 350, c: "Women"},
+        {n: "Three Piece (W&I)", p: 150, c: "Women"}, {n: "Borka (Simple)", p: 180, c: "Women"},
+        {n: "Blanket (Double)", p: 600, c: "Household"}, {n: "Bed Sheet (Double)", p: 200, c: "Household"},
+        {n: "Curtain (Large)", p: 200, c: "Household"}, {n: "Sneakers Clean", p: 300, c: "Household"}
+        // এখানে আরও ৩০০ আইটেম যোগ করা যাবে
+    ];
 
     let cart = [];
     let discount = 0;
-    let memberPoints = 0;
+    let orders = JSON.parse(localStorage.getItem('lw_orders')) || [];
 
-    function renderProducts(list) {
-        document.getElementById('productGrid').innerHTML = list.map(i => `
-            <div class="product-card">
-                <span class="points-badge">+${Math.floor(i.p/100)} pts</span>
-                <h3>${i.n}</h3>
-                <p>৳${i.p}</p>
-                <button class="add-btn" onclick="addToCart('${i.n}', ${i.p})">+</button>
-            </div>
-        `).join('');
+    function render(list) {
+        document.getElementById('productGrid').innerHTML = list.map(i => {
+            const inCart = cart.find(x => x.n === i.n) || {q: 0};
+            return `
+                <div class="card">
+                    <h3>${i.n}</h3>
+                    <div class="price">৳${i.p}</div>
+                    <div class="item-controls">
+                        <button class="ctrl-btn" onclick="updateQty('${i.n}', ${i.p}, -1)">-</button>
+                        <span class="qty-val">${inCart.q}</span>
+                        <button class="ctrl-btn" onclick="updateQty('${i.n}', ${i.p}, 1)">+</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
     }
 
-    function checkMember() {
-        const phone = document.getElementById('custPhone').value;
-        if(phone.length === 11) {
-            memberPoints = parseInt(localStorage.getItem('pts_' + phone)) || 0;
-            document.getElementById('userPoints').innerText = memberPoints;
-            document.getElementById('memberCard').style.display = 'block';
-        }
-    }
-
-    function usePoints() {
-        if(memberPoints > 0) {
-            discount = memberPoints;
-            document.getElementById('discountInfo').innerText = `৳${discount} point discount applied!`;
-            document.getElementById('discountInfo').style.display = 'block';
-            updateUI();
-            alert("Points Applied!");
-        }
-    }
-
-    function addToCart(n, p) {
+    function updateQty(n, p, d) {
         const i = cart.find(x => x.n === n);
-        if(i) i.q++; else cart.push({n, p, q:1});
+        if(i) {
+            i.q += d;
+            if(i.q < 1) cart = cart.filter(x => x.n !== n);
+        } else if(d > 0) {
+            cart.push({n, p, q: 1});
+        }
         updateUI();
+        render(items);
     }
 
     function updateUI() {
         const count = cart.reduce((s, i) => s + i.q, 0);
         const subtotal = cart.reduce((s, i) => s + (i.p * i.q), 0);
-        const total = subtotal - discount;
+        const final = subtotal - discount;
         
         const bar = document.getElementById('cartBar');
-        if(count > 0) {
-            bar.style.display = 'flex';
-            document.getElementById('cartStatus').innerText = `${count} Items | ৳${total}`;
-        } else bar.style.display = 'none';
-
-        document.getElementById('cartItems').innerHTML = cart.map(i => `
-            <div class="item-row">
-                <div><b>${i.n}</b><br><small>৳${i.p}</small></div>
-                <div class="qty-box">
-                    <button class="qty-btn" onclick="changeQty('${i.n}', -1)">−</button>
-                    <span>${i.q}</span>
-                    <button class="qty-btn" onclick="changeQty('${i.n}', 1)">+</button>
-                </div>
+        bar.style.display = count > 0 ? 'flex' : 'none';
+        document.getElementById('cartStatus').innerText = `${count}টি আইটেম | ৳${final}`;
+        
+        document.getElementById('basketItems').innerHTML = cart.map(i => `
+            <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #eee;">
+                <span>${i.n} (x${i.q})</span>
+                <b>৳${i.p * i.q}</b>
             </div>
         `).join('');
     }
 
-    function changeQty(n, d) {
-        const i = cart.find(x => x.n === n);
-        i.q += d;
-        if(i.q < 1) cart = cart.filter(x => x.n !== n);
-        updateUI();
+    function checkLoyalty() {
+        const phone = document.getElementById('cPhone').value;
+        if(phone.length === 11) {
+            const pts = parseInt(localStorage.getItem('pts_' + phone)) || 0;
+            document.getElementById('uPoints').innerText = pts;
+            document.getElementById('memberCard').style.display = 'block';
+        }
     }
 
-    function processOrder() {
-        const name = document.getElementById('custName').value;
-        const phone = document.getElementById('custPhone').value;
-        const addr = document.getElementById('custAddr').value;
-        if(!name || !phone || !addr) return alert("Fill all details");
+    function applyPoints() {
+        const pts = parseInt(document.getElementById('uPoints').innerText);
+        if(pts > 0) {
+            discount = pts;
+            document.getElementById('discountNote').innerText = `৳${discount} মেম্বারশিপ ছাড় যোগ করা হয়েছে!`;
+            document.getElementById('discountNote').style.display = 'block';
+            updateUI();
+        }
+    }
+
+    function confirmOrder() {
+        const name = document.getElementById('cName').value;
+        const phone = document.getElementById('cPhone').value;
+        const addr = document.getElementById('cAddr').value;
+        if(!name || !phone || !addr) return alert("দয়া করে সব তথ্য পূরণ করুন!");
 
         const subtotal = cart.reduce((s, i) => s + (i.p * i.q), 0);
         const finalTotal = subtotal - discount;
         const earned = Math.floor(finalTotal / 100);
 
-        // Update Points in Storage
-        let newPts = (memberPoints - discount) + earned;
-        localStorage.setItem('pts_' + phone, newPts);
+        // Save Points
+        let currentPts = parseInt(localStorage.getItem('pts_' + phone)) || 0;
+        localStorage.setItem('pts_' + phone, (currentPts - discount) + earned);
+
+        // Save Order for Admin
+        orders.push({id: "#"+(1000+orders.length), name, total: finalTotal, date: new Date().toLocaleDateString()});
+        localStorage.setItem('lw_orders', JSON.stringify(orders));
 
         // WhatsApp Send
-        let itemsTxt = cart.map(i => `• ${i.n} x${i.q}`).join('%0A');
-        let msg = `*LAUNDRY’WALA ORDER*%0AName: ${name}%0APhone: ${phone}%0AItems:%0A${itemsTxt}%0A---%0ABill: ৳${subtotal}%0ADiscount: ৳${discount}%0A*Payable: ৳${finalTotal}*%0A_Points Earned: ${earned}_`;
+        let itemsTxt = cart.map(i => `• ${i.n} (x${i.q})`).join('%0A');
+        let msg = `*LAUNDRY’WALA ORDER*%0AName: ${name}%0APhone: ${phone}%0AItems:%0A${itemsTxt}%0A---%0ATotal: ৳${subtotal}%0ADiscount: ৳${discount}%0A*Payable: ৳${finalTotal}*%0A_Earned Points: ${earned}_`;
         
         window.location.href = `https://wa.me/8801872720582?text=${msg}`;
     }
 
+    function adminLogin() {
+        if(prompt("Admin Password:") === "7272") {
+            toggleOverlay('admin-sheet', true);
+            const sales = orders.reduce((s, o) => s + o.total, 0);
+            document.getElementById('adminStats').innerHTML = `
+                <div style="flex:1; background:var(--primary); color:white; padding:15px; border-radius:15px;">অর্ডার: ${orders.length}</div>
+                <div style="flex:1; background:var(--accent); color:white; padding:15px; border-radius:15px;">বিক্রি: ৳${sales}</div>
+            `;
+            document.getElementById('orderLog').innerHTML = orders.reverse().map(o => `
+                <div style="padding:10px; border-bottom:1px solid #eee;">
+                    <b>${o.id} - ${o.name}</b> <br> <small>৳${o.total} | ${o.date}</small>
+                </div>
+            `).join('');
+        }
+    }
+
     function toggleOverlay(id, show) { document.getElementById(id).style.display = show ? 'block' : 'none'; }
     function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
-    function filterCat(c) { renderProducts(c === 'All' ? items : items.filter(i => i.c === c)); }
-    function filterItems() { const q = document.getElementById('searchInp').value.toLowerCase(); renderProducts(items.filter(i => i.n.toLowerCase().includes(q))); }
+    function filterCat(c) { 
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        render(c === 'All' ? items : items.filter(i => i.c === c)); 
+    }
+    function search() { 
+        const q = document.getElementById('searchInp').value.toLowerCase(); 
+        render(items.filter(i => i.n.toLowerCase().includes(q))); 
+    }
 
-    renderProducts(items);
+    render(items);
 </script>
 </body>
 </html>
