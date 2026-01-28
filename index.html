@@ -221,52 +221,53 @@
         l.innerHTML = cart.map(i => { sum += i.p; return `<div class="cart-row"><span>${i.n}</span><span>৳${i.p} <i class="fas fa-times-circle" style="color:var(--red);cursor:pointer" onclick="del(${i.id})"></i></span></div>`}).join('');
         t.innerText = '৳' + sum;
 const scriptURL = 'https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3ji9vnOXLUkXLMTFHLbRNXYjn2L8gTUJXn2OAlQ8yyymwcwd/exec';
-    }function sendOrder() {
-    // ইনপুট ফিল্ড থেকে তথ্য সংগ্রহ
+   function sendOrder() {
     const name = document.getElementById('custName').value;
     const phone = document.getElementById('custPhone').value;
     const addr = document.getElementById('custAddr').value;
     const total = document.getElementById('total').innerText;
 
-    // চেক করা হচ্ছে সব তথ্য দেওয়া হয়েছে কি না
-    if (!cart || cart.length === 0) {
+    // কার্ট চেক
+    if (!cart.length) {
         alert(cur === 'bn' ? "আপনার ঝুড়ি খালি!" : "Your cart is empty!");
         return;
     }
+
+    // ইনপুট চেক
     if (!name || !phone || !addr) {
         alert(cur === 'bn' ? "দয়া করে নাম, ফোন এবং ঠিকানা দিন!" : "Please provide name, phone and address!");
         return;
     }
- // ডাটা গুগল শিটে পাঠানোর জন্য নিচের এই অংশটুকু যোগ করুন
+
+    // ১. গুগল শিটে ডাটা পাঠানো
     fetch(scriptURL, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, phone, address: addr, total })
-    
+    })
     .then(() => console.log("Success! Data sent to Sheet"))
     .catch(error => console.error('Error!', error.message));
 
-    // অ্যাডমিন প্যানেলের জন্য রেভিনিউ আপডেট
+    // ২. অ্যাডমিন প্যানেলের জন্য রেভিনিউ আপডেট
     let amount = parseInt(total.replace(/[^\d]/g, '')) || 0;
     rev += amount;
 
-    // হোয়াটসঅ্যাপ মেসেজ তৈরি
+    // ৩. হোয়াটসঅ্যাপ মেসেজ তৈরি
     let msg = `*New Order - LaundryWala*%0A`;
     msg += `--------------------------%0A`;
     msg += `👤 *Name:* ${name}%0A`;
     msg += `📞 *Phone:* ${phone}%0A`;
     msg += `📍 *Address:* ${addr}%0A`;
     msg += `--------------------------%0A`;
-    msg += `🧺 *Items:*%0A`;
-    msg += cart.map(i => `• ${i.n} (৳${i.p})`).join('%0A');
+    msg += `👕 *Items:*%0A`;
+    msg += cart.map(i => ` • ${i.n} (৳${i.p})`).join('%0A');
     msg += `%0A--------------------------%0A`;
     msg += `💰 *Total Bill: ${total}*`;
 
-    // সরাসরি হোয়াটসঅ্যাপে পাঠানো
+    // ৪. হোয়াটসঅ্যাপে পাঠানো
     window.location.href = `https://wa.me/8801872720582?text=${msg}`;
 }
-
 
     function adm() { if(prompt("Pass:")==="7272") { document.getElementById('admin').style.display='block'; document.getElementById('rev').innerText = '৳'+rev; } }
 </script> 
@@ -293,6 +294,7 @@ const scriptURL = 'https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3j
 
 </body>
 </html>
+
 
 
 
