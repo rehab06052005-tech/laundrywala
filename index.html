@@ -220,7 +220,7 @@
         let sum = 0;
         l.innerHTML = cart.map(i => { sum += i.p; return `<div class="cart-row"><span>${i.n}</span><span>৳${i.p} <i class="fas fa-times-circle" style="color:var(--red);cursor:pointer" onclick="del(${i.id})"></i></span></div>`}).join('');
         t.innerText = '৳' + sum;
-const scriptURL =https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3ji9vnOXLUkXLMTFHLbRNXYjn2L8gTUJXn2OAlQ8yyymwcwd/exec
+const scriptURL = 'https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3ji9vnOXLUkXLMTFHLbRNXYjn2L8gTUJXn2OAlQ8yyymwcwd/exec';
     }function sendOrder() {
     // ইনপুট ফিল্ড থেকে তথ্য সংগ্রহ
     const name = document.getElementById('custName').value;
@@ -237,6 +237,15 @@ const scriptURL =https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3ji9
         alert(cur === 'bn' ? "দয়া করে নাম, ফোন এবং ঠিকানা দিন!" : "Please provide name, phone and address!");
         return;
     }
+ // ডাটা গুগল শিটে পাঠানোর জন্য নিচের এই অংশটুকু যোগ করুন
+    fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, address: addr, total })
+    })
+    .then(() => console.log("Success! Data sent to Sheet"))
+    .catch(error => console.error('Error!', error.message));
 
     // অ্যাডমিন প্যানেলের জন্য রেভিনিউ আপডেট
     let amount = parseInt(total.replace(/[^\d]/g, '')) || 0;
@@ -284,6 +293,7 @@ const scriptURL =https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3ji9
 
 </body>
 </html>
+
 
 
 
