@@ -22,13 +22,12 @@
         .nav { background: var(--white); padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .logo { font-size: 24px; font-weight: 800; color: var(--primary); text-decoration: none; }
         .nav-btns { display: flex; gap: 15px; align-items: center; }
-        .btn-icon { background: var(--secondary); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; }
-        .btn-icon:hover { background: var(--primary); color: white; }
+        .btn-icon { background: var(--secondary); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: 10px; cursor: pointer; font-weight: bold; }
 
         /* Hero */
         .hero { padding: 40px 20px; text-align: center; background: var(--white); }
         .search-container { max-width: 700px; margin: 0 auto; position: relative; }
-        .search-bar { width: 100%; padding: 18px 25px; border-radius: 50px; border: 2px solid var(--border); background: var(--secondary); color: var(--text); font-size: 16px; outline: none; transition: 0.3s; }
+        .search-bar { width: 100%; padding: 18px 25px; border-radius: 50px; border: 2px solid var(--border); background: var(--secondary); color: var(--text); font-size: 16px; outline: none; }
         
         #res { position: absolute; left: 0; right: 0; top: 70px; background: var(--white); border-radius: 15px; display: none; z-index: 100; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid var(--border); max-height: 300px; overflow-y: auto; text-align: left; }
         .res-item { display: flex; justify-content: space-between; padding: 15px 20px; border-bottom: 1px solid var(--secondary); cursor: pointer; }
@@ -46,9 +45,13 @@
         .qty-controls { display: flex; align-items: center; gap: 12px; background: var(--secondary); padding: 5px 12px; border-radius: 10px; }
         .qty-btn { border: none; background: none; font-size: 18px; cursor: pointer; color: var(--primary); font-weight: 800; }
         
-        input, select, textarea { width: 100%; padding: 15px; margin-top: 10px; border: 1px solid var(--border); border-radius: 12px; background: var(--secondary); color: var(--text); font-size: 15px; outline: none; }
+        input, select, textarea { width: 100%; padding: 15px; margin-top: 10px; border: 1px solid var(--border); border-radius: 12px; background: var(--secondary); color: var(--text); font-size: 15px; }
 
         .btn-order { background: #25D366; color: white; width: 100%; padding: 20px; border: none; border-radius: 15px; font-size: 18px; font-weight: 700; cursor: pointer; margin-top: 25px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+
+        /* Admin Styles */
+        #admin-panel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--white); z-index: 2000; padding: 40px; box-sizing: border-box; overflow-y: auto; }
+        .stat-card { background: var(--primary); color: white; padding: 20px; border-radius: 15px; flex: 1; text-align: center; }
 
         .footer { text-align: center; padding: 50px; color: #8993a4; background: var(--white); border-top: 1px solid var(--border); }
     </style>
@@ -108,21 +111,19 @@
     </div>
 </div>
 
-<section style="max-width: 1200px; margin: 30px auto; padding: 0 20px;">
-    <div class="card">
-        <div class="card-title"><i class="fas fa-star"></i> কাস্টমার রিভিউ</div>
-        <div id="review-display" style="display: flex; overflow-x: auto; padding-bottom: 15px;"></div>
-        <div style="margin-top:20px;">
-            <div id="star-rating" style="color: #ffbc00; font-size: 22px; cursor: pointer; margin-bottom: 10px;">
-                <i class="far fa-star" onclick="setRate(1)"></i><i class="far fa-star" onclick="setRate(2)"></i><i class="far fa-star" onclick="setRate(3)"></i><i class="far fa-star" onclick="setRate(4)"></i><i class="far fa-star" onclick="setRate(5)"></i>
-            </div>
-            <textarea id="revMsg" placeholder="আপনার মন্তব্য লিখুন..." style="height: 80px;"></textarea>
-            <button onclick="saveReview()" class="btn-icon" style="margin-top:10px; width: 100%;">রিভিউ দিন</button>
-        </div>
+<div id="admin-panel">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2>Admin Dashboard</h2>
+        <button onclick="document.getElementById('admin-panel').style.display='none'" class="btn-icon">Close X</button>
     </div>
-</section>
+    <div style="display:flex; gap:20px; margin-top:30px;" id="adminStats"></div>
+    <div style="margin-top:40px;">
+        <h3>Recent Orders</h3>
+        <div id="adminOrders"></div>
+    </div>
+</div>
 
-<div style="text-align:center; opacity:0.1; padding:30px; cursor:pointer;" onclick="showAdmin()">ADMIN</div>
+<div style="text-align:center; opacity:0.1; padding:40px; cursor:pointer;" onclick="showAdmin()">ADMIN LOGIN</div>
 
 <footer class="footer">
     <p>© 2026 Laundry’Wala Uttara. Digital Solution.</p>
@@ -131,18 +132,86 @@
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3ji9vnOXLUkXLMTFHLbRNXYjn2L8gTUJXn2OAlQ8yyymwcwd/exec';
 
-    const items = [
-        ["Shirt (Wash/Iron)", 60], ["Shirt (Iron)", 20], ["Formal Pant", 70], ["Jeans Pant", 80], ["Panjabi", 100], ["T-Shirt", 50], ["Saree (Silk)", 400], ["Three Piece", 150], ["Blanket", 500], ["Sneakers", 200]
-    ];
+ const items = [
+    // --- Men's Wear (Wash & Iron) ---
+    ["Shirt (W&I)", 60], ["Shirt (Premium)", 100], ["Formal Pant (W&I)", 70], ["Jeans (W&I)", 80], ["Gabardine Pant (W&I)", 80],
+    ["Panjabi (Simple)", 90], ["Panjabi (Designer)", 180], ["Pyjama (W&I)", 60], ["Fatua (W&I)", 60], ["T-Shirt (W&I)", 50],
+    ["Polo Shirt (W&I)", 60], ["Waistcoat (Koti)", 150], ["Suit/Blazer (2pc)", 350], ["Suit/Blazer (3pc)", 450], ["Jacket (Light)", 150],
+    ["Jacket (Heavy)", 350], ["Sweater (W&I)", 100], ["Hoodie (W&I)", 120], ["Tracksuit (Full)", 180], ["Lungi (W&I)", 50],
+    ["Dhuti (W&I)", 100], ["Sherwani (Normal)", 600], ["Sherwani (Heavy)", 1500], ["Men's Vest", 40], ["Briefs/Underwear", 40],
+    ["Men's Scarf", 60], ["Tie (Clean)", 50], ["Men's Cap/Toppi", 40], ["Socks (Pair)", 30], ["Handkerchief", 20],
+    ["Raincoat (W&I)", 150], ["Men's Shorts", 60], ["Swimming Trunk", 70], ["Jersey (Sports)", 70], ["Gym Stringer", 50],
+    ["Men's Overcoat", 450], ["Windbreaker", 180], ["Tank Top", 50], ["Denim Jacket", 250], ["Corduroy Pant", 100],
+    ["Chinos Pant", 90], ["Kurta (Men)", 110], ["Men's Shawl", 150], ["Towel (Large)", 80], ["Towel (Small)", 50],
+    ["Bathrobe", 180], ["Leather Jacket (Polish)", 500], ["Woolen Sweater", 120], ["Cardigan (Men)", 130], ["Tweed Jacket", 350],
 
-    const lang = {
-        bn: { h1: "আপনার কাপড়ের সেরা যত্ন এখন উত্তরার ডিজিটাল লন্ড্রিতে।", search: "কি পরিষ্কার করতে চান? লিখুন...", c1: "আপনার ঝুড়ি", t1: "মোট বিল:", orderBtn: "অর্ডার কনফার্ম করুন" },
-        en: { h1: "Premium laundry care delivered to your door in Uttara.", search: "What to clean? Search...", c1: "Your Basket", t1: "Total Bill:", orderBtn: "Confirm Order" }
-    };
+    // --- Women's Wear (Wash & Iron) ---
+    ["Saree (Cotton)", 150], ["Saree (Silk)", 350], ["Saree (Katan)", 400], ["Saree (Stone Work)", 550], ["Saree (Net)", 350],
+    ["Saree (Jamdani)", 500], ["Three Piece (Normal)", 150], ["Three Piece (Party)", 300], ["Kameez (W&I)", 90], ["Salwar (W&I)", 80],
+    ["Orna (Chiffon)", 60], ["Orna (Cotton)", 70], ["Borka (Simple)", 180], ["Borka (Design)", 300], ["Hijab/Jilbab", 80],
+    ["Abaya (Dubai)", 350], ["Lehenga (Normal)", 800], ["Lehenga (Bridal)", 2000], ["Gown (Party)", 500], ["Skirt (Long)", 150],
+    ["Skirt (Short)", 100], ["Ladies Tops", 110], ["Blouse (Simple)", 60], ["Blouse (Work)", 120], ["Petticoat", 60],
+    ["Ladies Jacket", 200], ["Ladies Cardigan", 120], ["Shawl (Ladies)", 150], ["Nighty/Nightdress", 100], ["Ladies Jeans", 90],
+    ["Leggings/Jeggings", 70], ["Ladies Blazer", 300], ["Ladies Shrug", 100], ["Palazzo Pant", 90], ["Ladies Vest", 50],
+    ["Kaftan", 200], ["Dupatta (Heavy)", 120], ["Ladies Overcoat", 400], ["Frock (Adult)", 180], ["Ladies Hoodie", 130],
+    ["Ladies Tracksuit", 180], ["Burqini", 250], ["Apron (Ladies)", 90], ["Maternity Dress", 150], ["Ladies Scarf", 60],
+    ["Poncho", 200], ["Anarkali Suit", 450], ["Gharara/Sharara", 500], ["Ladies Silk Top", 130], ["Knickers/Inner", 50],
+
+    // --- Kids Wear (Wash & Iron) ---
+    ["Kids Shirt", 60], ["Kids Pant", 60], ["Kids T-Shirt", 50], ["Kids Frock", 100], ["Kids Panjabi", 80],
+    ["Kids Pyjama", 60], ["Kids Jacket", 120], ["Kids Sweater", 80], ["Kids Blazer", 200], ["Kids Onesie", 70],
+    ["Baby Blanket", 150], ["Kids School Dress", 120], ["Kids Socks (Pair)", 40], ["Kids Cap", 40], ["Kids Shorts", 50],
+    ["Baby Mittens", 30], ["Kids Lehenga", 400], ["Kids Three Piece", 150], ["Kids Sherwani", 500], ["School Bag", 120],
+    ["Diaper Bag", 150], ["Stroller Cover", 200], ["Baby Towel", 60], ["Kids Hoodie", 100], ["Kids Raincoat", 120],
+    ["Baby Bibs", 40], ["Kids Cardigan", 90], ["Kids Tracksuit", 130], ["Kids Swimwear", 80], ["Kids Party Suit", 350],
+    ["Baby Sleeping Bag", 250], ["Kids Muffler", 50], ["Kids Dungaree", 120], ["Kids Vest", 40], ["Baby Mittens", 30],
+
+    // --- Household Items (Wash & Iron) ---
+    ["Bed Sheet (Single)", 120], ["Bed Sheet (Double)", 200], ["Bed Sheet (King)", 250], ["Pillow Cover", 50], ["Cushion Cover", 60],
+    ["Blanket (Single)", 400], ["Blanket (Double)", 600], ["Comforter (Single)", 450], ["Comforter (Double)", 700], ["Curtain (Small)", 100],
+    ["Curtain (Large)", 180], ["Curtain (Net)", 120], ["Table Cloth (Small)", 90], ["Table Cloth (Large)", 180], ["Sofa Cover (Seat)", 150],
+    ["Dining Chair Cover", 80], ["Prayer Mat (Janamaz)", 100], ["Mosquito Net (Single)", 120], ["Mosquito Net (Double)", 200], ["Door Mat", 70],
+    ["Carpet (per sqft)", 40], ["Kitchen Apron", 60], ["Napkin (Set)", 80], ["Fridge Cover", 100], ["TV Cover", 90],
+    ["Yoga Mat", 180], ["Sleeping Bag", 350], ["Tent (Small)", 600], ["Duffle Bag", 250], ["Camera Bag", 180],
+    ["Laptop Sleeve", 80], ["Seat Cushion", 100], ["Bolster Cover", 80], ["Quilt (Kanth)", 300], ["Nokshi Kanth", 500],
+    ["Floor Mat (Large)", 250], ["Car Seat Cover", 600], ["Trolley Bag", 700], ["Laundry Bag", 90], ["Stuffed Toy (S)", 120],
+    ["Stuffed Toy (L)", 350], ["Pet Bed", 300], ["Oven Cover", 80], ["Washing Machine Cover", 150], ["Table Runner", 80],
+
+    // --- Extras & Specialized Items ---
+    ["Sneakers (Deep Clean)", 300], ["Leather Shoes (Polish)", 120], ["Converse/Canvas", 200], ["Suede Shoes", 400], ["Boots", 450],
+    ["Backpack (Large)", 300], ["Handbag (Ladies)", 250], ["Leather Belt", 50], ["Umbrella (Clean)", 100], ["Helmet Inner", 150],
+    ["Sports Guard", 100], ["Knee Cap", 60], ["Arm Sleeves", 50], ["Wallet (Leather)", 80], ["Chef Coat", 150],
+    ["Doctor's Apron", 120], ["Security Uniform", 180], ["School Blazer", 250], ["Sports Jersey", 80], ["Winter Cap", 60],
+    ["Woolen Gloves", 50], ["Leather Gloves", 150], ["Earmuffs", 50], ["Small Rug", 200], ["Velvet Curtain", 300],
+    ["Lace Tablecloth", 150], ["Silk Pillowcase", 80], ["Down Vest", 250], ["Ski Jacket", 500], ["Rain Poncho", 100],
+    ["Cycling Shorts", 80], ["Leg Warmers", 60], ["Base Layer Top", 90], ["Base Layer Bottom", 90], ["Swimming Cap", 40],
+    ["Hiking Pant", 150], ["Climbing Jacket", 350], ["Denim Skirt", 120], ["Corduroy Jacket", 250], ["Puffer Vest", 200],
+    ["Linen Shirt", 100], ["Linen Pant", 110], ["Maternity Jeans", 120], ["Nursing Top", 100], ["Tutu Skirt", 150],
+    ["Ballet Leotard", 120], ["Gymnastics Suit", 130], ["Karate Gi", 250], ["Lab Coat", 130], ["Flight Suit", 500],
+    ["Overall/Dungaree", 180], ["Coverall", 250], ["High-Vis Vest", 80], ["Tactical Pant", 150], ["Camo Jacket", 250],
+    ["Parka", 600], ["Trench Coat", 500], ["Faux Fur Coat", 700], ["Pashmina Shawl", 350], ["Silk Scarf", 100],
+    ["Woolen Scarf", 80], ["Cotton Scarf", 60], ["Bandana", 30], ["Bow Tie", 40], ["Cummerbund", 100],
+    ["Suspenders", 60], ["Garter Belt", 80], ["Corset", 250], ["Slip Dress", 150], ["Camisole", 70],
+    ["Thermal Top", 100], ["Thermal Bottom", 100], ["Nightgown (Silk)", 200], ["Pajama Set (Adult)", 150], ["Kigurumi/Onesie", 250],
+    ["Boxing Trunk", 100], ["Fencing Suit", 600], ["Judo Gi", 300], ["Kimono", 500], ["Yukata", 400],
+    ["Hanbok", 800], ["Sarong", 100], ["Kilt", 400], ["Turban", 120], ["Fez Cap", 80],
+    ["Beret", 60], ["Beanie", 50], ["Sun Hat", 100], ["Fedora Hat", 150], ["Cowboy Hat", 250],
+    ["Visor", 60], ["Headband", 30], ["Wristband", 30], ["Ankle Brace", 60], ["Back Support", 150],
+    ["Weightlifting Belt", 200], ["Running Belt", 80], ["Hydration Vest", 200], ["Dry Suit", 1000], ["Wetsuit", 800],
+    ["Rash Guard", 120], ["Board Shorts", 100], ["Cape", 250], ["Veil", 150], ["Sash", 60],
+    ["Stockings (Pair)", 60], ["Tights", 70], ["Leggings (Fleece)", 100], ["Yoga Pant", 120], ["Compression Sock", 60],
+    ["Ski Sock", 80], ["Insoles", 40], ["Shoe Covers", 50], ["Boot Liners", 80], ["Ear Warmers", 50],
+    ["Neck Gaiter", 60], ["Balaclava", 100], ["Face Mask (Premium)", 40], ["Eye Mask", 30], ["Travel Pillow", 120],
+    ["Pet Blanket", 150], ["Pet Sweater", 120], ["Pet Coat", 180], ["Horse Blanket", 1200], ["Saddle Pad", 300],
+    ["Bean Bag Cover", 350], ["Ottoman Cover", 200], ["Bean Bag Liner", 150], ["Piano Cover", 500], ["Guitar Bag", 200],
+    ["Keyboard Bag", 250], ["Speaker Cover", 120], ["Bicycle Cover", 300], ["Motorcycle Cover", 450], ["Car Cover", 1500],
+    ["Stroller Seat", 200], ["Car Seat Liner", 150], ["Baby Bouncer Cover", 180], ["Playmat (Cloth)", 250], ["Sleeping Pod", 400],
+    ["Hamper Bag", 100], ["Garment Bag", 120], ["Shoe Bag", 60], ["Toiletry Bag", 80], ["Make-up Bag", 70]
+];
 
     let cart = JSON.parse(localStorage.getItem('lw_cart')) || [];
+    let orders = JSON.parse(localStorage.getItem('lw_orders')) || [];
     let curLang = 'bn';
-    let currentRating = 0;
 
     function updateTime() {
         const now = new Date();
@@ -152,19 +221,13 @@
     setInterval(updateTime, 1000); updateTime();
 
     function toggleDark() { 
-        const body = document.body;
-        const currentTheme = body.getAttribute('data-theme');
-        body.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+        const b = document.body;
+        b.setAttribute('data-theme', b.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     }
 
     function swapLang() {
         curLang = curLang === 'bn' ? 'en' : 'bn';
         document.getElementById('langBtn').innerText = curLang === 'bn' ? 'EN' : 'BN';
-        document.getElementById('h1').innerText = lang[curLang].h1;
-        document.getElementById('in').placeholder = lang[curLang].search;
-        document.getElementById('c1').innerHTML = `<i class="fas fa-shopping-basket"></i> ${lang[curLang].c1}`;
-        document.getElementById('t1').innerText = lang[curLang].t1;
-        document.getElementById('orderBtn').innerText = lang[curLang].orderBtn;
         updateTime(); render();
     }
 
@@ -211,22 +274,36 @@
         t.innerText = "৳" + sum;
     }
 
-    function setRate(r) {
-        currentRating = r;
-        const stars = document.getElementById('star-rating').children;
-        for(let i=0; i<5; i++) stars[i].className = i < r ? "fas fa-star" : "far fa-star";
-    }
-
     function sendOrder() {
         const name = document.getElementById('custName').value;
         const phone = document.getElementById('custPhone').value;
         const addr = document.getElementById('custAddr').value;
+        const total = document.getElementById('total').innerText;
         if(!cart.length || !name || !phone || !addr) return alert("সব তথ্য পূরণ করুন!");
+
         const orderId = "LW-" + Math.floor(1000+Math.random()*9000);
-        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ orderId, name, phone, address: addr, total: document.getElementById('total').innerText }) });
+        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ orderId, name, phone, address: addr, total }) });
+
+        orders.push({ id: orderId, name, total, date: new Date().toLocaleDateString() });
+        localStorage.setItem('lw_orders', JSON.stringify(orders));
+
         let details = cart.map(i => `• ${i.n} (${i.qty}pc)`).join('%0A');
-        window.location.href = `https://wa.me/8801872720582?text=*Order: ${orderId}*%0A👤 Name: ${name}%0A👕 Items:%0A${details}%0A💰 Total: ${document.getElementById('total').innerText}`;
+        window.location.href = `https://wa.me/8801872720582?text=*Order: ${orderId}*%0A👤 Name: ${name}%0A💰 Total: ${total}%0A👕 Items:%0A${details}`;
         cart = []; save(); render();
+    }
+
+    function showAdmin() {
+        if(prompt("Admin Password:") === "7272") {
+            document.getElementById('admin-panel').style.display = 'block';
+            let rev = orders.reduce((s, o) => s + parseInt(o.total.replace(/[^\d]/g, '')), 0);
+            document.getElementById('adminStats').innerHTML = `
+                <div class="stat-card"><h3>Orders</h3><h2>${orders.length}</h2></div>
+                <div class="stat-card" style="background:#25D366"><h3>Revenue</h3><h2>৳${rev}</h2></div>
+            `;
+            document.getElementById('adminOrders').innerHTML = orders.reverse().map(o => `
+                <div class="item-row"><span>${o.id} - ${o.name} (${o.date})</span><b>${o.total}</b></div>
+            `).join('');
+        }
     }
     render();
 </script>
