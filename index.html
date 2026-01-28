@@ -140,66 +140,53 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 <script>
- const items = [
-    // --- Men's Wear (Wash & Iron) ---
-    {n: "Shirt (Wash & Iron)", p: 60, c: "Men"}, {n: "Shirt (Premium/Silk)", p: 100, c: "Men"},
-    {n: "Formal Pant (W&I)", p: 70, c: "Men"}, {n: "Jeans Pant (W&I)", p: 80, c: "Men"},
-    {n: "Gabardine Pant (W&I)", p: 80, c: "Men"}, {n: "Panjabi (Simple)", p: 100, c: "Men"},
-    {n: "Panjabi (Designer/Silk)", p: 200, c: "Men"}, {n: "Pyjama (W&I)", p: 60, c: "Men"},
-    {n: "Fatua (W&I)", p: 70, c: "Men"}, {n: "T-Shirt (W&I)", p: 50, c: "Men"},
-    {n: "Polo Shirt (W&I)", p: 60, c: "Men"}, {n: "Waistcoat (Koti)", p: 150, c: "Men"},
-    {n: "Suit/Blazer (2pc)", p: 350, c: "Men"}, {n: "Suit/Blazer (3pc)", p: 450, c: "Men"},
-    {n: "Jacket (Light)", p: 180, c: "Men"}, {n: "Jacket (Heavy)", p: 400, c: "Men"},
-    {n: "Sweater (W&I)", p: 120, c: "Men"}, {n: "Hoodie (W&I)", p: 150, c: "Men"},
-    {n: "Tracksuit (Full)", p: 200, c: "Men"}, {n: "Lungi (W&I)", p: 50, c: "Men"},
-    {n: "Sherwani (Normal)", p: 700, c: "Men"}, {n: "Sherwani (Heavy)", p: 1500, c: "Men"},
-    {n: "Men's Vest/Sando", p: 40, c: "Men"}, {n: "Briefs/Underwear", p: 40, c: "Men"},
-    {n: "Men's Scarf/Rumal", p: 60, c: "Men"}, {n: "Tie (Clean)", p: 50, c: "Men"},
-    {n: "Men's Cap/Toppi", p: 40, c: "Men"}, {n: "Socks (Pair)", p: 30, c: "Men"},
-    {n: "Raincoat (Clean)", p: 150, c: "Men"}, {n: "Leather Jacket (Polish)", p: 500, c: "Men"},
-    {n: "Twill Pant (W&I)", p: 80, c: "Men"}, {n: "Shorts/Half Pant", p: 50, c: "Men"},
+const items = [
+        // --- MEN'S WEAR ---
+        {n: "Shirt (Wash & Iron)", p: 60, c: "Men"},
+        {n: "Shirt (Only Iron)", p: 20, c: "Men"},
+        {n: "Formal Pant (W&I)", p: 70, c: "Men"},
+        {n: "Jeans Pant (W&I)", p: 80, c: "Men"},
+        {n: "Panjabi (Wash & Iron)", p: 100, c: "Men"},
+        {n: "Pajama (Wash & Iron)", p: 60, c: "Men"},
+        {n: "Suit/Blazer (2pc)", p: 350, c: "Men"},
+        {n: "Suit/Blazer (3pc)", p: 450, c: "Men"},
+        {n: "Sherwani (Heavy)", p: 800, c: "Men"},
+        {n: "T-Shirt (Wash & Iron)", p: 50, c: "Men"},
+        {n: "Lungi (Wash & Iron)", p: 40, c: "Men"},
+        {n: "Sweater/Cardigan", p: 150, c: "Men"},
+        {n: "Jacket (Normal)", p: 250, c: "Men"},
+        {n: "Leather Jacket (Dry)", p: 600, c: "Men"},
 
-    // --- Women's Wear (Wash & Iron) ---
-    {n: "Saree (Cotton)", p: 150, c: "Women"}, {n: "Saree (Silk)", p: 350, c: "Women"},
-    {n: "Saree (Katan)", p: 450, c: "Women"}, {n: "Saree (Stone Work)", p: 600, c: "Women"},
-    {n: "Saree (Jamdani)", p: 500, c: "Women"}, {n: "Three Piece (Normal)", p: 150, c: "Women"},
-    {n: "Three Piece (Party)", p: 300, c: "Women"}, {n: "Kameez (W&I)", p: 90, c: "Women"},
-    {n: "Salwar (W&I)", p: 80, c: "Women"}, {n: "Orna (Chiffon)", p: 60, c: "Women"},
-    {n: "Borka (Simple)", p: 180, c: "Women"}, {n: "Borka (Design)", p: 350, c: "Women"},
-    {n: "Hijab/Jilbab", p: 80, c: "Women"}, {n: "Abaya (Dubai)", p: 400, c: "Women"},
-    {n: "Lehenga (Normal)", p: 800, c: "Women"}, {n: "Lehenga (Bridal)", p: 2000, c: "Women"},
-    {n: "Gown (Party)", p: 500, c: "Women"}, {n: "Skirt (Long)", p: 150, c: "Women"},
-    {n: "Ladies Tops", p: 110, c: "Women"}, {n: "Blouse (Simple)", p: 70, c: "Women"},
-    {n: "Blouse (Work)", p: 130, c: "Women"}, {n: "Petticoat", p: 60, c: "Women"},
-    {n: "Ladies Blazer", p: 300, c: "Women"}, {n: "Nighty/Nightdress", p: 100, c: "Women"},
-    {n: "Ladies Jeans", p: 90, c: "Women"}, {n: "Leggings", p: 70, c: "Women"},
-    {n: "Shawl (Ladies)", p: 150, c: "Women"}, {n: "Kaftan", p: 250, c: "Women"},
-    {n: "Ladies Cardigan", p: 120, c: "Women"}, {n: "Ladies Overcoat", p: 350, c: "Women"},
+        // --- WOMEN'S WEAR ---
+        {n: "Saree (Cotton)", p: 150, c: "Women"},
+        {n: "Saree (Silk/Katan)", p: 400, c: "Women"},
+        {n: "Saree (Stone/Heavy)", p: 600, c: "Women"},
+        {n: "Three Piece (W&I)", p: 150, c: "Women"},
+        {n: "Kurti/Kaftan", p: 120, c: "Women"},
+        {n: "Borka (Simple)", p: 180, c: "Women"},
+        {n: "Borka (Stone Work)", p: 300, c: "Women"},
+        {n: "Hijab/Scarf", p: 50, c: "Women"},
+        {n: "Lehenga (Heavy)", p: 1200, c: "Women"},
+        {n: "Gown (Simple)", p: 400, c: "Women"},
+        {n: "Ladies Jacket", p: 200, c: "Women"},
+        {n: "Shawl (Wash)", p: 150, c: "Women"},
 
-    // --- Kids Wear ---
-    {n: "Kids Shirt", p: 60, c: "Kids"}, {n: "Kids Pant", p: 60, c: "Kids"},
-    {n: "Kids T-Shirt", p: 50, c: "Kids"}, {n: "Kids Frock", p: 100, c: "Kids"},
-    {n: "Kids Panjabi", p: 90, c: "Kids"}, {n: "Kids Jacket", p: 120, c: "Kids"},
-    {n: "Kids Sweater", p: 80, c: "Kids"}, {n: "Kids Blazer", p: 200, c: "Kids"},
-    {n: "Baby Blanket", p: 150, c: "Kids"}, {n: "Kids School Dress", p: 120, c: "Kids"},
-    {n: "Kids Party Suit", p: 400, c: "Kids"}, {n: "Kids Hoodie", p: 100, c: "Kids"},
-
-    // --- Household & Others ---
-    {n: "Bed Sheet (Single)", p: 120, c: "Household"}, {n: "Bed Sheet (Double)", p: 220, c: "Household"},
-    {n: "Bed Sheet (King)", p: 280, c: "Household"}, {n: "Pillow Cover", p: 50, c: "Household"},
-    {n: "Cushion Cover", p: 60, c: "Household"}, {n: "Blanket (Single)", p: 400, c: "Household"},
-    {n: "Blanket (Double)", p: 600, c: "Household"}, {n: "Comforter (Single)", p: 450, c: "Household"},
-    {n: "Comforter (Double)", p: 750, c: "Household"}, {n: "Curtain (Small)", p: 100, c: "Household"},
-    {n: "Curtain (Large)", p: 200, c: "Household"}, {n: "Table Cloth", p: 150, c: "Household"},
-    {n: "Sofa Cover (Seat)", p: 150, c: "Household"}, {n: "Prayer Mat (Janamaz)", p: 100, c: "Household"},
-    {n: "Mosquito Net", p: 150, c: "Household"}, {n: "Door Mat", p: 80, c: "Household"},
-    {n: "Carpet (per sqft)", p: 40, c: "Household"}, {n: "Kitchen Apron", p: 60, c: "Household"},
-    {n: "Fridge Cover", p: 100, c: "Household"}, {n: "Sneakers (Deep Clean)", p: 300, c: "Household"},
-    {n: "Leather Shoes", p: 150, c: "Household"}, {n: "Backpack", p: 250, c: "Household"},
-    {n: "Travel Bag", p: 450, c: "Household"}, {n: "Quilt (Kanth)", p: 300, c: "Household"},
-    {n: "Nokshi Kanth", p: 500, c: "Household"}, {n: "Towel (Gamcha)", p: 40, c: "Household"},
-    {n: "Bath Towel (Large)", p: 100, c: "Household"}
-];
+        // --- HOUSEHOLD / HOME ---
+        {n: "Blanket (Single)", p: 400, c: "Household"},
+        {n: "Blanket (Double)", p: 600, c: "Household"},
+        {n: "Bed Sheet (Single)", p: 100, c: "Household"},
+        {n: "Bed Sheet (Double)", p: 180, c: "Household"},
+        {n: "Pillow Cover", p: 30, c: "Household"},
+        {n: "Curtain (Normal)", p: 150, c: "Household"},
+        {n: "Curtain (Heavy/Net)", p: 250, c: "Household"},
+        {n: "Towel (Large)", p: 80, c: "Household"},
+        {n: "Door/Floor Mat", p: 50, c: "Household"},
+        {n: "Sneakers Clean", p: 300, c: "Household"},
+        {n: "Soft Toy (Small)", p: 100, c: "Household"},
+        {n: "Carpet (Per Sq. Ft)", p: 30, c: "Household"}
+        
+        // এখানে আপনি একইভাবে আপনার বাকি ৩০০ আইটেম যোগ করতে পারবেন
+    ];
     let cart = [];
     let discount = 0;
     let orders = JSON.parse(localStorage.getItem('lw_orders')) || [];
@@ -369,3 +356,4 @@
 </footer>
 </body>
 </html>
+
