@@ -62,6 +62,31 @@
     from { transform: translateY(-20px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
+.qr-section {
+    max-width: 600px;
+    width: 92%;
+    margin: 40px auto;
+    background: var(--card);
+    padding: 30px;
+    border-radius: 25px;
+    border: 2px dashed var(--main);
+    text-align: center;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+.qr-img {
+    background: white;
+    padding: 12px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,210,255,0.15);
+    border: 1px solid var(--border);
+}
+
+.qr-section:hover {
+    border-style: solid;
+    transform: translateY(-5px);
+}
 
     </style>
 </head>
@@ -245,11 +270,20 @@
         </div>
         <hr style="border: 0.5px solid rgba(255,255,255,0.1); margin: 15px 0;">
         <p style="font-size: 12px; opacity: 0.7;">&copy; 2026 Laundry’Wala - Uttara, Dhaka.</p>
-    </div>
+    </div> 
+        <div class="qr-section">
+    <h3 style="margin-bottom: 10px;"><i class="fas fa-qrcode"></i> স্ক্যান করে অর্ডার করুন</h3>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://rehab06052005-tech.github.io/laundrywala/" alt="LaundryWala QR" class="qr-img">
+    <p style="font-size: 14px; color: var(--text); opacity: 0.8; margin-top: 15px; font-weight: bold;">
+        Laundry’Wala - উত্তরা সার্ভিস
+    </p>
+</div>
+
 </footer>
 
 </body>
 </html>
+
 
 
 
