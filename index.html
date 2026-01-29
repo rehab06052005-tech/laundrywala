@@ -3,100 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laundry’Wala | Premium Online</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Laundry’wala </title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root { --bg: #F9FAFB; --white: #FFFFFF; --primary: #0066FF; --text: #111827; --border: #E5E7EB; --accent: #22C55E; }
-        [data-theme="dark"] { --bg: #0B0F1A; --white: #161B2E; --primary: #3B82F6; --text: #F9FAFB; --border: #2D3748; }
+        :root { --main: #00d2ff; --bg: #ffffff; --text: #1e293b; --card: #f8fafc; --border: #e2e8f0; }
+        [data-theme="dark"] { --bg: #0f172a; --text: #f8fafc; --card: #1e293b; --border: #334155; }
         
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 80px; transition: 0.3s; overflow-x: hidden; }
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Hind Siliguri', sans-serif; transition: 0.3s; padding-bottom: 100px; }
         
-        .header { background: var(--white); padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 20px; font-weight: 800; color: var(--primary); text-decoration:none; letter-spacing: -1px; }
+        .header { background: var(--main); color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; }
+        .nav { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 1000; }
         
-        .hero { position: relative; overflow: hidden; background: var(--white); padding: 60px 20px; text-align: center; border-bottom: 1px solid var(--border); }
-        .shape { position: absolute; border-radius: 50%; filter: blur(60px); z-index: 1; pointer-events: none; opacity: 0.5; }
-        
-        h1#heroTitle { font-size: 40px; font-weight: 800; margin: 0; background: linear-gradient(to right, var(--primary), #60A5FA); -webkit-background-clip: text; -webkit-text-fill-color: transparent; position: relative; z-index: 2; }
-        
-        .search-container { max-width: 500px; margin: 25px auto; position: relative; z-index: 2; }
-        .search-bar { width: 100%; background: var(--bg); border: 1px solid var(--border); padding: 15px 20px; border-radius: 15px; box-sizing: border-box; font-size: 16px; outline: none; }
+        .hero { text-align: center; padding: 30px 20px; }
+        .search-container { position: relative; max-width: 500px; margin: 0 auto; }
+        .search-bar { width: 100%; padding: 15px 45px 15px 20px; border-radius: 30px; border: 2px solid var(--main); outline: none; background: var(--bg); color: var(--text); font-size: 16px; box-sizing: border-box; }
+        .search-icon { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--main); }
 
-        .categories { display: flex; gap: 10px; overflow-x: auto; padding: 20px; scrollbar-width: none; justify-content: start; }
-        .cat-btn { background: var(--white); border: 1px solid var(--border); padding: 10px 20px; border-radius: 50px; font-weight: 600; cursor: pointer; white-space: nowrap; color: var(--text); }
-        .cat-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; padding: 15px; }
-        .card { background: var(--white); padding: 15px; border-radius: 20px; border: 1px solid var(--border); transition: 0.3s; }
-        .card h3 { font-size: 14px; margin: 10px 0; font-weight: 700; height: 35px; overflow: hidden; }
-        .price { font-size: 16px; font-weight: 800; color: var(--primary); }
-
-        .item-controls { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
-        .ctrl-btn { background: var(--primary); color: white; border: none; width: 30px; height: 30px; border-radius: 8px; cursor: pointer; }
-
-        .cart-bar { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; background: #000; color: white; padding: 15px 20px; border-radius: 20px; display: none; justify-content: space-between; align-items: center; z-index: 1001; }
-
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; z-index: 2000; backdrop-filter: blur(8px); }
-        .sheet { position: absolute; bottom: 0; background: var(--white); width: 100%; border-radius: 30px 30px 0 0; padding: 30px; box-sizing: border-box; max-height: 80vh; overflow-y: auto; }
+        /* Item Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 20px; max-width: 1000px; margin: 0 auto; }
+        .card { background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 20px; text-align: center; transition: 0.3s; }
+        .card h4 { margin: 0 0 10px 0; font-size: 15px; height: 35px; overflow: hidden; }
+        .price { color: var(--main); font-weight: 800; font-size: 18px; margin-bottom: 12px; }
         
-        #memberCard { background: linear-gradient(135deg, #0066FF, #003399); color: white; padding: 20px; border-radius: 20px; margin: 15px; display: none; }
+        /* +/- Controls */
+        .controls { display: flex; justify-content: center; align-items: center; gap: 12px; }
+        .btn-qty { background: var(--main); color: white; border: none; width: 30px; height: 30px; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; transition: 0.2s; }
+        .btn-qty:active { transform: scale(0.9); }
+        .qty-val { font-weight: 800; font-size: 18px; min-width: 25px; }
+
+        /* Floating Cart */
+        .floating-cart { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; background: #111; color: white; padding: 15px 25px; border-radius: 20px; display: none; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 2000; }
+        
+        /* Modal */
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; z-index: 3000; backdrop-filter: blur(5px); }
+        .sheet { position: absolute; bottom: 0; background: var(--bg); width: 100%; border-radius: 30px 30px 0 0; padding: 30px; box-sizing: border-box; max-height: 85vh; overflow-y: auto; }
+        
+        input, textarea { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid var(--border); background: var(--card); color: var(--text); box-sizing: border-box; }
+        .confirm-btn { width: 100%; background: #25D366; color: white; padding: 18px; border: none; border-radius: 15px; font-weight: 800; font-size: 18px; margin-top: 20px; cursor: pointer; }
+
+        footer { background: #1e293b; color: white; padding: 40px 20px; text-align: center; margin-top: 50px; }
+        .admin-link { opacity: 0.1; font-size: 10px; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body data-theme="light">
 
-<header class="header">
-    <a href="#" class="logo">LAUNDRY’WALA</a>
-    <button onclick="toggleTheme()" style="background:none; border:none; color:var(--text); cursor:pointer;"><i class="fas fa-adjust"></i></button>
-</header>
+<div class="header">
+    <div id="date-time"></div>
+    <div><i class="fab fa-whatsapp"></i> 01872720582</div>
+</div>
+
+<nav class="nav">
+    <div style="font-size: 24px; font-weight: 800; color: var(--main);">Laundry’Wala</div>
+    <button onclick="dark()" style="background:none; border:none; color:var(--text); cursor:pointer; font-size: 20px;"><i class="fas fa-adjust"></i></button>
+</nav>
 
 <section class="hero">
-    <div class="shape" style="top: -10%; right: -5%; width: 200px; height: 200px; background: rgba(0,102,255,0.2);"></div>
-    <div class="hero-content">
-        <h1 id="heroTitle">Laundry’Wala</h1>
-        <p style="opacity: 0.6; margin-top: 5px;">Premium Fabric Care</p>
-        <div class="search-container">
-            <input type="text" class="search-bar" id="searchInp" placeholder="Search items..." onkeyup="search()">
-        </div>
+    <h1>কি পরিষ্কার করাতে চাচ্ছেন ?</h1>
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-bar" placeholder="আইটেম সার্চ করুন (যেমন: শার্ট)..." onkeyup="filterItems()">
+        <i class="fas fa-search search-icon"></i>
     </div>
 </section>
 
-<div id="memberCard">
-    <div style="font-size: 12px; opacity: 0.8;">LOYALTY POINTS</div>
-    <div id="uPoints" style="font-size: 30px; font-weight: 800;">0</div>
-    <button onclick="applyPoints()" style="background:white; color:var(--primary); border:none; padding:8px 15px; border-radius:10px; font-weight:800; margin-top:10px; cursor:pointer;">REDEEM</button>
-</div>
-
-<div class="categories">
-    <button class="cat-btn active" onclick="filterCat('All')">All Items</button>
-    <button class="cat-btn" onclick="filterCat('Men')">Men</button>
-    <button class="cat-btn" onclick="filterCat('Women')">Women</button>
-    <button class="cat-btn" onclick="filterCat('Household')">Home</button>
-</div>
-
 <div class="grid" id="productGrid"></div>
 
-<div class="cart-bar" id="cartBar">
-    <div id="cartStatus" style="font-weight: 700;">৳০</div>
-    <button onclick="toggleOverlay('checkout-sheet', true)" style="background:var(--primary); color:white; border:none; padding:10px 15px; border-radius:10px; font-weight:800;">CHECKOUT</button>
+<div class="floating-cart" id="cartBar">
+    <div>
+        <span style="opacity: 0.7; font-size: 12px;">মোট বিল:</span>
+        <div id="totalBill" style="font-size: 22px; font-weight: 800;">৳০</div>
+    </div>
+    <button onclick="openCheckout()" style="background:var(--main); color:white; border:none; padding:12px 25px; border-radius:15px; font-weight:800; cursor:pointer;">অর্ডার দিন</button>
 </div>
 
-<div id="checkout-sheet" class="overlay">
+<div id="checkoutModal" class="overlay">
     <div class="sheet">
-        <h2 style="margin:0;">Your Basket</h2>
-        <div id="basketItems" style="margin: 20px 0;"></div>
-        <input type="tel" id="cPhone" placeholder="Phone Number" oninput="checkLoyalty()">
-        <input type="text" id="cName" placeholder="Your Name">
-        <textarea id="cAddr" placeholder="Address"></textarea>
-        <button onclick="confirmOrder()" style="width:100%; padding:15px; background:var(--primary); color:white; border:none; border-radius:15px; font-weight:800; margin-top:20px;">Order on WhatsApp</button>
-        <button onclick="toggleOverlay('checkout-sheet', false)" style="width:100%; background:none; border:none; margin-top:10px; color:red;">Cancel</button>
+        <h2 style="margin-top:0;">অর্ডার সামারি</h2>
+        <div id="orderSummary" style="margin-bottom: 20px; border-bottom: 1px dashed var(--border); padding-bottom: 15px;"></div>
+        
+        <input type="text" id="cName" placeholder="আপনার নাম">
+        <input type="tel" id="cPhone" placeholder="মোবাইল নম্বর">
+        <textarea id="cAddr" placeholder="পুরো ঠিকানা (উত্তরা, ঢাকা)"></textarea>
+        
+        <button class="confirm-btn" onclick="submitOrder()">কনফার্ম ও হোয়াটসঅ্যাপ</button>
+        <button onclick="closeCheckout()" style="width:100%; background:none; border:none; color:red; margin-top:15px; cursor:pointer;">বন্ধ করুন</button>
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<footer>
+    <div style="font-size: 22px; font-weight: 800; color: var(--main); margin-bottom: 10px;">Laundry’Wala</div>
+    <p>উত্তরা’র সবচেয়ে বিশ্বস্ত অনলাইন লন্ড্রি সার্ভিস।</p>
+    <p><i class="fas fa-phone"></i> ০১৮৭২৭২০৫৮২<br><i class="fas fa-envelope"></i> laundrywala72720@gmail.com</p>
+    <div class="admin-link" onclick="adm()">ADMIN LOGIN</div>
+</footer>
 
 <script>
+    // আপনার গুগল শিট লিংটা এখানে বসানো আছে
+    const scriptURL = 'https://script.google.com/macros/s/AKfycby8KM_fK_TfF1n3zdFF3ji9vnOXLUkXLMTFHLbRNXYjn2L8gTUJXn2OAlQ8yyymwcwd/exec';
+    
    const items = [
     // --- Men's Wear (Wash & Iron) ---
     {n: "Shirt (Wash & Iron)", p: 60, c: "Men"}, {n: "Shirt (Premium/Silk)", p: 100, c: "Men"},
@@ -157,86 +162,197 @@
     {n: "Nokshi Kanth", p: 500, c: "Household"}, {n: "Towel (Gamcha)", p: 40, c: "Household"},
     {n: "Bath Towel (Large)", p: 100, c: "Household"}
 ];
-    let cart = [];
-    let discount = 0;
 
-    // পন্য দেখানোর মেইন ফাংশন
-    function render(list) {
-        const container = document.getElementById('productGrid');
-        container.innerHTML = ""; // আগের গুলো ক্লিয়ার করা
-        
-        list.forEach(i => {
-            const inCart = cart.find(x => x.n === i.n) || {q: 0};
-            const div = document.createElement('div');
-            div.className = 'card';
-            div.innerHTML = `
-                <h3>${i.n}</h3>
-                <div class="price">৳${i.p}</div>
-                <div class="item-controls">
-                    <button class="ctrl-btn" onclick="updateQty('${i.n}', ${i.p}, -1)">-</button>
-                    <span style="font-weight:800;">${inCart.q}</span>
-                    <button class="ctrl-btn" onclick="updateQty('${i.n}', ${i.p}, 1)">+</button>
+    let cart = {}; // স্টোর করবে { "আইটেম নাম": পরিমাণ }
+
+    function loadItems(data) {
+        const grid = document.getElementById('productGrid');
+        grid.innerHTML = data.map(item => `
+            <div class="card">
+                <h4>${item.n}</h4>
+                <div class="price">৳${item.p}</div>
+                <div class="controls">
+                    <button class="btn-qty" onclick="changeQty('${item.n}', -1)">-</button>
+                    <span class="qty-val" id="qty-${item.n}">${cart[item.n] || 0}</span>
+                    <button class="btn-qty" onclick="changeQty('${item.n}', 1)">+</button>
                 </div>
-            `;
-            container.appendChild(div);
-        });
-    }
-
-    function updateQty(n, p, d) {
-        const i = cart.find(x => x.n === n);
-        if(i) { i.q += d; if(i.q < 1) cart = cart.filter(x => x.n !== n); }
-        else if(d > 0) cart.push({n, p, q: 1});
-        updateUI();
-        render(items);
-    }
-
-    function updateUI() {
-        const subtotal = cart.reduce((s, i) => s + (i.p * i.q), 0);
-        const final = subtotal - discount;
-        document.getElementById('cartBar').style.display = subtotal > 0 ? 'flex' : 'none';
-        document.getElementById('cartStatus').innerText = `৳${final}`;
-        
-        document.getElementById('basketItems').innerHTML = cart.map(i => `
-            <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #eee;">
-                <span>${i.n} (x${i.q})</span>
-                <b>৳${i.p * i.q}</b>
             </div>
         `).join('');
     }
 
-    // পেজ লোড হলে যা ঘটবে
-    window.onload = () => {
-        render(items); // সাথে সাথে পন্য দেখাবে
-        gsap.from(".card", { opacity: 0, y: 20, stagger: 0.05, duration: 0.5 });
-    };
-
-    function filterCat(c) {
-        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-        event.target.classList.add('active');
-        const filtered = c === 'All' ? items : items.filter(i => i.c === c);
-        render(filtered);
+    function changeQty(name, delta) {
+        if (!cart[name]) cart[name] = 0;
+        cart[name] += delta;
+        if (cart[name] < 0) cart[name] = 0;
+        
+        // UI আপডেট
+        const el = document.getElementById(`qty-${name}`);
+        if(el) el.innerText = cart[name];
+        
+        updateCartBar();
     }
 
-    function search() {
-        const q = document.getElementById('searchInp').value.toLowerCase();
-        render(items.filter(i => i.n.toLowerCase().includes(q)));
+    function updateCartBar() {
+        let total = 0;
+        let hasItems = false;
+        items.forEach(i => {
+            if (cart[i.n] > 0) {
+                total += (i.p * cart[i.n]);
+                hasItems = true;
+            }
+        });
+        
+        const bar = document.getElementById('cartBar');
+        bar.style.display = hasItems ? 'flex' : 'none';
+        document.getElementById('totalBill').innerText = `৳${total}`;
     }
 
-    function toggleOverlay(id, show) { document.getElementById(id).style.display = show ? 'block' : 'none'; }
-
-    function toggleTheme() {
-        const b = document.body;
-        b.setAttribute('data-theme', b.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    function filterItems() {
+        const q = document.getElementById('searchInput').value.toLowerCase();
+        const filtered = items.filter(i => i.n.toLowerCase().includes(q));
+        loadItems(filtered);
     }
 
-    function confirmOrder() {
+    function openCheckout() {
+        document.getElementById('checkoutModal').style.display = 'block';
+        let summary = "";
+        let total = 0;
+        items.forEach(i => {
+            if (cart[i.n] > 0) {
+                summary += `<div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span>${i.n} x ${cart[i.n]}</span>
+                    <b>৳${i.p * cart[i.n]}</b>
+                </div>`;
+                total += (i.p * cart[i.n]);
+            }
+        });
+        document.getElementById('orderSummary').innerHTML = summary + `<div style="margin-top:10px; border-top:2px solid var(--main); padding-top:10px; font-weight:800; font-size:18px; display:flex; justify-content:space-between;"><span>মোট:</span><span>৳${total}</span></div>`;
+    }
+
+    function closeCheckout() { document.getElementById('checkoutModal').style.display = 'none'; }
+
+    function submitOrder() {
         const name = document.getElementById('cName').value;
         const phone = document.getElementById('cPhone').value;
-        if(!name || !phone) return alert("Please enter details");
+        const addr = document.getElementById('cAddr').value;
+        const total = document.getElementById('totalBill').innerText;
+
+        if (!name || !phone || !addr) return alert("দয়া করে নাম, ফোন এবং ঠিকানা দিন!");
+
+        // ১. গুগল শিটে ডাটা পাঠানো
+        const orderDetails = items.filter(i => cart[i.n] > 0).map(i => `${i.n}(${cart[i.n]})`).join(", ");
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({ name, phone, address: addr, total, items: orderDetails })
+        });
+
+        // ২. হোয়াটসঅ্যাপ মেসেজ
+        let msg = `*NEW ORDER - LaundryWala*%0A👤 নাম: ${name}%0A📞 ফোন: ${phone}%0A📍 ঠিকানা: ${addr}%0A--------------------------%0A👕 আইটেম সমূহ:%0A${items.filter(i => cart[i.n] > 0).map(i => `• ${i.n} (x${cart[i.n]})`).join('%0A')}%0A--------------------------%0A💰 মোট বিল: ${total}`;
         
-        let itemsTxt = cart.map(i => `• ${i.n} (x${i.q})`).join('%0A');
-        let msg = `*NEW ORDER*%0AName: ${name}%0APhone: ${phone}%0AItems:%0A${itemsTxt}`;
         window.location.href = `https://wa.me/8801872720582?text=${msg}`;
+    }
+
+    function dark() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme')==='dark'?'light':'dark'); }
+    
+    function adm() { if(prompt("Password:") === "7272") alert("আপনার সব অর্ডার গুগল শিটে জমা হচ্ছে। শিটটি চেক করুন।"); }
+
+    function tick() {
+        const n = new Date();
+        document.getElementById('date-time').innerText = n.toLocaleDateString() + " | " + n.toLocaleTimeString();
+    }
+    setInterval(tick, 1000); tick();
+
+    window.onload = () => loadItems(items);
+</script>
+    <footer class="main-footer" style="background: #1e293b; color: #f8fafc; padding: 50px 20px 20px; margin-top: 50px; border-top: 5px solid #00d2ff; text-align: center;">
+    <div style="max-width: 1100px; margin: 0 auto;">
+        <h2 style="color: #00d2ff; margin-bottom: 10px;">Laundry’Wala</h2>
+        <p style="opacity: 0.8; font-size: 14px;">Uttara'r shera online laundry service. Amra apnar kaporer shoptheke beshi jotno nei.</p>
+        
+        <div style="margin: 20px 0; display: flex; justify-content: center; gap: 20px;">
+            <a href="https://wa.me/8801872720582" style="color: white; font-size: 20px;"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:laundrywala72720@gmail.com" style="color: white; font-size: 20px;"><i class="fas fa-envelope"></i></a>
+        </div>
+
+        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 13px; opacity: 0.6;">
+            <p>&copy; 2026 Laundry’Wala | Uttara, Dhaka</p>
+            <span onclick="adm()" style="cursor: pointer; text-decoration: underline; color: #00d2ff;">Admin Login</span>
+        </div>
+    </div>
+</footer>
+
+<div id="adminPanel" style="display:none; position:fixed; inset:0; background:white; z-index:9999; padding:20px; overflow-y:auto; color: #1e293b;">
+    <div style="max-width:600px; margin:0 auto;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #00d2ff; padding-bottom:10px;">
+            <h2 style="margin:0;">Dashboard</h2>
+            <button onclick="closeAdmin()" style="background:#ff4444; color:white; border:none; padding:8px 15px; border-radius:8px; cursor:pointer;">Close</button>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-top:20px;">
+            <div style="background:#00d2ff; color:white; padding:20px; border-radius:15px; text-align:center;">
+                <small>Total Sales</small>
+                <div id="adminTotalSales" style="font-size:24px; font-weight:800;">৳০</div>
+            </div>
+            <div style="background:#f1f5f9; padding:20px; border-radius:15px; text-align:center;">
+                <small>Orders</small>
+                <div id="adminTotalOrders" style="font-size:24px; font-weight:800;">০</div>
+            </div>
+        </div>
+
+        <h3 style="margin-top:30px;">Recent Orders</h3>
+        <div id="adminOrderList" style="margin-top:10px;">
+            </div>
+        
+        <button onclick="window.open('https://docs.google.com/spreadsheets/d/your-id')" style="width:100%; margin-top:20px; padding:15px; background:#1D8043; color:white; border:none; border-radius:10px; cursor:pointer;">
+            Open Google Sheets
+        </button>
+    </div>
+</div>
+
+<script>
+    // Admin Password Logic
+    function adm() {
+        let pass = prompt("Admin Password Din:");
+        if(pass === "7272") {
+            document.getElementById('adminPanel').style.display = 'block';
+            updateAdminUI();
+        } else {
+            alert("Wrong Password!");
+        }
+    }
+
+    function closeAdmin() {
+        document.getElementById('adminPanel').style.display = 'none';
+    }
+
+    // Local Storage theke data niye dashboard update kora
+    function updateAdminUI() {
+        let history = JSON.parse(localStorage.getItem('lw_history')) || [];
+        let total = 0;
+        let listHtml = "";
+
+        history.forEach(order => {
+            let price = parseInt(order.total.replace(/[^\d]/g, '')) || 0;
+            total += price;
+            listHtml += `
+                <div style="background:#f8fafc; padding:10px; border-radius:10px; margin-bottom:10px; border-left:4px solid #00d2ff;">
+                    <b>${order.name}</b> - ${order.total}<br>
+                    <small>${order.items}</small>
+                </div>
+            `;
+        });
+
+        document.getElementById('adminTotalSales').innerText = "৳" + total;
+        document.getElementById('adminTotalOrders').innerText = history.length;
+        document.getElementById('adminOrderList').innerHTML = listHtml || "<p>No orders yet today.</p>";
+    }
+
+    // Order confirm korar shomoy eita call hobe (submitOrder function er bhetore)
+    function trackOrder(name, total, items) {
+        let history = JSON.parse(localStorage.getItem('lw_history')) || [];
+        history.push({name, total, items, time: new Date().toLocaleString()});
+        localStorage.setItem('lw_history', JSON.stringify(history));
     }
 </script>
 </body>
