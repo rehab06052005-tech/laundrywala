@@ -3,49 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laundry’wala | Uttara's Best Service</title>
+    <title>Laundry’wala | ধামাকা অফার!</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root { --main: #00d2ff; --bg: #ffffff; --text: #1e293b; --card: #f8fafc; --border: #e2e8f0; }
+        :root { --main: #00d2ff; --offer: #ff416c; --bg: #ffffff; --text: #1e293b; --card: #f8fafc; --border: #e2e8f0; }
         [data-theme="dark"] { --bg: #0f172a; --text: #f8fafc; --card: #1e293b; --border: #334155; }
         
         body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Hind Siliguri', sans-serif; transition: 0.3s; padding-bottom: 100px; }
         
+        /* অফার ব্যানার */
+        .promo-banner { background: linear-gradient(90deg, #ff4b2b, #ff416c); color: white; padding: 10px 0; font-weight: bold; text-align: center; font-size: 14px; }
+        .discount-hero { background: var(--card); margin: 15px; padding: 25px 20px; border-radius: 20px; text-align: center; border: 2px dashed var(--offer); position: relative; }
+        .offer-badge { position: absolute; top: -15px; right: -10px; background: var(--offer); color: white; padding: 5px 15px; border-radius: 50px; font-weight: 800; font-size: 14px; transform: rotate(15deg); animation: pulse 1.5s infinite; }
+        
+        @keyframes pulse { 0% { transform: rotate(15deg) scale(1); } 50% { transform: rotate(15deg) scale(1.1); } 100% { transform: rotate(15deg) scale(1); } }
+
         .header { background: var(--main); color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; }
         .nav { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 1000; }
         
-        .hero { text-align: center; padding: 20px; }
-        .search-container { position: relative; max-width: 500px; margin: 10px auto; }
-        .search-bar { width: 100%; padding: 12px 45px 12px 20px; border-radius: 25px; border: 2px solid var(--main); outline: none; background: var(--bg); color: var(--text); box-sizing: border-box; }
+        .search-bar { width: 90%; max-width: 500px; padding: 12px 20px; border-radius: 25px; border: 2px solid var(--main); outline: none; background: var(--bg); color: var(--text); display: block; margin: 20px auto; }
 
         .cat-tabs { display: flex; overflow-x: auto; gap: 10px; padding: 10px 20px; white-space: nowrap; scrollbar-width: none; }
-        .cat-tabs::-webkit-scrollbar { display: none; }
-        .tab { padding: 8px 18px; border-radius: 20px; border: 1px solid var(--border); cursor: pointer; font-weight: bold; transition: 0.3s; background: var(--card); }
+        .tab { padding: 8px 18px; border-radius: 20px; border: 1px solid var(--border); cursor: pointer; font-weight: bold; background: var(--card); }
         .tab.active { background: var(--main); color: white; border-color: var(--main); }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 20px; max-width: 1000px; margin: 0 auto; }
-        .card { background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 20px; text-align: center; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .card h4 { margin: 0 0 10px; font-size: 15px; height: 35px; overflow: hidden; }
-        .price { color: var(--main); font-weight: 800; font-size: 18px; margin-bottom: 12px; }
+        .card { background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 20px; text-align: center; position: relative; }
+        .old-price { text-decoration: line-through; color: #94a3b8; font-size: 13px; margin-right: 5px; }
+        .new-price { color: var(--offer); font-weight: 800; font-size: 18px; }
         
-        .controls { display: flex; justify-content: center; align-items: center; gap: 10px; }
-        .btn-qty { background: var(--main); color: white; border: none; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; font-size: 18px; }
-
+        .btn-qty { background: var(--main); color: white; border: none; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; }
         .see-more-btn { display: block; margin: 20px auto; padding: 10px 30px; background: none; border: 2px solid var(--main); color: var(--main); border-radius: 20px; font-weight: bold; cursor: pointer; }
 
-        .floating-cart { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; background: #111; color: white; padding: 15px 25px; border-radius: 20px; display: none; justify-content: space-between; align-items: center; z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        
+        .floating-cart { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; background: #111; color: white; padding: 15px 25px; border-radius: 20px; display: none; justify-content: space-between; align-items: center; z-index: 2000; }
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; z-index: 3000; backdrop-filter: blur(5px); }
         .sheet { position: absolute; bottom: 0; background: var(--bg); width: 100%; border-radius: 30px 30px 0 0; padding: 30px; box-sizing: border-box; max-height: 85vh; overflow-y: auto; }
-        input, textarea { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid var(--border); background: var(--card); color: var(--text); box-sizing: border-box; }
-        .confirm-btn { width: 100%; background: #25D366; color: white; padding: 18px; border: none; border-radius: 15px; font-weight: 800; font-size: 18px; margin-top: 20px; cursor: pointer; }
         
         footer { background: #1e293b; color: white; padding: 40px 20px; text-align: center; margin-top: 50px; }
     </style>
 </head>
 <body data-theme="light">
+
+<div class="promo-banner">
+    <marquee>🎉 ধামাকা অফার: সব অর্ডারে ফ্ল্যাট ১৫% ডিসকাউন্ট! অফারটি লুফে নিতে আজই অর্ডার করুন। 🎉</marquee>
+</div>
+
+<div class="discount-hero">
+    <div class="offer-badge">15% OFF</div>
+    <h2>Laundry’wala ধামাকা অফার!</h2>
+    <p>সব সার্ভিসে সরাসরি ১৫% ছাড়। উত্তরা এলাকায় ফ্রি পিকআপ!</p>
+</div>
 
 <div class="header">
     <div id="date-time"></div>
@@ -57,12 +66,7 @@
     <button onclick="dark()" style="background:none; border:none; color:var(--text); cursor:pointer;"><i class="fas fa-adjust"></i></button>
 </nav>
 
-<section class="hero">
-    <div class="search-container">
-        <input type="text" id="searchInput" class="search-bar" placeholder="আইটেম খুঁজুন..." onkeyup="handleSearch()">
-        <i class="fas fa-search" style="position: absolute; right: 20px; top: 15px; color: var(--main);"></i>
-    </div>
-</section>
+<input type="text" id="searchInput" class="search-bar" placeholder="আইটেম খুঁজুন..." onkeyup="handleSearch()">
 
 <div class="cat-tabs">
     <div class="tab active" onclick="setCategory('All', this)">সব আইটেম</div>
@@ -77,40 +81,35 @@
 
 <div class="floating-cart" id="cartBar">
     <div>
-        <span style="opacity: 0.7; font-size: 12px;">মোট বিল:</span>
+        <span style="opacity: 0.7; font-size: 12px;">মোট বিল (ডিসকাউন্ট সহ):</span>
         <div id="totalBill" style="font-size: 20px; font-weight: 800;">৳০</div>
     </div>
-    <button onclick="openCheckout()" style="background:var(--main); color:white; border:none; padding:10px 25px; border-radius:12px; font-weight:800; cursor:pointer;">অর্ডার দিন</button>
+    <button onclick="openCheckout()" style="background:var(--main); color:white; border:none; padding:10px 20px; border-radius:12px; font-weight:800; cursor:pointer;">অর্ডার দিন</button>
 </div>
 
 <div id="checkoutModal" class="overlay">
     <div class="sheet">
-        <h2 style="margin:0 0 15px 0;">অর্ডার সামারি</h2>
-        <div id="orderSummary" style="margin-bottom: 20px; border-bottom: 1px dashed var(--border);"></div>
-        <input type="text" id="cName" placeholder="আপনার নাম">
-        <input type="tel" id="cPhone" placeholder="মোবাইল নম্বর">
-        <textarea id="cAddr" placeholder="পুরো ঠিকানা (উত্তরা, ঢাকা)"></textarea>
+        <h2 style="margin-top:0;">অর্ডার সামারি</h2>
+        <div id="orderSummary" style="margin-bottom: 20px; border-bottom: 1px dashed var(--border); padding-bottom: 10px;"></div>
+        <input type="text" id="cName" placeholder="আপনার নাম" style="width:100%; padding:12px; margin-bottom:10px; border-radius:10px; border:1px solid var(--border);">
+        <input type="tel" id="cPhone" placeholder="মোবাইল নম্বর" style="width:100%; padding:12px; margin-bottom:10px; border-radius:10px; border:1px solid var(--border);">
+        <textarea id="cAddr" placeholder="পুরো ঠিকানা (উত্তরা, ঢাকা)" style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border);"></textarea>
         <button class="confirm-btn" onclick="submitOrder()">কনফার্ম ও হোয়াটসঅ্যাপ</button>
         <button onclick="closeCheckout()" style="width:100%; background:none; border:none; color:red; margin-top:15px; cursor:pointer;">বন্ধ করুন</button>
     </div>
 </div>
 
 <footer>
-    <h2 style="color: var(--main); margin-bottom: 10px;">Laundry’wala</h2>
-    <p> 01872720582 | laundrywala72720@gmail.com</p>
-    <p style="opacity: 0.6; font-size: 12px;">উত্তরা, ঢাকা-১২৩০</p>
-    <span onclick="adm()" style="cursor:pointer; opacity: 0.1; font-size: 10px; display:block; margin-top:20px;">Admin Login</span>
+    <h2>Laundry’wala</h2>
+    <p>01872720582 | laundrywala72720@gmail.com</p>
+    <span onclick="adm()" style="cursor:pointer; opacity: 0.1; font-size: 10px;">Admin Login</span>
 </footer>
 
 <div id="adminPanel" style="display:none; position:fixed; inset:0; background:white; z-index:9999; padding:20px; overflow-y:auto; color: #111;">
     <div style="max-width:600px; margin:0 auto;">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="display:flex; justify-content:space-between;">
             <h2>Admin Dashboard</h2>
-            <button onclick="closeAdmin()" style="padding:10px; background:red; color:white; border:none; border-radius:10px;">Close</button>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:20px 0;">
-            <div style="background:var(--main); padding:20px; border-radius:15px; color:white;">Total Sales: <br><span id="admTotal" style="font-size:22px; font-weight:800;">৳০</span></div>
-            <div style="background:#eee; padding:20px; border-radius:15px;">Total Orders: <br><span id="admOrders" style="font-size:22px; font-weight:800;">০</span></div>
+            <button onclick="closeAdmin()" style="background:red; color:white; border:none; padding:10px; border-radius:10px;">Close</button>
         </div>
         <div id="admOrderList"></div>
     </div>
@@ -119,87 +118,109 @@
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycby2MSovJJmGavR4P4S4moBNnDgWSNflajBnJj7v7OC9FpC77bMctUCGIEWjIWLgnsI/exec';
     
-   const items = [
-        // --- MEN'S WEAR (ছেলেদের) ---
-        {n: "Shirt (Wash & Iron)", p: 60, c: "Men"},
-        {n: "Shirt (Iron Only)", p: 20, c: "Men"},
-        {n: "Formal Pant (W&I)", p: 70, c: "Men"},
-        {n: "Jeans Pant (W&I)", p: 80, c: "Men"},
-        {n: "Gabardine Pant (W&I)", p: 75, c: "Men"},
-        {n: "Panjabi (Simple)", p: 100, c: "Men"},
-        {n: "Panjabi (Heavy/Embroidery)", p: 180, c: "Men"},
-        {n: "Pajama", p: 60, c: "Men"},
-        {n: "T-Shirt", p: 50, c: "Men"},
-        {n: "Polo Shirt", p: 60, c: "Men"},
-        {n: "Suit/Blazer (2pc)", p: 350, c: "Men"},
-        {n: "Suit/Blazer (3pc)", p: 500, c: "Men"},
-        {n: "Coating/Overcoat", p: 450, c: "Men"},
-        {n: "Lungi", p: 50, c: "Men"},
-        {n: "Genji/Vest", p: 30, c: "Men"},
-        {n: "Underwear", p: 25, c: "Men"},
-        {n: "Sweater (Normal)", p: 150, c: "Men"},
-        {n: "Sweater (Heavy)", p: 250, c: "Men"},
-        {n: "Jacket (Windbreaker)", p: 200, c: "Men"},
-        {n: "Jacket (Leather/Heavy)", p: 450, c: "Men"},
-        {n: "Tie", p: 40, c: "Men"},
-        {n: "Cap/Prayer Cap", p: 30, c: "Men"},
+ const items = [
+    // --- MEN'S WEAR (ছেলেদের) ---
+    {n: "Shirt (Wash & Iron)", p: 60, c: "Men"},
+    {n: "Shirt (Iron Only)", p: 20, c: "Men"},
+    {n: "Formal Pant (W&I)", p: 70, c: "Men"},
+    {n: "Jeans Pant (W&I)", p: 80, c: "Men"},
+    {n: "Gabardine Pant (W&I)", p: 75, c: "Men"},
+    {n: "Panjabi (Simple)", p: 100, c: "Men"},
+    {n: "Panjabi (Heavy/Embroidery)", p: 180, c: "Men"},
+    {n: "Pajama", p: 60, c: "Men"},
+    {n: "T-Shirt", p: 50, c: "Men"},
+    {n: "Polo Shirt", p: 60, c: "Men"},
+    {n: "Suit/Blazer (2pc)", p: 350, c: "Men"},
+    {n: "Suit/Blazer (3pc)", p: 500, c: "Men"},
+    {n: "Prince Coat", p: 400, c: "Men"},
+    {n: "Coating/Overcoat", p: 450, c: "Men"},
+    {n: "Waistcoat (Koti)", p: 150, c: "Men"},
+    {n: "Lungi", p: 50, c: "Men"},
+    {n: "Genji/Vest", p: 30, c: "Men"},
+    {n: "Underwear", p: 25, c: "Men"},
+    {n: "Sweater (Normal)", p: 150, c: "Men"},
+    {n: "Sweater (Heavy)", p: 250, c: "Men"},
+    {n: "Jacket (Windbreaker)", p: 200, c: "Men"},
+    {n: "Jacket (Leather/Heavy)", p: 450, c: "Men"},
+    {n: "Hoodie", p: 150, c: "Men"},
+    {n: "Tracksuit", p: 250, c: "Men"},
+    {n: "Tie", p: 40, c: "Men"},
+    {n: "Cap/Prayer Cap", p: 30, c: "Men"},
+    {n: "Handkerchief", p: 15, c: "Men"},
+    {n: "Socks (Pair)", p: 25, c: "Men"},
 
-        // --- WOMEN'S WEAR (মেয়েদের) ---
-        {n: "Saree (Cotton)", p: 150, c: "Women"},
-        {n: "Saree (Silk/Katan)", p: 350, c: "Women"},
-        {n: "Saree (Net/Georgette)", p: 250, c: "Women"},
-        {n: "Three Piece (Cotton)", p: 150, c: "Women"},
-        {n: "Three Piece (Silk/Heavy)", p: 250, c: "Women"},
-        {n: "Kameez (Only)", p: 80, c: "Women"},
-        {n: "Salwar (Only)", p: 70, c: "Women"},
-        {n: "Orna/Dupatta", p: 50, c: "Women"},
-        {n: "Borka (Simple)", p: 180, c: "Women"},
-        {n: "Borka (Stone Work)", p: 300, c: "Women"},
-        {n: "Hijab", p: 60, c: "Women"},
-        {n: "Abaya", p: 250, c: "Women"},
-        {n: "Nighty", p: 100, c: "Women"},
-        {n: "Blouse", p: 50, c: "Women"},
-        {n: "Petticoat", p: 50, c: "Women"},
-        {n: "Lehenga (Simple)", p: 600, c: "Women"},
-        {n: "Lehenga (Bridal)", p: 1500, c: "Women"},
-        {n: "Gown", p: 450, c: "Women"},
-        {n: "Ladies Cardigan", p: 180, c: "Women"},
-        {n: "Shawl/Chador", p: 150, c: "Women"},
+    // --- WOMEN'S WEAR (মেয়েদের) ---
+    {n: "Saree (Cotton)", p: 150, c: "Women"},
+    {n: "Saree (Silk/Katan)", p: 350, c: "Women"},
+    {n: "Saree (Net/Georgette)", p: 250, c: "Women"},
+    {n: "Saree (Stone/Heavy)", p: 500, c: "Women"},
+    {n: "Three Piece (Cotton)", p: 150, c: "Women"},
+    {n: "Three Piece (Silk/Heavy)", p: 250, c: "Women"},
+    {n: "Kameez (Only)", p: 80, c: "Women"},
+    {n: "Salwar (Only)", p: 70, c: "Women"},
+    {n: "Orna/Dupatta (Simple)", p: 50, c: "Women"},
+    {n: "Orna (Heavy Silk)", p: 100, c: "Women"},
+    {n: "Borka (Simple)", p: 180, c: "Women"},
+    {n: "Borka (Stone Work)", p: 300, c: "Women"},
+    {n: "Hijab", p: 60, c: "Women"},
+    {n: "Abaya", p: 250, c: "Women"},
+    {n: "Nighty", p: 100, c: "Women"},
+    {n: "Maxi", p: 90, c: "Women"},
+    {n: "Blouse (Normal)", p: 50, c: "Women"},
+    {n: "Blouse (Padded/Heavy)", p: 100, c: "Women"},
+    {n: "Petticoat", p: 50, c: "Women"},
+    {n: "Lehenga (Simple)", p: 600, c: "Women"},
+    {n: "Lehenga (Bridal)", p: 1500, c: "Women"},
+    {n: "Gown (Normal)", p: 450, c: "Women"},
+    {n: "Gown (Heavy)", p: 800, c: "Women"},
+    {n: "Ladies Cardigan", p: 180, c: "Women"},
+    {n: "Shawl/Chador (Cotton)", p: 150, c: "Women"},
+    {n: "Shawl (Woolen/Heavy)", p: 250, c: "Women"},
+    {n: "Skirt", p: 120, c: "Women"},
+    {n: "Leggings/Jeggings", p: 60, c: "Women"},
 
-        // --- HOUSEHOLD & OTHERS (অন্যান্য) ---
-        {n: "Bed Sheet (Single)", p: 100, c: "Household"},
-        {n: "Bed Sheet (Double)", p: 130, c: "Household"},
-        {n: "Bed Cover (Heavy)", p: 350, c: "Household"},
-        {n: "Pillow Cover", p: 40, c: "Household"},
-        {n: "Cushion Cover", p: 50, c: "Household"},
-        {n: "Blanket (Single)", p: 350, c: "Household"},
-        {n: "Blanket (Double)", p: 450, c: "Household"},
-        {n: "Quilt/Kombol Cover", p: 150, c: "Household"},
-        {n: "Curtain (Normal)", p: 100, c: "Household"},
-        {n: "Curtain (Heavy/Velvet)", p: 250, c: "Household"},
-        {n: "Table Cloth", p: 80, c: "Household"},
-        {n: "Towel (S/M)", p: 60, c: "Household"},
-        {n: "Towel (Large)", p: 100, c: "Household"},
-        {n: "Floor Mat", p: 80, c: "Household"},
-        {n: "Prayer Mat (Janamaj)", p: 120, c: "Household"},
-        {n: "Sneakers (Wash)", p: 300, c: "Household"},
-        {n: "Leather Shoes (Polish)", p: 150, c: "Household"},
-        {n: "Soft Toys (Small)", p: 150, c: "Household"},
-        {n: "Soft Toys (Large)", p: 400, c: "Household"},
-        {n: "School Bag", p: 250, c: "Household"},
-        {n: "Travel Bag (Medium)", p: 400, c: "Household"},
-        {n: "Travel Bag (Large)", p: 600, c: "Household"},
+    // --- HOUSEHOLD (অন্যান্য/ঘরগৃহস্থালি) ---
+    {n: "Bed Sheet (Single)", p: 100, c: "Household"},
+    {n: "Bed Sheet (Double)", p: 130, c: "Household"},
+    {n: "Bed Cover (Heavy)", p: 350, c: "Household"},
+    {n: "Pillow Cover", p: 40, c: "Household"},
+    {n: "Cushion Cover", p: 50, c: "Household"},
+    {n: "Blanket (Single)", p: 350, c: "Household"},
+    {n: "Blanket (Double)", p: 450, c: "Household"},
+    {n: "Blanket (Heavy/King)", p: 600, c: "Household"},
+    {n: "Quilt/Kombol Cover", p: 150, c: "Household"},
+    {n: "Curtain (Normal/Net)", p: 100, c: "Household"},
+    {n: "Curtain (Heavy/Velvet)", p: 250, c: "Household"},
+    {n: "Table Cloth (Small)", p: 80, c: "Household"},
+    {n: "Table Cloth (Large)", p: 150, c: "Household"},
+    {n: "Towel (Medium)", p: 60, c: "Household"},
+    {n: "Towel (Large/Bath)", p: 100, c: "Household"},
+    {n: "Floor Mat (Simple)", p: 80, c: "Household"},
+    {n: "Floor Mat (Large/Fluffy)", p: 150, c: "Household"},
+    {n: "Prayer Mat (Janamaj)", p: 120, c: "Household"},
+    {n: "Mosquito Net (Tari)", p: 150, c: "Household"},
+    {n: "Sneakers (Clean/Wash)", p: 300, c: "Household"},
+    {n: "Leather Shoes (Polish)", p: 150, c: "Household"},
+    {n: "Soft Toys (Small)", p: 150, c: "Household"},
+    {n: "Soft Toys (Large)", p: 400, c: "Household"},
+    {n: "School Bag", p: 250, c: "Household"},
+    {n: "Backpack (Travel)", p: 400, c: "Household"},
+    {n: "Travel Bag (Large)", p: 600, c: "Household"},
+    {n: "Carpet (Per Sq Ft)", p: 30, c: "Household"},
+    {n: "Door Mat", p: 50, c: "Household"},
 
-        // --- KIDS WEAR (বাচ্চাদের) ---
-        {n: "Kids Shirt", p: 50, c: "Kids"},
-        {n: "Kids Pant", p: 50, c: "Kids"},
-        {n: "Kids Panjabi", p: 100, c: "Kids"},
-        {n: "Kids Frock", p: 90, c: "Kids"},
-        {n: "Kids Suit", p: 250, c: "Kids"},
-        {n: "Baby Blanket", p: 150, c: "Kids"},
-        {n: "Diaper/Nappy Cloth", p: 40, c: "Kids"}
-    ];
-
+    // --- KIDS WEAR (বাচ্চাদের) ---
+    {n: "Kids Shirt", p: 50, c: "Kids"},
+    {n: "Kids Pant", p: 50, c: "Kids"},
+    {n: "Kids Panjabi", p: 100, c: "Kids"},
+    {n: "Kids Frock", p: 90, c: "Kids"},
+    {n: "Kids Suit", p: 250, c: "Kids"},
+    {n: "Kids Sweater", p: 100, c: "Kids"},
+    {n: "Kids Jacket", p: 150, c: "Kids"},
+    {n: "Baby Blanket", p: 150, c: "Kids"},
+    {n: "Diaper/Nappy Cloth", p: 40, c: "Kids"},
+    {n: "School Uniform (Set)", p: 150, c: "Kids"}
+];
     let currentCategory = 'All';
     let isExpanded = false;
     let cart = {};
@@ -213,16 +234,25 @@
     function render() {
         let filtered = currentCategory === 'All' ? items : items.filter(i => i.c === currentCategory);
         const toShow = isExpanded ? filtered : filtered.slice(0, 4);
-        document.getElementById('productGrid').innerHTML = toShow.map(i => `
+        
+        document.getElementById('productGrid').innerHTML = toShow.map(i => {
+            const dPrice = Math.round(i.p * 0.85);
+            return `
             <div class="card">
-                <h4>${i.n}</h4><div class="price">৳${i.p}</div>
+                <span style="background:#ffefef; color:#ff416c; font-size:10px; padding:2px 6px; border-radius:10px; font-weight:bold;">SAVE 15%</span>
+                <h4 style="margin:10px 0;">${i.n}</h4>
+                <div class="price">
+                    <span class="old-price">৳${i.p}</span>
+                    <span class="new-price">৳${dPrice}</span>
+                </div>
                 <div class="controls">
                     <button class="btn-qty" onclick="changeQty('${i.n}', -1)">-</button>
-                    <span id="qty-${i.n}">${cart[i.n] || 0}</span>
+                    <span id="qty-${i.n}" style="font-weight:bold; margin:0 10px;">${cart[i.n] || 0}</span>
                     <button class="btn-qty" onclick="changeQty('${i.n}', 1)">+</button>
                 </div>
-            </div>
-        `).join('');
+            </div>`;
+        }).join('');
+        
         const btn = document.getElementById('seeMoreBtn');
         btn.style.display = filtered.length > 4 ? 'block' : 'none';
         btn.innerText = isExpanded ? 'কম দেখুন' : 'আরো দেখুন';
@@ -235,11 +265,10 @@
         if (q) {
             const res = items.filter(i => i.n.toLowerCase().includes(q));
             isExpanded = true;
-            document.getElementById('productGrid').innerHTML = res.map(i => `
-                <div class="card"><h4>${i.n}</h4><div class="price">৳${i.p}</div>
-                <div class="controls"><button class="btn-qty" onclick="changeQty('${i.n}', -1)">-</button>
-                <span id="qty-${i.n}">${cart[i.n] || 0}</span><button class="btn-qty" onclick="changeQty('${i.n}', 1)">+</button></div></div>
-            `).join('');
+            document.getElementById('productGrid').innerHTML = res.map(i => {
+                const dp = Math.round(i.p * 0.85);
+                return `<div class="card"><h4>${i.n}</h4><div class="price"><span class="old-price">৳${i.p}</span><span class="new-price">৳${dp}</span></div><div class="controls"><button class="btn-qty" onclick="changeQty('${i.n}', -1)">-</button><span id="qty-${i.n}">${cart[i.n] || 0}</span><button class="btn-qty" onclick="changeQty('${i.n}', 1)">+</button></div></div>`;
+            }).join('');
             document.getElementById('seeMoreBtn').style.display = 'none';
         } else render();
     }
@@ -251,7 +280,8 @@
     }
 
     function updateCart() {
-        let total = 0; items.forEach(i => { if (cart[i.n] > 0) total += (i.p * cart[i.n]); });
+        let total = 0;
+        items.forEach(i => { if (cart[i.n] > 0) total += Math.round(i.p * 0.85) * cart[i.n]; });
         document.getElementById('cartBar').style.display = total > 0 ? 'flex' : 'none';
         document.getElementById('totalBill').innerText = `৳${total}`;
     }
@@ -261,37 +291,32 @@
         let sum = "", total = 0;
         items.forEach(i => {
             if(cart[i.n] > 0) {
-                sum += `<div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span>${i.n} x ${cart[i.n]}</span><b>৳${i.p*cart[i.n]}</b></div>`;
-                total += i.p * cart[i.n];
+                const dp = Math.round(i.p * 0.85);
+                sum += `<div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span>${i.n} x ${cart[i.n]}</span><b>৳${dp*cart[i.n]}</b></div>`;
+                total += dp * cart[i.n];
             }
         });
-        document.getElementById('orderSummary').innerHTML = sum + `<hr><b>সর্বমোট: ৳${total}</b>`;
+        document.getElementById('orderSummary').innerHTML = sum + `<hr><b>অফার প্রাইস মোট: ৳${total}</b>`;
     }
 
     function submitOrder() {
         const name = document.getElementById('cName').value, phone = document.getElementById('cPhone').value, addr = document.getElementById('cAddr').value, total = document.getElementById('totalBill').innerText;
         const itemsList = items.filter(i => cart[i.n] > 0).map(i => `${i.n}(${cart[i.n]})`).join(", ");
-        if (!name || !phone || !addr) return alert("দয়া করে সব তথ্য দিন!");
+        if (!name || !phone || !addr) return alert("সব তথ্য দিন!");
         
         let history = JSON.parse(localStorage.getItem('lw_history')) || [];
         history.push({name, total, items: itemsList, time: new Date().toLocaleString()});
         localStorage.setItem('lw_history', JSON.stringify(history));
 
         fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ name, phone, address: addr, total, items: itemsList }) });
-        window.location.href = `https://wa.me/8801872720582?text=*New Order*%0A👤 নাম: ${name}%0A👕 আইটেম: ${itemsList}%0A💰 বিল: ${total}`;
+        window.location.href = `https://wa.me/8801872720582?text=*New Order (15% OFF Offer)*%0A👤 নাম: ${name}%0A👕 আইটেম: ${itemsList}%0A💰 মোট বিল: ${total}`;
     }
 
     function adm() {
         if(prompt("Password:") === "7272") {
             document.getElementById('adminPanel').style.display = 'block';
             let history = JSON.parse(localStorage.getItem('lw_history')) || [];
-            let totalRev = 0;
-            document.getElementById('admOrderList').innerHTML = history.map(o => {
-                totalRev += parseInt(o.total.replace(/[^\d]/g, '')) || 0;
-                return `<div style="border-bottom:1px solid #eee; padding:10px;"><b>${o.name}</b> (${o.total})<br><small>${o.items}</small></div>`;
-            }).reverse().join('');
-            document.getElementById('admTotal').innerText = "৳" + totalRev;
-            document.getElementById('admOrders').innerText = history.length;
+            document.getElementById('admOrderList').innerHTML = history.map(o => `<div style="border-bottom:1px solid #eee; padding:10px;"><b>${o.name}</b> (${o.total})<br><small>${o.items}</small></div>`).reverse().join('');
         }
     }
 
