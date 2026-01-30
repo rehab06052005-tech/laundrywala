@@ -6,63 +6,27 @@
     <title>Laundry’wala | ধামাকা অফার!</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>/* Floating WhatsApp Button Style */
-.whatsapp-float {
-    position: fixed;
-    width: 60px;
-    height: 60px;
-    bottom: 100px; /* কার্ট বারের উপরে থাকবে */
-    right: 20px;
-    background-color: #25d366;
-    color: #FFF;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 35px;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-    z-index: 2000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: transform 0.3s;
-}
 
-.whatsapp-float:hover {
-    transform: scale(1.1);
-    color: white;
-}
-
-/* পালস অ্যানিমেশন যাতে কাস্টমারের চোখে পড়ে */
-.whatsapp-float::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: #25d366;
-    opacity: 0.5;
-    animation: ping 1.5s infinite;
-}
-
-@keyframes ping {
-    75%, 100% { transform: scale(1.5); opacity: 0; }
-}
+    <style>
         :root { --main: #00d2ff; --offer: #ff416c; --bg: #ffffff; --text: #1e293b; --card: #f8fafc; --border: #e2e8f0; }
         [data-theme="dark"] { --bg: #0f172a; --text: #f8fafc; --card: #1e293b; --border: #334155; }
-        
+
         body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Hind Siliguri', sans-serif; transition: 0.3s; padding-bottom: 100px; }
-        
-        /* অফার ব্যানার */
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 100px; right: 20px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 35px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 2000; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.3s; }
+        .whatsapp-float:hover { transform: scale(1.1); color: white; }
+        .whatsapp-float::before { content: ''; position: absolute; width: 100%; height: 100%; border-radius: 50%; background: #25d366; opacity: 0.5; animation: ping 1.5s infinite; }
+        @keyframes ping { 75%, 100% { transform: scale(1.5); opacity: 0; } }
+
+        /* Banner & Hero */
         .promo-banner { background: linear-gradient(90deg, #ff4b2b, #ff416c); color: white; padding: 10px 0; font-weight: bold; text-align: center; font-size: 14px; }
         .discount-hero { background: var(--card); margin: 15px; padding: 25px 20px; border-radius: 20px; text-align: center; border: 2px dashed var(--offer); position: relative; }
         .offer-badge { position: absolute; top: -15px; right: -10px; background: var(--offer); color: white; padding: 5px 15px; border-radius: 50px; font-weight: 800; font-size: 14px; transform: rotate(15deg); animation: pulse 1.5s infinite; }
-        
         @keyframes pulse { 0% { transform: rotate(15deg) scale(1); } 50% { transform: rotate(15deg) scale(1.1); } 100% { transform: rotate(15deg) scale(1); } }
 
         .header { background: var(--main); color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; }
         .nav { padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 1000; }
-        
         .search-bar { width: 90%; max-width: 500px; padding: 12px 20px; border-radius: 25px; border: 2px solid var(--main); outline: none; background: var(--bg); color: var(--text); display: block; margin: 20px auto; }
 
         .cat-tabs { display: flex; overflow-x: auto; gap: 10px; padding: 10px 20px; white-space: nowrap; scrollbar-width: none; }
@@ -73,30 +37,28 @@
         .card { background: var(--card); border: 1px solid var(--border); padding: 15px; border-radius: 20px; text-align: center; position: relative; }
         .old-price { text-decoration: line-through; color: #94a3b8; font-size: 13px; margin-right: 5px; }
         .new-price { color: var(--offer); font-weight: 800; font-size: 18px; }
-        
+
         .btn-qty { background: var(--main); color: white; border: none; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; }
         .see-more-btn { display: block; margin: 20px auto; padding: 10px 30px; background: none; border: 2px solid var(--main); color: var(--main); border-radius: 20px; font-weight: bold; cursor: pointer; }
 
         .floating-cart { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; background: #111; color: white; padding: 15px 25px; border-radius: 20px; display: none; justify-content: space-between; align-items: center; z-index: 2000; }
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; z-index: 3000; backdrop-filter: blur(5px); }
         .sheet { position: absolute; bottom: 0; background: var(--bg); width: 100%; border-radius: 30px 30px 0 0; padding: 30px; box-sizing: border-box; max-height: 85vh; overflow-y: auto; }
-        
+        .confirm-btn { width: 100%; background: #25d366; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 15px; }
+
         footer { background: #1e293b; color: white; padding: 40px 20px; text-align: center; margin-top: 50px; }
     </style>
 </head>
 <body data-theme="light">
-    <a href="https://wa.me/8801872720582?text=Hello Laundry'Wala, I need some information." class="whatsapp-float" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-</a>
 
-<div class="promo-banner">
-    <marquee>🎉 ধামাকা অফার: সব অর্ডারে ফ্ল্যাট ১৫% ডিসকাউন্ট! অফারটি লুফে নিতে আজই অর্ডার করুন। 🎉</marquee>
-</div>
+<a href="https://wa.me/8801872720582" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<div class="promo-banner"><marquee>🎉 ধামাকা অফার: সব অর্ডারে ফ্ল্যাট ১৫% ডিসকাউন্ট! অফারটি লুফে নিতে আজই অর্ডার করুন। 🎉</marquee></div>
 
 <div class="discount-hero">
     <div class="offer-badge">15% OFF</div>
     <h2>Laundry’wala ধামাকা অফার!</h2>
-    <p>সব সার্ভিসে সরাসরি ১৫% ছাড়। উত্তরা এলাকায় ফ্রি পিকআপ!</p>
+    <p>সব সার্ভিসে সরাসরি ১৫% ছাড়। উত্তরা এলাকায় ফ্রি পিকআপ!</p>
 </div>
 
 <div class="header">
@@ -114,7 +76,7 @@
 <div class="cat-tabs">
     <div class="tab active" onclick="setCategory('All', this)">সব আইটেম</div>
     <div class="tab" onclick="setCategory('Men', this)">ছেলেদের</div>
-    <div class="tab" onclick="setCategory('Women', this)">মেয়েদের</div>
+    <div class="tab" onclick="setCategory('Women', this)">মেয়েদের</div>
     <div class="tab" onclick="setCategory('Kids', this)">বাচ্চাদের</div>
     <div class="tab" onclick="setCategory('Household', this)">অন্যান্য</div>
 </div>
@@ -124,7 +86,7 @@
 
 <div class="floating-cart" id="cartBar">
     <div>
-        <span style="opacity: 0.7; font-size: 12px;">মোট বিল (ডিসকাউন্ট সহ):</span>
+        <span style="opacity: 0.7; font-size: 12px;">মোট বিল:</span>
         <div id="totalBill" style="font-size: 20px; font-weight: 800;">৳০</div>
     </div>
     <button onclick="openCheckout()" style="background:var(--main); color:white; border:none; padding:10px 20px; border-radius:12px; font-weight:800; cursor:pointer;">অর্ডার দিন</button>
@@ -133,11 +95,12 @@
 <div id="checkoutModal" class="overlay">
     <div class="sheet">
         <h2 style="margin-top:0;">অর্ডার সামারি</h2>
-        <div id="orderSummary" style="margin-bottom: 20px; border-bottom: 1px dashed var(--border); padding-bottom: 10px;"></div>
+        <div id="orderSummary"></div>
+        <hr style="margin: 20px 0; border: 0; border-top: 1px dashed var(--border);">
         <input type="text" id="cName" placeholder="আপনার নাম" style="width:100%; padding:12px; margin-bottom:10px; border-radius:10px; border:1px solid var(--border);">
         <input type="tel" id="cPhone" placeholder="মোবাইল নম্বর" style="width:100%; padding:12px; margin-bottom:10px; border-radius:10px; border:1px solid var(--border);">
         <textarea id="cAddr" placeholder="পুরো ঠিকানা (উত্তরা, ঢাকা)" style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border);"></textarea>
-        <button class="confirm-btn" onclick="submitOrder()">কনফার্ম ও হোয়াটসঅ্যাপ</button>
+        <button class="confirm-btn" onclick="submitOrder()">কনফার্ম ও হোয়াটসঅ্যাপ</button>
         <button onclick="closeCheckout()" style="width:100%; background:none; border:none; color:red; margin-top:15px; cursor:pointer;">বন্ধ করুন</button>
     </div>
 </div>
@@ -148,20 +111,9 @@
     <span onclick="adm()" style="cursor:pointer; opacity: 0.1; font-size: 10px;">Admin Login</span>
 </footer>
 
-<div id="adminPanel" style="display:none; position:fixed; inset:0; background:white; z-index:9999; padding:20px; overflow-y:auto; color: #111;">
-    <div style="max-width:600px; margin:0 auto;">
-        <div style="display:flex; justify-content:space-between;">
-            <h2>Admin Dashboard</h2>
-            <button onclick="closeAdmin()" style="background:red; color:white; border:none; padding:10px; border-radius:10px;">Close</button>
-        </div>
-        <div id="admOrderList"></div>
-    </div>
-</div>
-
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycby2MSovJJmGavR4P4S4moBNnDgWSNflajBnJj7v7OC9FpC77bMctUCGIEWjIWLgnsI/exec';
-    
- const items = [
+  const items = [
     // --- MEN'S WEAR (ছেলেদের) ---
     {n: "Shirt (Wash & Iron)", p: 60, c: "Men"},
     {n: "Shirt (Iron Only)", p: 20, c: "Men"},
@@ -264,9 +216,8 @@
     {n: "Diaper/Nappy Cloth", p: 40, c: "Kids"},
     {n: "School Uniform (Set)", p: 150, c: "Kids"}
 ];
-    let currentCategory = 'All';
-    let isExpanded = false;
-    let cart = {};
+
+    let currentCategory = 'All', isExpanded = false, cart = {};
 
     function setCategory(cat, el) {
         currentCategory = cat; isExpanded = false;
@@ -277,17 +228,12 @@
     function render() {
         let filtered = currentCategory === 'All' ? items : items.filter(i => i.c === currentCategory);
         const toShow = isExpanded ? filtered : filtered.slice(0, 4);
-        
         document.getElementById('productGrid').innerHTML = toShow.map(i => {
             const dPrice = Math.round(i.p * 0.85);
-            return `
-            <div class="card">
-                <span style="background:#ffefef; color:#ff416c; font-size:10px; padding:2px 6px; border-radius:10px; font-weight:bold;">SAVE 15%</span>
+            return `<div class="card">
+                <span style="background:#ffefef; color:#ff416c; font-size:10px; padding:2px 6px; border-radius:10px; font-weight:bold;">15% OFF</span>
                 <h4 style="margin:10px 0;">${i.n}</h4>
-                <div class="price">
-                    <span class="old-price">৳${i.p}</span>
-                    <span class="new-price">৳${dPrice}</span>
-                </div>
+                <div class="price"><span class="old-price">৳${i.p}</span><span class="new-price">৳${dPrice}</span></div>
                 <div class="controls">
                     <button class="btn-qty" onclick="changeQty('${i.n}', -1)">-</button>
                     <span id="qty-${i.n}" style="font-weight:bold; margin:0 10px;">${cart[i.n] || 0}</span>
@@ -295,10 +241,8 @@
                 </div>
             </div>`;
         }).join('');
-        
-        const btn = document.getElementById('seeMoreBtn');
-        btn.style.display = filtered.length > 4 ? 'block' : 'none';
-        btn.innerText = isExpanded ? 'কম দেখুন' : 'আরো দেখুন';
+        document.getElementById('seeMoreBtn').style.display = filtered.length > 4 ? 'block' : 'none';
+        document.getElementById('seeMoreBtn').innerText = isExpanded ? 'কম দেখুন' : 'আরো দেখুন';
     }
 
     function toggleSeeMore() { isExpanded = !isExpanded; render(); }
@@ -307,7 +251,6 @@
         const q = document.getElementById('searchInput').value.toLowerCase();
         if (q) {
             const res = items.filter(i => i.n.toLowerCase().includes(q));
-            isExpanded = true;
             document.getElementById('productGrid').innerHTML = res.map(i => {
                 const dp = Math.round(i.p * 0.85);
                 return `<div class="card"><h4>${i.n}</h4><div class="price"><span class="old-price">৳${i.p}</span><span class="new-price">৳${dp}</span></div><div class="controls"><button class="btn-qty" onclick="changeQty('${i.n}', -1)">-</button><span id="qty-${i.n}">${cart[i.n] || 0}</span><button class="btn-qty" onclick="changeQty('${i.n}', 1)">+</button></div></div>`;
@@ -335,41 +278,39 @@
         items.forEach(i => {
             if(cart[i.n] > 0) {
                 const dp = Math.round(i.p * 0.85);
-                sum += `<div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span>${i.n} x ${cart[i.n]}</span><b>৳${dp*cart[i.n]}</b></div>`;
+                sum += `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; background:#f8fafc; padding:8px; border-radius:8px;">
+                    <div><b>${i.n}</b><br><small>৳${dp} x ${cart[i.n]}</small></div>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <button onclick="changeQty('${i.n}', -1); openCheckout();" style="width:25px; height:25px; border-radius:50%; border:1px solid #ccc; background:white;">-</button>
+                        <b>${cart[i.n]}</b>
+                        <button onclick="changeQty('${i.n}', 1); openCheckout();" style="width:25px; height:25px; border-radius:50%; border:1px solid #ccc; background:white;">+</button>
+                    </div>
+                </div>`;
                 total += dp * cart[i.n];
             }
         });
-        document.getElementById('orderSummary').innerHTML = sum + `<hr><b>অফার প্রাইস মোট: ৳${total}</b>`;
+        
+        if(total === 0) { sum = "<p>কার্ট খালি!</p>"; setTimeout(closeCheckout, 1000); }
+
+        let qrCode = `<div style="text-align:center; margin-top:15px; padding:10px; border:2px dashed #00d2ff; border-radius:12px;">
+            <p style="font-size:12px; margin-bottom:5px; font-weight:bold;">বিকাশ পেমেন্ট স্ক্যান করুন</p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0183805182" style="width:120px; height:120px;">
+        </div>`;
+
+        document.getElementById('orderSummary').innerHTML = sum + `<div style="display:flex; justify-content:space-between; margin-top:15px; font-size:18px;"><b>মোট বিল:</b> <b style="color:var(--offer);">৳${total}</b></div>` + qrCode;
     }
 
     function submitOrder() {
         const name = document.getElementById('cName').value, phone = document.getElementById('cPhone').value, addr = document.getElementById('cAddr').value, total = document.getElementById('totalBill').innerText;
-        const itemsList = items.filter(i => cart[i.n] > 0).map(i => `${i.n}(${cart[i.n]})`).join(", ");
         if (!name || !phone || !addr) return alert("সব তথ্য দিন!");
-        
-        let history = JSON.parse(localStorage.getItem('lw_history')) || [];
-        history.push({name, total, items: itemsList, time: new Date().toLocaleString()});
-        localStorage.setItem('lw_history', JSON.stringify(history));
-
-        fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ name, phone, address: addr, total, items: itemsList }) });
-        window.location.href = `https://wa.me/8801872720582?text=*New Order (15% OFF Offer)*%0A👤 নাম: ${name}%0A👕 আইটেম: ${itemsList}%0A💰 মোট বিল: ${total}`;
+        const itemsList = items.filter(i => cart[i.n] > 0).map(i => `${i.n}(${cart[i.n]})`).join(", ");
+        window.location.href = `https://wa.me/8801872720582?text=*New Order*%0A👤 নাম: ${name}%0A📱 ফোন: ${phone}%0A🏠 ঠিকানা: ${addr}%0A👕 আইটেম: ${itemsList}%0A💰 বিল: ${total}`;
     }
 
-    function adm() {
-        if(prompt("Password:") === "7272") {
-            document.getElementById('adminPanel').style.display = 'block';
-            let history = JSON.parse(localStorage.getItem('lw_history')) || [];
-            document.getElementById('admOrderList').innerHTML = history.map(o => `<div style="border-bottom:1px solid #eee; padding:10px;"><b>${o.name}</b> (${o.total})<br><small>${o.items}</small></div>`).reverse().join('');
-        }
-    }
-
-    function closeAdmin() { document.getElementById('adminPanel').style.display = 'none'; }
     function closeCheckout() { document.getElementById('checkoutModal').style.display = 'none'; }
     function dark() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme')==='dark' ? 'light' : 'dark'); }
     function tick() { document.getElementById('date-time').innerText = new Date().toLocaleString(); }
-    setInterval(tick, 1000); tick();
-    window.onload = render;
+    setInterval(tick, 1000); tick(); window.onload = render;
 </script>
 </body>
 </html>
-
