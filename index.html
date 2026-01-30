@@ -3,143 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laundry’wala | Premium Service</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
+    <title>Laundry’wala </title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
+    
     <style>
-        :root { 
-            --main: #00d2ff; --main-dark: #3a7bd5; --offer: #ff416c; 
-            --bg: #f8fafc; --text: #1e293b; --card: #ffffff; --border: #e2e8f0; 
-        }
-        [data-theme="dark"] { 
-            --bg: #0f172a; --text: #f8fafc; --card: #1e293b; --border: #334155; 
+        :root {
+            --primary: #0a2540; --accent: #00d2ff; --offer: #ff416c;
+            --light: #f6f9fc; --white: #ffffff; --text: #425466;
         }
 
-        body { 
-            margin: 0; background: var(--bg); color: var(--text); 
-            font-family: 'Hind Siliguri', sans-serif; transition: 0.4s;
-            background-image: radial-gradient(circle at 2px 2px, var(--border) 1px, transparent 0);
-            background-size: 24px 24px;
+        body { margin: 0; font-family: 'Poppins', 'Hind Siliguri', sans-serif; background: var(--light); color: var(--text); overflow-x: hidden; }
+
+        /* Navbar */
+        .navbar { background: var(--white); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--primary); text-decoration: none; }
+        .logo span { color: var(--accent); }
+
+        /* Animated Hero Slider */
+        .hero-slider {
+            position: relative; width: 100%; height: 250px;
+            background: linear-gradient(135deg, var(--primary) 0%, #1a4a7a 100%);
+            color: white; overflow: hidden; text-align: center;
+            display: flex; align-items: center; justify-content: center;
+            clip-path: ellipse(150% 100% at 50% 0%);
         }
 
-        /* 1. Time & Date (Large & Stylish) */
-        .header-info {
-            text-align: center; padding: 20px; background: var(--card);
-            border-bottom: 3px solid var(--main); border-radius: 0 0 30px 30px;
+        .slide {
+            position: absolute; width: 100%; opacity: 0; transition: 1s ease-in-out;
+            padding: 20px; box-sizing: border-box;
         }
-        #clock { font-size: 32px; font-weight: 800; color: var(--main); margin: 0; }
-        #date { font-size: 16px; opacity: 0.7; }
+        .slide.active { opacity: 1; transform: scale(1.05); }
 
-        /* 2. Banner & Offer */
-        .flash-banner {
-            background: linear-gradient(90deg, #ff416c, #ff4b2b);
-            color: white; padding: 12px; text-align: center; font-weight: 800;
-        }
+        .slide h1 { font-size: 28px; margin: 0; }
+        .slide p { font-size: 16px; opacity: 0.9; }
 
-        /* 3. Work Process Animation (5 Steps) */
-        .process-box {
-            display: flex; overflow-x: auto; gap: 15px; padding: 20px; scrollbar-width: none;
-        }
-        .step {
-            min-width: 120px; background: var(--card); padding: 15px; border-radius: 20px;
-            text-align: center; border: 1px solid var(--border);
-            animation: bounceIn 2s infinite;
-        }
-        .step i { font-size: 24px; color: var(--main); }
-
-        /* 5. Dark/Light & 4. Lang Toggle */
-        .top-nav {
-            display: flex; justify-content: space-between; padding: 15px 20px;
-            position: sticky; top: 0; background: var(--bg); z-index: 1000;
+        .promo-tag {
+            display: inline-block; background: var(--offer); padding: 8px 20px;
+            border-radius: 50px; font-weight: 800; margin-top: 15px;
+            animation: pulse 1.5s infinite;
         }
 
-        /* 6. Search */
-        .search-box { padding: 0 20px; margin-top: 10px; }
-        .search-bar {
-            width: 100%; padding: 15px; border-radius: 15px; border: 1px solid var(--border);
-            outline: none; background: var(--card); color: var(--text);
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 65, 108, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255, 65, 108, 0); }
+            100% { transform: scale(1); }
         }
 
-        /* 9. Category */
-        .cat-tabs { display: flex; overflow-x: auto; gap: 10px; padding: 15px 20px; }
-        .tab { padding: 10px 20px; background: var(--card); border-radius: 12px; cursor: pointer; white-space: nowrap; font-weight: bold; border: 1px solid var(--border); }
-        .tab.active { background: var(--main); color: white; }
+        /* Search Area */
+        .search-area { margin: -40px auto 20px; width: 90%; max-width: 600px; position: relative; z-index: 10; }
+        .search-input { width: 100%; padding: 15px 25px; border-radius: 50px; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.15); outline: none; font-size: 16px; box-sizing: border-box; }
 
-        /* Product Cards & 7. Cart +/- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 20px; }
-        .card {
-            background: var(--card); border-radius: 25px; padding: 20px; text-align: center;
-            border: 1px solid var(--border); position: relative;
-        }
-        .price-tag { color: var(--offer); font-weight: 800; font-size: 20px; }
-        .qty-btn { width: 30px; height: 30px; border-radius: 8px; border: none; background: var(--main); color: white; cursor: pointer; }
+        /* Tabs */
+        .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding: 10px; }
+        .tab { padding: 8px 18px; background: var(--white); border-radius: 30px; border: 1px solid #ddd; cursor: pointer; font-weight: 600; white-space: nowrap; transition: 0.3s; }
+        .tab.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-        /* 15. Membership Point */
-        .member-card {
-            margin: 20px; background: linear-gradient(135deg, #1e293b, #334155);
-            color: gold; padding: 20px; border-radius: 20px; position: relative;
-        }
+        /* Grid & Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 0 5% 120px; }
+        .card { background: var(--white); border-radius: 20px; padding: 15px; text-align: center; border: 1px solid #edf2f7; position: relative; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .card h4 { margin: 10px 0 5px; font-size: 14px; color: var(--primary); height: 40px; }
+        .old-p { text-decoration: line-through; font-size: 11px; color: #999; }
+        .new-p { font-size: 20px; font-weight: 800; color: var(--primary); }
 
-        /* 10. Payment & 11. WhatsApp */
-        .cart-bar {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 450px; background: #1e293b; color: white;
-            padding: 15px 25px; border-radius: 20px; display: none; justify-content: space-between; align-items: center;
-        }
+        .qty-btns { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 10px; }
+        .q-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background: #f0f2f5; cursor: pointer; font-weight: bold; }
 
-        /* 18. WhatsApp Icon */
-        .wa-float {
-            position: fixed; bottom: 100px; right: 20px; background: #25d366;
-            color: white; width: 60px; height: 60px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-size: 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2); z-index: 2000; text-decoration: none;
-        }
-
-        /* 17. Review */
-        .review-section { padding: 20px; background: var(--card); margin: 20px; border-radius: 20px; }
+        /* Floating Components */
+        .cart-strip { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: var(--primary); color: white; padding: 15px 25px; border-radius: 50px; display: none; justify-content: space-between; align-items: center; z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .wa-float { position: fixed; bottom: 100px; right: 20px; background: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 25px; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); text-decoration: none; }
+        .admin-btn { position: fixed; bottom: 100px; left: 20px; background: var(--primary); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1000; font-size: 12px; border: none; }
 
         /* Footer */
-        footer { background: #1e293b; color: white; padding: 40px 20px; text-align: center; margin-top: 50px; }
+        footer { background: var(--primary); color: white; padding: 50px 5% 30px; margin-top: 50px; border-radius: 40px 40px 0 0; text-align: center; }
+
+        /* Modal */
+        #payModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 3000; align-items: center; justify-content: center; padding: 20px; }
+        .modal-body { background: white; padding: 25px; border-radius: 25px; width: 100%; max-width: 400px; text-align: center; color: var(--text); }
+        
+        #adminPanel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 5000; padding: 20px; box-sizing: border-box; overflow-y: auto; }
     </style>
 </head>
-<body data-theme="light">
+<body>
 
-    <div class="flash-banner">
-        <marquee>🔥 ধামাকা ১৫% অফার! ১০০ টাকা খরচ করলে পাবেন ১ পয়েন্ট (১ টাকা)! উত্তরা ফ্রি ডেলিভারি! 🔥</marquee>
+    <nav class="navbar">
+        <a href="#" class="logo">Laundry<span>'wala</span></a>
+        <div id="clock" style="color: var(--primary); font-weight: 800;"></div>
+    </nav>
+
+    <div class="hero-slider">
+        <div class="slide active">
+            <h1>Premium Laundry Care</h1>
+            <p>Fast Delivery & Quality Guaranteed</p>
+            <div class="promo-tag">FLAT 15% OFF !!</div>
+        </div>
+        <div class="slide">
+            <h1>Free Home Pickup</h1>
+            <p>We collect your clothes from your door</p>
+            <div class="promo-tag" style="background:var(--accent)">ORDER VIA WHATSAPP</div>
+        </div>
+        <div class="slide">
+           
+            <p>Uttara Branch • 01872720582</p>
+            <div class="promo-tag" style="background:var(--primary); border:1px solid white;">SAFE & HYGIENIC</div>
+        </div>
     </div>
 
-    <div class="header-info">
-        <div id="clock">00:00:00 PM</div>
-        <div id="date">Friday, 30 January 2026</div>
+    <div class="search-area">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search item (Shirt, Pant, Blanket...)" onkeyup="render()">
     </div>
 
-    <div class="top-nav">
-        <button onclick="toggleLang()" id="langBtn" class="tab">English</button>
-        <div style="font-size: 20px; font-weight: 800; color: var(--main);">Laundry’wala</div>
-        <button onclick="toggleTheme()" class="tab"><i class="fas fa-moon"></i></button>
-    </div>
-
-    <div class="member-card">
-        <small>My Points</small>
-        <h2 id="userPoints">0.00 PTS</h2>
-        <p style="font-size: 12px;">Earn 1 point for every 100 TK spent!</p>
-    </div>
-
-    <div class="process-box">
-        <div class="step"><i class="fas fa-check-circle"></i><br><small>Order & Pickup</small></div>
-        <div class="step"><i class="fas fa-search"></i><br><small>Sorting</small></div>
-        <div class="step"><i class="fas fa-tshirt"></i><br><small>Washing</small></div>
-        <div class="step"><i class="fas fa-wind"></i><br><small>Ironing</small></div>
-        <div class="step"><i class="fas fa-truck"></i><br><small>Delivery</small></div>
-    </div>
-
-    <div class="search-box">
-        <input type="text" class="search-bar" id="search" placeholder="আইটেম খুঁজুন..." onkeyup="handleSearch()">
-    </div>
-
-    <div class="cat-tabs">
+    <div class="tabs">
         <div class="tab active" onclick="setCat('All', this)">All</div>
         <div class="tab" onclick="setCat('Men', this)">Men</div>
         <div class="tab" onclick="setCat('Women', this)">Women</div>
@@ -148,180 +123,228 @@
 
     <div class="grid" id="grid"></div>
 
-    <div class="review-section">
-        <h3>Customer Review ⭐</h3>
-        <p>"খুবই ভালো সার্ভিস, উত্তরা এলাকায় সেরা!" - রাহাত</p>
-    </div>
-
+    <button class="admin-btn" onclick="openAdmin()">Admin</button>
     <a href="https://wa.me/8801872720582" class="wa-float"><i class="fab fa-whatsapp"></i></a>
 
-    <div class="cart-bar" id="cartBar">
-        <div>Total: <span id="total">৳০</span></div>
-        <button onclick="openCheckout()" style="background:var(--main); color:white; border:none; padding:10px 20px; border-radius:12px; font-weight:bold;">অর্ডার দিন</button>
+    <div class="cart-strip" id="cartStrip">
+        <div style="font-weight: 600;">Bill: <span id="total">৳0</span></div>
+        <button onclick="openPay()" style="background:var(--accent); color:var(--primary); border:none; padding:10px 25px; border-radius:50px; font-weight:800; cursor:pointer;">ORDER NOW</button>
     </div>
 
+    <div id="payModal">
+        <div class="modal-body">
+            <h3>Confirm Order</h3>
+            <p>Payable: <strong id="mTotal" style="color:var(--offer)"></strong></p>
+            <div style="text-align:left; background:#f4f7f9; padding:15px; border-radius:15px; font-size:13px; margin: 15px 0;">
+                
+                <p><strong>বিকাশ (personal):</strong> 01838051282</p>
+            </div>
+            <button onclick="finalOrder()" style="background:#25d366; color:white; border:none; padding:15px; width:100%; border-radius:15px; font-weight:bold; cursor:pointer;">CONFIRM WHATSAPP</button>
+            <p onclick="closePay()" style="margin-top:10px; cursor:pointer; color:red; font-size:12px;">Close</p>
+        </div>
+    </div>
+
+    <div id="adminPanel">
+        <div style="display:flex; justify-content:space-between;">
+            <h2>Admin Orders</h2>
+            <button onclick="closeAdmin()">Close X</button>
+        </div>
+        <iframe src="https://docs.google.com/spreadsheets/d/1vA5W0mO3-l0pLg3nF6N4YVb_X-7p8_z39vK7K1R0B9s/edit?usp=sharing" style="width:100%; height:85vh; border:none;"></iframe>
+    </div>
+
+    <footer>
+        <h3 style="color: var(--accent);">Laundry<span>'wala</span></h3>
+        <p style="font-size: 14px; opacity: 0.7;">Quality Care for Your Clothes. Since 2026.</p>
+        <div style="margin: 20px 0; font-size: 14px;">
+            <i class="fas fa-phone"></i> 01872720582 | <i class="fas fa-envelope"></i> laundrywala72720@gmail.com
+        </div>
+        <p style="font-size: 10px; opacity: 0.5;">&copy; All Rights Reserved. Laundry’wala.</p>
+    </footer>
+
     <script>
-        const scriptURL = 'YOUR_GOOGLE_SHEET_URL';
-      const items = [
-    // --- ছেলেদের পোশাক (Men's Wear) ---
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzAht6SeWL41e5jbm_ChFsBglwevk-UMN5ny7uFszwiB9uW_8BtwYgpX3Mgx15TM4hi/exec';
+        
+     const items = [
+    // --- Men's Collection (পুরুষ) ---
     {n: "Shirt (Wash & Iron)", p: 60, c: "Men"},
     {n: "Shirt (Iron Only)", p: 20, c: "Men"},
-    {n: "Shirt (Dry Clean)", p: 120, c: "Men"},
-    {n: "Formal Pant (W&I)", p: 70, c: "Men"},
-    {n: "Jeans Pant (W&I)", p: 80, c: "Men"},
-    {n: "Gabardine Pant", p: 75, c: "Men"},
-    {n: "Panjabi (Simple)", p: 100, c: "Men"},
-    {n: "Panjabi (Heavy/Embroidery)", p: 180, c: "Men"},
+    {n: "Pant (Wash & Iron)", p: 70, c: "Men"},
+    {n: "Pant (Iron Only)", p: 25, c: "Men"},
+    {n: "Panjabi (Normal)", p: 100, c: "Men"},
+    {n: "Panjabi (Heavy/Embroidery)", p: 150, c: "Men"},
     {n: "Pajama", p: 60, c: "Men"},
+    {n: "Suit (2-Piece Dry Clean)", p: 450, c: "Men"},
+    {n: "Suit (3-Piece Dry Clean)", p: 600, c: "Men"},
+    {n: "Blazer (Dry Clean)", p: 300, c: "Men"},
     {n: "T-Shirt", p: 50, c: "Men"},
-    {n: "Polo Shirt", p: 65, c: "Men"},
-    {n: "Suit/Blazer (2pc)", p: 350, c: "Men"},
-    {n: "Suit/Blazer (3pc)", p: 500, c: "Men"},
-    {n: "Sherwani", p: 800, c: "Men"},
-    {n: "Waistcoat (Koti)", p: 150, c: "Men"},
-    {n: "Lungi", p: 50, c: "Men"},
-    {n: "Sweater", p: 150, c: "Men"},
+    {n: "Polo Shirt", p: 60, c: "Men"},
+    {n: "Lungi", p: 60, c: "Men"},
+    {n: "Genji / Underwear", p: 30, c: "Men"},
+    {n: "Tracksuit", p: 150, c: "Men"},
+    {n: "Shorts / Half Pant", p: 40, c: "Men"},
+    {n: "Sweater (Light)", p: 120, c: "Men"},
     {n: "Jacket (Windbreaker)", p: 200, c: "Men"},
-    {n: "Leather Jacket", p: 500, c: "Men"},
-    {n: "Hoodie", p: 160, c: "Men"},
-    {n: "Tracksuit", p: 250, c: "Men"},
-    {n: "Genji/Vest", p: 30, c: "Men"},
-    {n: "Underwear", p: 25, c: "Men"},
+    {n: "Leather Jacket (Polishing)", p: 500, c: "Men"},
+    {n: "Koti / Vest", p: 150, c: "Men"},
+    {n: "Sherwani (Dry Clean)", p: 800, c: "Men"},
+    {n: "Cap / Toppi", p: 20, c: "Men"},
     {n: "Tie", p: 40, c: "Men"},
     {n: "Socks (Pair)", p: 25, c: "Men"},
-    {n: "Cap/Tupi", p: 30, c: "Men"},
+    {n: "Handkerchief", p: 15, c: "Men"},
+    {n: "Raincoat", p: 150, c: "Men"},
+    {n: "Winter Hoodie", p: 150, c: "Men"},
+    {n: "Overcoat", p: 400, c: "Men"},
+    {n: "Denim Jacket", p: 250, c: "Men"},
+    {n: "Safari Suit", p: 350, c: "Men"},
 
-    // --- মেয়েদের পোশাক (Women's Wear) ---
+    // --- Women's Collection (মহিলা) ---
     {n: "Saree (Cotton)", p: 150, c: "Women"},
-    {n: "Saree (Silk/Katan)", p: 350, c: "Women"},
-    {n: "Saree (Stone/Heavy)", p: 550, c: "Women"},
-    {n: "Saree Polishing", p: 250, c: "Women"},
-    {n: "Three Piece (Cotton)", p: 150, c: "Women"},
-    {n: "Three Piece (Silk/Georgette)", p: 250, c: "Women"},
-    {n: "Kameez", p: 80, c: "Women"},
-    {n: "Salwar", p: 70, c: "Women"},
-    {n: "Orna (Simple)", p: 50, c: "Women"},
-    {n: "Orna (Heavy)", p: 100, c: "Women"},
-    {n: "Borka (Simple)", p: 180, c: "Women"},
-    {n: "Borka (Stone Work)", p: 350, c: "Women"},
-    {n: "Hijab", p: 60, c: "Women"},
-    {n: "Abaya", p: 300, c: "Women"},
-    {n: "Nighty", p: 100, c: "Women"},
-    {n: "Maxi", p: 90, c: "Women"},
-    {n: "Blouse (Simple)", p: 50, c: "Women"},
-    {n: "Blouse (Padded)", p: 100, c: "Women"},
+    {n: "Saree (Silk/Katan Dry Clean)", p: 400, c: "Women"},
+    {n: "Saree (Net/Chiffon)", p: 300, c: "Women"},
+    {n: "Saree Polishing", p: 200, c: "Women"},
+    {n: "Three Piece (Cotton)", p: 160, c: "Women"},
+    {n: "Three Piece (Fancy/Silk)", p: 250, c: "Women"},
+    {n: "Kurti / Kameez", p: 90, c: "Women"},
+    {n: "Salwar / Pajama", p: 70, c: "Women"},
+    {n: "Orna / Dupatta (Normal)", p: 40, c: "Women"},
+    {n: "Orna (Heavy)", p: 80, c: "Women"},
+    {n: "Abaya / Borka (Plain)", p: 180, c: "Women"},
+    {n: "Borka (Stone Work)", p: 300, c: "Women"},
+    {n: "Hijab", p: 50, c: "Women"},
+    {n: "Blouse", p: 50, c: "Women"},
     {n: "Petticoat", p: 50, c: "Women"},
-    {n: "Lehenga (Simple)", p: 600, c: "Women"},
-    {n: "Lehenga (Bridal)", p: 1500, c: "Women"},
-    {n: "Gown", p: 500, c: "Women"},
+    {n: "Gown (Normal)", p: 350, c: "Women"},
+    {n: "Wedding Gown (Dry Clean)", p: 1500, c: "Women"},
+    {n: "Lehenga (Dry Clean)", p: 800, c: "Women"},
+    {n: "Skirt", p: 120, c: "Women"},
+    {n: "Tops / Tunic", p: 100, c: "Women"},
+    {n: "Leggings", p: 50, c: "Women"},
+    {n: "Cardigan", p: 150, c: "Women"},
     {n: "Ladies Jacket", p: 250, c: "Women"},
-    {n: "Ladies Cardigan", p: 180, c: "Women"},
-    {n: "Shawl (Woolen)", p: 200, c: "Women"},
-    {n: "Leggings", p: 60, c: "Women"},
+    {n: "Shawl (Cotton)", p: 120, c: "Women"},
+    {n: "Shawl (Kashmiri/Wool)", p: 250, c: "Women"},
+    {n: "Night Dress", p: 120, c: "Women"},
+    {n: "Apron", p: 80, c: "Women"},
+    {n: "Scarf", p: 40, c: "Women"},
+    {n: "Inner Wear", p: 40, c: "Women"},
+    {n: "Palazzo", p: 80, c: "Women"},
 
-    // --- ঘরগৃহস্থালি (Household) ---
+    // --- Household Collection (ঘরগৃহস্থালি) ---
     {n: "Bed Sheet (Single)", p: 100, c: "Home"},
-    {n: "Bed Sheet (Double)", p: 160, c: "Home"},
-    {n: "Bed Cover (Heavy)", p: 350, c: "Home"},
-    {n: "Pillow Cover", p: 40, c: "Home"},
-    {n: "Blanket (Single)", p: 350, c: "Home"},
-    {n: "Blanket (Double)", p: 500, c: "Home"},
-    {n: "Blanket (King Size)", p: 650, c: "Home"},
-    {n: "Quilt (Komol)", p: 400, c: "Home"},
-    {n: "Curtain (Normal)", p: 120, c: "Home"},
-    {n: "Curtain (Heavy)", p: 250, c: "Home"},
-    {n: "Towel (Bath)", p: 100, c: "Home"},
-    {n: "Hand Towel", p: 40, c: "Home"},
-    {n: "Prayer Mat (Janamaj)", p: 120, c: "Home"},
-    {n: "Mosquito Net (Moshari)", p: 150, c: "Home"},
-    {n: "Table Cloth", p: 100, c: "Home"},
-    {n: "Sofa Cover (Per Seat)", p: 150, c: "Home"},
-    {n: "Carpet (Per Sq Ft)", p: 40, c: "Home"},
+    {n: "Bed Sheet (Double)", p: 180, c: "Home"},
+    {n: "Pillow Cover", p: 30, c: "Home"},
+    {n: "Kushon Cover", p: 40, c: "Home"},
+    {n: "Blanket (Single/Normal)", p: 350, c: "Home"},
+    {n: "Blanket (Double/Heavy)", p: 550, c: "Home"},
+    {n: "Comforter (Single)", p: 400, c: "Home"},
+    {n: "Comforter (Double)", p: 600, c: "Home"},
+    {n: "Quilt (Katha)", p: 150, c: "Home"},
+    {n: "Heavy Katha", p: 250, c: "Home"},
+    {n: "Curtain (Normal/Net)", p: 100, c: "Home"},
+    {n: "Curtain (Heavy/Velvet)", p: 200, c: "Home"},
+    {n: "Table Cloth (Small)", p: 60, c: "Home"},
+    {n: "Table Cloth (Large)", p: 150, c: "Home"},
     {n: "Door Mat", p: 50, c: "Home"},
-    {n: "Floor Mat", p: 100, c: "Home"},
-    {n: "Kitchen Apron", p: 60, c: "Home"},
+    {n: "Prayer Mat (Janamaj)", p: 80, c: "Home"},
+    {n: "Towel (Small)", p: 40, c: "Home"},
+    {n: "Towel (Bath/Large)", p: 80, c: "Home"},
+    {n: "Mosquito Net (Moshari)", p: 150, c: "Home"},
+    {n: "Carpet (Per Sqft)", p: 30, c: "Home"},
+    {n: "Sofa Cover (Set)", p: 500, c: "Home"},
+    {n: "Table Mat", p: 20, c: "Home"},
+    {n: "Kitchen Towel", p: 30, c: "Home"},
+    {n: "Teddy Bear (Small)", p: 100, c: "Home"},
+    {n: "Teddy Bear (Medium)", p: 250, c: "Home"},
+    {n: "Teddy Bear (Large)", p: 500, c: "Home"},
+    {n: "Travel Bag (Small)", p: 200, c: "Home"},
+    {n: "Travel Bag (Large)", p: 400, c: "Home"},
+    {n: "Backpack", p: 250, c: "Home"},
+    {n: "Sneakers (Basic)", p: 250, c: "Home"},
 
-    // --- জুতা ও ব্যাগ (Shoes & Bags) ---
-    {n: "Sneakers (Wash)", p: 300, c: "Home"},
-    {n: "Converse (Wash)", p: 250, c: "Home"},
-    {n: "Leather Shoes (Polish)", p: 150, c: "Home"},
-    {n: "Loafers (Clean)", p: 200, c: "Home"},
-    {n: "School Bag", p: 250, c: "Home"},
-    {n: "Backpack (Heavy)", p: 400, c: "Home"},
-    {n: "Ladies Handbag", p: 300, c: "Home"},
-    {n: "Travel Bag", p: 500, c: "Home"},
-
-    // --- বাচ্চাদের পোশাক (Kids Wear) ---
-    {n: "Kids Shirt", p: 50, c: "Kids"},
-    {n: "Kids Pant", p: 55, c: "Kids"},
-    {n: "Kids Panjabi", p: 80, c: "Kids"},
-    {n: "Kids Frock", p: 90, c: "Kids"},
-    {n: "Kids Suit", p: 250, c: "Kids"},
+    // --- Kids & More (শিশু ও অন্যান্য) ---
+    {n: "Kids Shirt", p: 40, c: "Kids"},
+    {n: "Kids Pant", p: 50, c: "Kids"},
+    {n: "Kids Frock", p: 80, c: "Kids"},
+    {n: "Kids Baba Suit", p: 100, c: "Kids"},
+    {n: "Kids Winter Jacket", p: 150, c: "Kids"},
+    {n: "Baby Blanket", p: 150, c: "Kids"},
+    {n: "School Bag", p: 200, c: "Kids"},
+    {n: "School Uniform", p: 120, c: "Kids"},
+    {n: "Baby Diaper (Cloth)", p: 30, c: "Kids"},
     {n: "Kids Sweater", p: 100, c: "Kids"},
-    {n: "Kids Jacket", p: 150, c: "Kids"},
-    {n: "Baby Blanket", p: 180, c: "Kids"},
-    {n: "Soft Toys (Small)", p: 150, c: "Kids"},
-    {n: "Soft Toys (Large)", p: 450, c: "Kids"},
-
-    // --- ড্রাই ক্লিন সার্ভিস (Special Dry Clean) ---
-    {n: "Wedding Dress Dry Clean", p: 2000, c: "Women"},
-    {n: "Leather Coat Dry Clean", p: 800, c: "Men"},
-    {n: "Curtain Dry Clean (Per Pc)", p: 350, c: "Home"},
-    {n: "Suit Polish", p: 200, c: "Men"}
+    {n: "Kids Panjabi", p: 80, c: "Kids"},
+    {n: "Kids Pajama", p: 50, c: "Kids"},
+    {n: "Baby Towel", p: 40, c: "Kids"},
+    {n: "Soft Toy", p: 80, c: "Kids"},
+    {n: "Gloves (Pair)", p: 30, c: "Men"},
+    {n: "Woolen Cap", p: 40, c: "Men"},
+    {n: "Belt (Cleaning)", p: 50, c: "Men"},
+    {n: "Leather Bag Polishing", p: 400, c: "Home"},
+    {n: "Canvas Shoes", p: 200, c: "Home"},
+    {n: "Iron Only (Heavy Saree)", p: 100, c: "Women"},
+    {n: "Iron Only (Suit)", p: 150, c: "Men"},
+    {n: "Iron Only (Panjabi)", p: 40, c: "Men"},
+    {n: "Curtain Ironing", p: 50, c: "Home"},
+    {n: "Seat Cover (Car)", p: 300, c: "Home"},
+    {n: "Stroller / Pram Wash", p: 800, c: "Kids"},
+    {n: "Napkin Set (6pcs)", p: 100, c: "Home"},
+    {n: "Dining Chair Cover", p: 80, c: "Home"},
+    {n: "Floor Mat (Large)", p: 150, c: "Home"},
+    {n: "Sleeping Bag", p: 400, c: "Home"},
+    {n: "Sports Jersey", p: 60, c: "Men"}
 ];
 
-        let cart = {};
+        let cart = JSON.parse(localStorage.getItem('lw_cart')) || {};
         let currentCat = 'All';
 
-        // 1. Digital Clock
-        function updateTime() {
-            const now = new Date();
-            document.getElementById('clock').innerText = now.toLocaleTimeString('en-US', { hour12: true });
-            document.getElementById('date').innerText = now.toLocaleDateString('bn-BD', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        // Slider Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
         }
-        setInterval(updateTime, 1000);
+        setInterval(nextSlide, 4000);
 
-        // 5. Theme & 4. Lang
-        function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme')==='dark' ? 'light' : 'dark'); }
-        function toggleLang() { 
-            const btn = document.getElementById('langBtn');
-            btn.innerText = btn.innerText === 'English' ? 'বাংলা' : 'English';
-        }
-
-        // Render Cards
         function render() {
             const grid = document.getElementById('grid');
-            let filtered = currentCat === 'All' ? items : items.filter(i => i.c === currentCat);
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            let filtered = items.filter(i => (currentCat === 'All' || i.c === currentCat) && i.n.toLowerCase().includes(q));
+
             grid.innerHTML = filtered.map(i => {
-                const dp = Math.round(i.p * 0.85); // 2. 15% Offer
+                const dp = Math.round(i.p * 0.85);
                 return `
-                <div class="card animate__animated animate__fadeInUp">
+                <div class="card">
                     <h4>${i.n}</h4>
-                    <span style="text-decoration:line-through; font-size:12px; opacity:0.6;">৳${i.p}</span>
-                    <div class="price-tag">৳${dp}</div>
-                    <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-top:10px;">
-                        <button class="qty-btn" onclick="updateQty('${i.n}', -1)">-</button>
-                        <b id="q-${i.n}">${cart[i.n] || 0}</b>
-                        <button class="qty-btn" onclick="updateQty('${i.n}', 1)">+</button>
+                    <div class="old-p">৳${i.p}</div>
+                    <div class="new-p">৳${dp}</div>
+                    <div class="qty-btns">
+                        <button class="q-btn" onclick="changeQty('${i.n}', -1)">-</button>
+                        <span>${cart[i.n] || 0}</span>
+                        <button class="q-btn" onclick="changeQty('${i.n}', 1)">+</button>
                     </div>
                 </div>`;
             }).join('');
+            updateUI();
         }
 
-        // 7. Cart Logic & 19. Point System
-        function updateQty(n, d) {
+        function changeQty(n, d) {
             cart[n] = (cart[n] || 0) + d;
-            if (cart[n] <= 0) delete cart[n];
-            if(document.getElementById(`q-${n}`)) document.getElementById(`q-${n}`).innerText = cart[n] || 0;
-            
+            if(cart[n] <= 0) delete cart[n];
+            localStorage.setItem('lw_cart', JSON.stringify(cart));
+            render();
+        }
+
+        function updateUI() {
             let total = 0;
-            items.forEach(i => { if(cart[i.n]) total += Math.round(i.p * 0.85) * cart[i.n]; });
-            document.getElementById('cartBar').style.display = total > 0 ? 'flex' : 'none';
+            for(let k in cart) {
+                let itm = items.find(i => i.n === k);
+                if(itm) total += Math.round(itm.p * 0.85) * cart[k];
+            }
+            document.getElementById('cartStrip').style.display = total > 0 ? 'flex' : 'none';
             document.getElementById('total').innerText = `৳${total}`;
-            
-            // 19. Point Calc
-            let points = total / 100;
-            document.getElementById('userPoints').innerText = points.toFixed(2) + " PTS";
+            document.getElementById('mTotal').innerText = `৳${total}`;
         }
 
         function setCat(c, el) {
@@ -331,38 +354,76 @@
             render();
         }
 
-        // 10. Payment & 12. Google Sheet & 11. WhatsApp
-        function openCheckout() {
-            const name = prompt("আপনার নাম:");
-            const phone = prompt("মোবাইল নম্বর:");
-            const addr = prompt("ঠিকানা (উত্তরা):");
-            const total = document.getElementById('total').innerText;
+        function openAdmin() { if(prompt("Pass:") === "7272") document.getElementById('adminPanel').style.display = 'block'; }
+        function closeAdmin() { document.getElementById('adminPanel').style.display = 'none'; }
+        function openPay() { document.getElementById('payModal').style.display = 'flex'; }
+        function closePay() { document.getElementById('payModal').style.display = 'none'; }
 
-            if(!name || !phone) return;
+        async function finalOrder() {
+            const name = prompt("Name:");
+            const addr = prompt("Address:");
+            if(!name || !addr) return;
+            
+            let details = "";
+            for(let k in cart) { details += `${k} (${cart[k]}), `; }
+            const bill = document.getElementById('total').innerText;
 
-            // 12. Save Data to Google Sheet (Mockup)
-            fetch(scriptURL, { method: 'POST', body: JSON.stringify({name, phone, addr, total}) });
-
-            // 10. Bikash Payment Instruction
-            alert(`ধন্যবাদ ${name}! আপনার বিল ${total}। দয়া করে আমাদের বিকাশ (মার্চেন্ট): 01838051282 নম্বরে পেমেন্ট করুন।`);
-
-            // 11. WhatsApp Connect
-            window.location.href = `https://wa.me/8801872720582?text=*New Order*%0AName: ${name}%0APhone: ${phone}%0ABill: ${total}`;
+            fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ name, address: addr, details, total: bill }) });
+            
+            window.open(`https://wa.me/8801872720582?text=*New Order*%0AName: ${name}%0AAddr: ${addr}%0AItems: ${details}%0ABill: ${bill}`);
+            closePay();
         }
 
-        window.onload = render;
+        window.onload = () => { render(); setInterval(()=> { document.getElementById('clock').innerText = new Date().toLocaleTimeString(); }, 1000); };
     </script>
+    <footer style="background: var(--primary); color: white; padding: 60px 5% 30px; margin-top: 50px; border-radius: 50px 50px 0 0; position: relative;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; text-align: left;">
+        
+        <div>
+            <h2 style="color: var(--accent); margin-bottom: 20px; font-weight: 800;">Laundry<span>'wala</span></h2>
+            <p style="font-size: 14px; opacity: 0.8; line-height: 1.8;">
+                উত্তরা অঞ্চলের সেরা লন্ড্রি সার্ভিস। আমরা আপনার পোশাকের যত্নে আধুনিক প্রযুক্তি এবং হাইজিন মেইনটেইন করি। দ্রুত ডেলিভারি এবং কোয়ালিটি আমাদের মূল লক্ষ্য।
+            </p>
+        </div>
 
-    <footer>
-        <h2 style="color:var(--main);">Laundry’wala</h2>
-        <p>Premium Laundry & Dry Cleaning</p>
-        <p>Contact: 01872720582 | 01838051282</p>
-        <div style="margin-top:20px; font-size:12px; opacity:0.5;">&copy; 2026 Laundry’wala. All Rights Reserved.</div>
-        <div onclick="adm()" style="opacity:0.05; cursor:pointer;">Admin Login</div>
-    </footer>
+        <div>
+            <h4 style="margin-bottom: 20px; border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 5px;">Our Services</h4>
+            <ul style="list-style: none; padding: 0; font-size: 14px; opacity: 0.8; line-height: 2.5;">
+                <li><i class="fas fa-check-circle" style="color: var(--accent);"></i> Wash & Iron</li>
+                <li><i class="fas fa-check-circle" style="color: var(--accent);"></i> Dry Cleaning</li>
+                <li><i class="fas fa-check-circle" style="color: var(--accent);"></i> Steam Pressing</li>
+                <li><i class="fas fa-check-circle" style="color: var(--accent);"></i> Household Cleaning</li>
+            </ul>
+        </div>
 
-    <script>
-        function adm() { if(prompt("Pass:")==="7272") alert("Admin Dashboard Loading..."); }
-    </script>
+        <div>
+            <h4 style="margin-bottom: 20px; border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 5px;">Contact Us</h4>
+            <div style="font-size: 14px; opacity: 0.8;">
+                <p style="margin-bottom: 10px;"><i class="fas fa-phone-alt" style="color: var(--accent); margin-right: 10px;"></i> 01872720582</p>
+                <p style="margin-bottom: 10px;"><i class="fas fa-envelope" style="color: var(--accent); margin-right: 10px;"></i> laundrywala72720@gmail.com</p>
+                <p style="margin-bottom: 10px;"><i class="fas fa-map-marker-alt" style="color: var(--accent); margin-right: 10px;"></i> Uttara, Dhaka, Bangladesh</p>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <h4 style="margin-bottom: 20px;">Connect With Us</h4>
+            <div style="display: flex; gap: 20px; justify-content: center; font-size: 24px; margin-bottom: 20px;">
+                <a href="#" style="color: white; transition: 0.3s;"><i class="fab fa-facebook"></i></a>
+                <a href="#" style="color: white; transition: 0.3s;"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/8801872720582" style="color: #25d366; transition: 0.3s;"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <button onclick="openAdmin()" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 8px 20px; border-radius: 50px; cursor: pointer; font-size: 12px;">
+                <i class="fas fa-user-shield"></i> Admin Login
+            </button>
+        </div>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 40px 0;">
+    
+    <div style="text-align: center; font-size: 12px; opacity: 0.6;">
+        <p>&copy; 2026 <strong>Laundry’wala</strong>. All Rights Reserved.</p>
+       
+    </div>
+</footer>
 </body>
 </html>
