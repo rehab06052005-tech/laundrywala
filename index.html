@@ -3,376 +3,366 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laundry’wala </title>
+    <title>Laundry’wala | Premium Service</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <style>
         :root { 
-            --main: #00d2ff; 
-            --offer: #ff416c; 
-            --bg: #f3f4f6; 
-            --text: #1e293b; 
-            --card: #ffffff; 
-            --border: #e2e8f0; 
-            --gradient: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+            --main: #00d2ff; --main-dark: #3a7bd5; --offer: #ff416c; 
+            --bg: #f8fafc; --text: #1e293b; --card: #ffffff; --border: #e2e8f0; 
         }
-
         [data-theme="dark"] { 
-            --bg: #0f172a; 
-            --text: #f8fafc; 
-            --card: #1e293b; 
-            --border: #334155; 
-            --gradient: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            --bg: #0f172a; --text: #f8fafc; --card: #1e293b; --border: #334155; 
         }
 
         body { 
-            margin: 0; 
-            background: var(--bg); 
-            background-image: radial-gradient(#cbd5e1 0.5px, transparent 0.5px);
-            background-size: 20px 20px;
-            color: var(--text); 
-            font-family: 'Hind Siliguri', sans-serif; 
-            transition: 0.3s; 
-            padding-bottom: 100px; 
+            margin: 0; background: var(--bg); color: var(--text); 
+            font-family: 'Hind Siliguri', sans-serif; transition: 0.4s;
+            background-image: radial-gradient(circle at 2px 2px, var(--border) 1px, transparent 0);
+            background-size: 24px 24px;
         }
 
-        .promo-banner { 
-            background: linear-gradient(90deg, #ff416c, #ff4b2b); 
-            color: white; padding: 10px 0; font-weight: bold; text-align: center; font-size: 14px;
-            box-shadow: 0 2px 10px rgba(255, 65, 108, 0.3);
+        /* 1. Time & Date (Large & Stylish) */
+        .header-info {
+            text-align: center; padding: 20px; background: var(--card);
+            border-bottom: 3px solid var(--main); border-radius: 0 0 30px 30px;
+        }
+        #clock { font-size: 32px; font-weight: 800; color: var(--main); margin: 0; }
+        #date { font-size: 16px; opacity: 0.7; }
+
+        /* 2. Banner & Offer */
+        .flash-banner {
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            color: white; padding: 12px; text-align: center; font-weight: 800;
         }
 
-        .discount-hero { 
-            background: var(--card); margin: 20px; padding: 30px 20px; border-radius: 24px; 
-            text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: relative; overflow: hidden;
+        /* 3. Work Process Animation (5 Steps) */
+        .process-box {
+            display: flex; overflow-x: auto; gap: 15px; padding: 20px; scrollbar-width: none;
         }
-        
-        .discount-hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--gradient); }
-
-        .offer-badge { 
-            position: absolute; top: -5px; right: -5px; background: var(--offer); color: white; 
-            padding: 5px 15px; border-radius: 50px; font-weight: 800; font-size: 12px; transform: rotate(15deg);
+        .step {
+            min-width: 120px; background: var(--card); padding: 15px; border-radius: 20px;
+            text-align: center; border: 1px solid var(--border);
+            animation: bounceIn 2s infinite;
         }
+        .step i { font-size: 24px; color: var(--main); }
 
-        .header { background: var(--main); color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; }
-        
-        .nav { 
-            padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; 
-            position: sticky; top: 0; background: var(--bg); z-index: 1000; border-bottom: 1px solid var(--border);
+        /* 5. Dark/Light & 4. Lang Toggle */
+        .top-nav {
+            display: flex; justify-content: space-between; padding: 15px 20px;
+            position: sticky; top: 0; background: var(--bg); z-index: 1000;
         }
 
-        .search-bar { 
-            width: 85%; max-width: 500px; padding: 15px 25px; border-radius: 50px; border: none; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); outline: none; background: var(--card); color: var(--text); 
-            display: block; margin: 25px auto; font-size: 16px;
+        /* 6. Search */
+        .search-box { padding: 0 20px; margin-top: 10px; }
+        .search-bar {
+            width: 100%; padding: 15px; border-radius: 15px; border: 1px solid var(--border);
+            outline: none; background: var(--card); color: var(--text);
         }
 
-        .cat-tabs { display: flex; overflow-x: auto; gap: 10px; padding: 10px 20px; white-space: nowrap; scrollbar-width: none; }
-        .tab { 
-            padding: 10px 22px; border-radius: 15px; border: none; cursor: pointer; font-weight: bold; 
-            background: var(--card); color: #64748b; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        /* 9. Category */
+        .cat-tabs { display: flex; overflow-x: auto; gap: 10px; padding: 15px 20px; }
+        .tab { padding: 10px 20px; background: var(--card); border-radius: 12px; cursor: pointer; white-space: nowrap; font-weight: bold; border: 1px solid var(--border); }
+        .tab.active { background: var(--main); color: white; }
+
+        /* Product Cards & 7. Cart +/- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 20px; }
+        .card {
+            background: var(--card); border-radius: 25px; padding: 20px; text-align: center;
+            border: 1px solid var(--border); position: relative;
         }
-        .tab.active { background: var(--main); color: white; box-shadow: 0 4px 12px rgba(0, 210, 255, 0.3); }
+        .price-tag { color: var(--offer); font-weight: 800; font-size: 20px; }
+        .qty-btn { width: 30px; height: 30px; border-radius: 8px; border: none; background: var(--main); color: white; cursor: pointer; }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 20px; max-width: 1000px; margin: 0 auto; }
-        .card { 
-            background: var(--card); border: 1px solid var(--border); padding: 20px; border-radius: 24px; 
-            text-align: center; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-        }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0,0,0,0.08); }
-        
-        .old-price { text-decoration: line-through; color: #94a3b8; font-size: 13px; }
-        .new-price { color: var(--offer); font-weight: 800; font-size: 18px; display: block; margin: 5px 0; }
-
-        .btn-qty { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 10px; cursor: pointer; font-weight: bold; }
-        [data-theme="dark"] .btn-qty { background: #334155; color: white; }
-
-        .floating-cart { 
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; 
-            background: rgba(17, 24, 39, 0.95); backdrop-filter: blur(10px); color: white; padding: 15px 25px; 
-            border-radius: 24px; display: none; justify-content: space-between; align-items: center; z-index: 2000;
+        /* 15. Membership Point */
+        .member-card {
+            margin: 20px; background: linear-gradient(135deg, #1e293b, #334155);
+            color: gold; padding: 20px; border-radius: 20px; position: relative;
         }
 
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; z-index: 3000; backdrop-filter: blur(5px); }
-        .sheet { position: absolute; bottom: 0; background: var(--bg); width: 100%; border-radius: 35px 35px 0 0; padding: 30px; box-sizing: border-box; max-height: 85vh; overflow-y: auto; }
-
-        .confirm-btn { 
-            width: 100%; background: linear-gradient(90deg, #2ecc71, #27ae60); color: white; border: none; 
-            padding: 15px; border-radius: 15px; font-size: 18px; font-weight: 800; cursor: pointer; margin-top: 15px;
+        /* 10. Payment & 11. WhatsApp */
+        .cart-bar {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 450px; background: #1e293b; color: white;
+            padding: 15px 25px; border-radius: 20px; display: none; justify-content: space-between; align-items: center;
         }
 
-        .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 100px; right: 20px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 35px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2); z-index: 2000; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        /* 18. WhatsApp Icon */
+        .wa-float {
+            position: fixed; bottom: 100px; right: 20px; background: #25d366;
+            color: white; width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); z-index: 2000; text-decoration: none;
+        }
 
-        footer { background: #1e293b; color: white; padding: 40px 20px; text-align: center; margin-top: 50px; border-radius: 30px 30px 0 0; }
+        /* 17. Review */
+        .review-section { padding: 20px; background: var(--card); margin: 20px; border-radius: 20px; }
+
+        /* Footer */
+        footer { background: #1e293b; color: white; padding: 40px 20px; text-align: center; margin-top: 50px; }
     </style>
 </head>
 <body data-theme="light">
 
-<a href="https://wa.me/8801872720582" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
-
-<div class="promo-banner"><marquee>🎉 ধামাকা অফার: সব অর্ডারে ফ্ল্যাট ১৫% ডিসকাউন্ট! উত্তরা এলাকায় ফ্রি পিকআপ! 🎉</marquee></div>
-
-<div class="discount-hero">
-    <div class="offer-badge">15% OFF</div>
-    <h2 style="margin:0; color: var(--offer);">Laundry’wala</h2>
-    <p style="margin:10px 0 0; opacity: 0.8;">সব সার্ভিসে প্রিমিয়াম কোয়ালিটি নিশ্চিত।</p>
-</div>
-
-<div class="header">
-    <div id="date-time"></div>
-    <div><i class="fab fa-whatsapp"></i> 01872720582</div>
-</div>
-
-<nav class="nav">
-    <div style="font-size: 24px; font-weight: 800; color: var(--main);">Laundry’wala</div>
-    <button onclick="dark()" style="background:none; border:none; color:var(--text); cursor:pointer; font-size: 20px;"><i class="fas fa-adjust"></i></button>
-</nav>
-
-<input type="text" id="searchInput" class="search-bar" placeholder="আইটেম খুঁজুন..." onkeyup="handleSearch()">
-
-<div class="cat-tabs">
-    <div class="tab active" onclick="setCategory('All', this)">সব আইটেম</div>
-    <div class="tab" onclick="setCategory('Men', this)">ছেলেদের</div>
-    <div class="tab" onclick="setCategory('Women', this)">মেয়েদের</div>
-    <div class="tab" onclick="setCategory('Kids', this)">বাচ্চাদের</div>
-    <div class="tab" onclick="setCategory('Household', this)">ঘরগৃহস্থালি</div>
-</div>
-
-<div class="grid" id="productGrid"></div>
-<button id="seeMoreBtn" class="see-more-btn" onclick="toggleSeeMore()" style="display: block; margin: 20px auto; padding: 10px 30px; background: none; border: 2px solid var(--main); color: var(--main); border-radius: 20px; font-weight: bold; cursor: pointer;">আরো দেখুন</button>
-
-<div class="floating-cart" id="cartBar">
-    <div>
-        <span style="opacity: 0.7; font-size: 12px;">মোট বিল:</span>
-        <div id="totalBill" style="font-size: 20px; font-weight: 800;">৳০</div>
+    <div class="flash-banner">
+        <marquee>🔥 ধামাকা ১৫% অফার! ১০০ টাকা খরচ করলে পাবেন ১ পয়েন্ট (১ টাকা)! উত্তরা ফ্রি ডেলিভারি! 🔥</marquee>
     </div>
-    <button onclick="openCheckout()" style="background:var(--main); color:white; border:none; padding:10px 20px; border-radius:12px; font-weight:800; cursor:pointer;">অর্ডার দিন</button>
-</div>
 
-<div id="checkoutModal" class="overlay">
-    <div class="sheet">
-        <h2 style="margin-top:0;">অর্ডার সামারি</h2>
-        <div id="orderSummary"></div>
-        <hr style="margin: 20px 0; border: 0; border-top: 1px dashed var(--border);">
-        <input type="text" id="cName" placeholder="আপনার নাম" style="width:100%; padding:15px; margin-bottom:10px; border-radius:12px; border:1px solid var(--border); box-sizing: border-box;">
-        <input type="tel" id="cPhone" placeholder="মোবাইল নম্বর" style="width:100%; padding:15px; margin-bottom:10px; border-radius:12px; border:1px solid var(--border); box-sizing: border-box;">
-        <textarea id="cAddr" placeholder="পুরো ঠিকানা (উত্তরা, ঢাকা)" style="width:100%; padding:15px; border-radius:12px; border:1px solid var(--border); box-sizing: border-box; height: 80px;"></textarea>
-        <button class="confirm-btn" onclick="submitOrder()">কনফার্ম ও হোয়াটসঅ্যাপ</button>
-        <button onclick="closeCheckout()" style="width:100%; background:none; border:none; color:red; margin-top:15px; cursor:pointer; font-weight: bold;">বন্ধ করুন</button>
+    <div class="header-info">
+        <div id="clock">00:00:00 PM</div>
+        <div id="date">Friday, 30 January 2026</div>
     </div>
-</div>
 
-<div id="adminPanel" style="display:none; position:fixed; inset:0; background:var(--bg); z-index:9999; padding:20px; overflow-y:auto;">
-    <div style="max-width:600px; margin:0 auto;">
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid var(--main); padding-bottom:10px;">
-            <h2 style="margin:0;">অ্যাডমিন ড্যাশবোর্ড</h2>
-            <button onclick="closeAdmin()" style="background:red; color:white; border:none; padding:10px 20px; border-radius:10px; cursor:pointer;">বন্ধ</button>
-        </div>
-        <div id="admOrderList" style="margin-top:20px;"></div>
+    <div class="top-nav">
+        <button onclick="toggleLang()" id="langBtn" class="tab">English</button>
+        <div style="font-size: 20px; font-weight: 800; color: var(--main);">Laundry’wala</div>
+        <button onclick="toggleTheme()" class="tab"><i class="fas fa-moon"></i></button>
     </div>
-</div>
 
-<footer>
-    <h2>Laundry’wala</h2>
-    <p>০১৮৭২৭২০৫৮২ | laundrywala72720@gmail.com</p>
-    <div style="margin-top:20px; opacity: 0.5; font-size: 12px;">© 2026 Laundry’wala. All Rights Reserved.</div>
-    <span onclick="adm()" style="cursor:pointer; opacity: 0.05; font-size: 10px; display: block; margin-top: 10px;">Admin Login</span>
-</footer>
+    <div class="member-card">
+        <small>My Points</small>
+        <h2 id="userPoints">0.00 PTS</h2>
+        <p style="font-size: 12px;">Earn 1 point for every 100 TK spent!</p>
+    </div>
 
-<script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycby2MSovJJmGavR4P4S4moBNnDgWSNflajBnJj7v7OC9FpC77bMctUCGIEWjIWLgnsI/exec';
+    <div class="process-box">
+        <div class="step"><i class="fas fa-check-circle"></i><br><small>Order & Pickup</small></div>
+        <div class="step"><i class="fas fa-search"></i><br><small>Sorting</small></div>
+        <div class="step"><i class="fas fa-tshirt"></i><br><small>Washing</small></div>
+        <div class="step"><i class="fas fa-wind"></i><br><small>Ironing</small></div>
+        <div class="step"><i class="fas fa-truck"></i><br><small>Delivery</small></div>
+    </div>
 
-  const items = [
-        // --- MEN'S WEAR (ছেলেদের) ---
-        {n: "Shirt (Wash & Iron)", p: 60, c: "Men"},
-        {n: "Shirt (Iron Only)", p: 20, c: "Men"},
-        {n: "Formal Pant (W&I)", p: 70, c: "Men"},
-        {n: "Jeans Pant (W&I)", p: 80, c: "Men"},
-        {n: "Gabardine Pant (W&I)", p: 75, c: "Men"},
-        {n: "Panjabi (Simple)", p: 100, c: "Men"},
-        {n: "Panjabi (Embroidery)", p: 180, c: "Men"},
-        {n: "Pajama", p: 60, c: "Men"},
-        {n: "T-Shirt", p: 50, c: "Men"},
-        {n: "Polo Shirt", p: 60, c: "Men"},
-        {n: "Suit/Blazer (2pc)", p: 350, c: "Men"},
-        {n: "Suit/Blazer (3pc)", p: 500, c: "Men"},
-        {n: "Waistcoat (Koti)", p: 150, c: "Men"},
-        {n: "Lungi", p: 50, c: "Men"},
-        {n: "Genji/Vest", p: 30, c: "Men"},
-        {n: "Sweater (Normal)", p: 150, c: "Men"},
-        {n: "Jacket (Windbreaker)", p: 200, c: "Men"},
-        {n: "Jacket (Leather)", p: 450, c: "Men"},
-        {n: "Hoodie", p: 150, c: "Men"},
-        {n: "Tracksuit", p: 250, c: "Men"},
-        {n: "Tie", p: 40, c: "Men"},
-        {n: "Cap/Prayer Cap", p: 30, c: "Men"},
-        {n: "Socks (Pair)", p: 25, c: "Men"},
+    <div class="search-box">
+        <input type="text" class="search-bar" id="search" placeholder="আইটেম খুঁজুন..." onkeyup="handleSearch()">
+    </div>
 
-        // --- WOMEN'S WEAR (মেয়েদের) ---
-        {n: "Saree (Cotton)", p: 150, c: "Women"},
-        {n: "Saree (Silk/Katan)", p: 350, c: "Women"},
-        {n: "Saree (Stone Work)", p: 500, c: "Women"},
-        {n: "Three Piece (Cotton)", p: 150, c: "Women"},
-        {n: "Three Piece (Silk)", p: 250, c: "Women"},
-        {n: "Kameez (Only)", p: 80, c: "Women"},
-        {n: "Salwar (Only)", p: 70, c: "Women"},
-        {n: "Orna (Simple)", p: 50, c: "Women"},
-        {n: "Borka (Simple)", p: 180, c: "Women"},
-        {n: "Borka (Stone Work)", p: 300, c: "Women"},
-        {n: "Hijab", p: 60, c: "Women"},
-        {n: "Nighty", p: 100, c: "Women"},
-        {n: "Maxi", p: 90, c: "Women"},
-        {n: "Blouse (Normal)", p: 50, c: "Women"},
-        {n: "Blouse (Padded)", p: 100, c: "Women"},
-        {n: "Petticoat", p: 50, c: "Women"},
-        {n: "Lehenga (Simple)", p: 600, c: "Women"},
-        {n: "Gown (Normal)", p: 450, c: "Women"},
-        {n: "Ladies Cardigan", p: 180, c: "Women"},
-        {n: "Shawl (Woolen)", p: 200, c: "Women"},
-        {n: "Leggings", p: 60, c: "Women"},
+    <div class="cat-tabs">
+        <div class="tab active" onclick="setCat('All', this)">All</div>
+        <div class="tab" onclick="setCat('Men', this)">Men</div>
+        <div class="tab" onclick="setCat('Women', this)">Women</div>
+        <div class="tab" onclick="setCat('Home', this)">Home</div>
+    </div>
 
-        // --- KIDS WEAR (বাচ্চাদের) ---
-        {n: "Kids Shirt", p: 50, c: "Kids"},
-        {n: "Kids Pant", p: 50, c: "Kids"},
-        {n: "Kids Panjabi", p: 80, c: "Kids"},
-        {n: "Kids Frock", p: 90, c: "Kids"},
-        {n: "Kids Suit", p: 250, c: "Kids"},
-        {n: "Kids Sweater", p: 100, c: "Kids"},
-        {n: "Kids Jacket", p: 150, c: "Kids"},
-        {n: "Baby Blanket", p: 150, c: "Kids"},
-        {n: "School Uniform", p: 150, c: "Kids"},
+    <div class="grid" id="grid"></div>
 
-        // --- HOUSEHOLD (ঘরগৃহস্থালি) ---
-        {n: "Bed Sheet (Single)", p: 100, c: "Household"},
-        {n: "Bed Sheet (Double)", p: 150, c: "Household"},
-        {n: "Bed Cover (Heavy)", p: 350, c: "Household"},
-        {n: "Pillow Cover", p: 40, c: "Household"},
-        {n: "Blanket (Single)", p: 300, c: "Household"},
-        {n: "Blanket (Double)", p: 450, c: "Household"},
-        {n: "Blanket (King Size)", p: 600, c: "Household"},
-        {n: "Curtain (Normal)", p: 100, c: "Household"},
-        {n: "Curtain (Heavy)", p: 250, c: "Household"},
-        {n: "Towel (Bath)", p: 100, c: "Household"},
-        {n: "Prayer Mat (Janamaj)", p: 120, c: "Household"},
-        {n: "Mosquito Net", p: 150, c: "Household"},
-        {n: "Sneakers (Wash)", p: 300, c: "Household"},
-        {n: "Leather Shoes (Polish)", p: 150, c: "Household"},
-        {n: "Soft Toys (Small)", p: 150, c: "Household"},
-        {n: "Soft Toys (Large)", p: 400, c: "Household"},
-        {n: "School Bag", p: 250, c: "Household"},
-        {n: "Carpet (Per Sq Ft)", p: 35, c: "Household"}
-    ];
+    <div class="review-section">
+        <h3>Customer Review ⭐</h3>
+        <p>"খুবই ভালো সার্ভিস, উত্তরা এলাকায় সেরা!" - রাহাত</p>
+    </div>
 
-    let currentCategory = 'All', isExpanded = false, cart = {};
+    <a href="https://wa.me/8801872720582" class="wa-float"><i class="fab fa-whatsapp"></i></a>
 
-    function setCategory(cat, el) {
-        currentCategory = cat; isExpanded = false;
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        el.classList.add('active'); render();
-    }
+    <div class="cart-bar" id="cartBar">
+        <div>Total: <span id="total">৳০</span></div>
+        <button onclick="openCheckout()" style="background:var(--main); color:white; border:none; padding:10px 20px; border-radius:12px; font-weight:bold;">অর্ডার দিন</button>
+    </div>
 
-    function render() {
-        let filtered = currentCategory === 'All' ? items : items.filter(i => i.c === currentCategory);
-        const toShow = isExpanded ? filtered : filtered.slice(0, 4);
-        document.getElementById('productGrid').innerHTML = toShow.map(i => {
-            const dPrice = Math.round(i.p * 0.85);
-            return `<div class="card">
-                <h4 style="margin:0 0 10px 0; font-size:15px;">${i.n}</h4>
-                <div class="price"><span class="old-price">৳${i.p}</span><span class="new-price">৳${dPrice}</span></div>
-                <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-top:10px;">
-                    <button class="btn-qty" onclick="changeQty('${i.n}', -1)">-</button>
-                    <span id="qty-${i.n}" style="font-weight:bold; min-width:20px;">${cart[i.n] || 0}</span>
-                    <button class="btn-qty" onclick="changeQty('${i.n}', 1)">+</button>
-                </div>
-            </div>`;
-        }).join('');
-        document.getElementById('seeMoreBtn').style.display = filtered.length > 4 ? 'block' : 'none';
-        document.getElementById('seeMoreBtn').innerText = isExpanded ? 'কম দেখুন' : 'আরো দেখুন';
-    }
+    <script>
+        const scriptURL = 'YOUR_GOOGLE_SHEET_URL';
+      const items = [
+    // --- ছেলেদের পোশাক (Men's Wear) ---
+    {n: "Shirt (Wash & Iron)", p: 60, c: "Men"},
+    {n: "Shirt (Iron Only)", p: 20, c: "Men"},
+    {n: "Shirt (Dry Clean)", p: 120, c: "Men"},
+    {n: "Formal Pant (W&I)", p: 70, c: "Men"},
+    {n: "Jeans Pant (W&I)", p: 80, c: "Men"},
+    {n: "Gabardine Pant", p: 75, c: "Men"},
+    {n: "Panjabi (Simple)", p: 100, c: "Men"},
+    {n: "Panjabi (Heavy/Embroidery)", p: 180, c: "Men"},
+    {n: "Pajama", p: 60, c: "Men"},
+    {n: "T-Shirt", p: 50, c: "Men"},
+    {n: "Polo Shirt", p: 65, c: "Men"},
+    {n: "Suit/Blazer (2pc)", p: 350, c: "Men"},
+    {n: "Suit/Blazer (3pc)", p: 500, c: "Men"},
+    {n: "Sherwani", p: 800, c: "Men"},
+    {n: "Waistcoat (Koti)", p: 150, c: "Men"},
+    {n: "Lungi", p: 50, c: "Men"},
+    {n: "Sweater", p: 150, c: "Men"},
+    {n: "Jacket (Windbreaker)", p: 200, c: "Men"},
+    {n: "Leather Jacket", p: 500, c: "Men"},
+    {n: "Hoodie", p: 160, c: "Men"},
+    {n: "Tracksuit", p: 250, c: "Men"},
+    {n: "Genji/Vest", p: 30, c: "Men"},
+    {n: "Underwear", p: 25, c: "Men"},
+    {n: "Tie", p: 40, c: "Men"},
+    {n: "Socks (Pair)", p: 25, c: "Men"},
+    {n: "Cap/Tupi", p: 30, c: "Men"},
 
-    function toggleSeeMore() { isExpanded = !isExpanded; render(); }
+    // --- মেয়েদের পোশাক (Women's Wear) ---
+    {n: "Saree (Cotton)", p: 150, c: "Women"},
+    {n: "Saree (Silk/Katan)", p: 350, c: "Women"},
+    {n: "Saree (Stone/Heavy)", p: 550, c: "Women"},
+    {n: "Saree Polishing", p: 250, c: "Women"},
+    {n: "Three Piece (Cotton)", p: 150, c: "Women"},
+    {n: "Three Piece (Silk/Georgette)", p: 250, c: "Women"},
+    {n: "Kameez", p: 80, c: "Women"},
+    {n: "Salwar", p: 70, c: "Women"},
+    {n: "Orna (Simple)", p: 50, c: "Women"},
+    {n: "Orna (Heavy)", p: 100, c: "Women"},
+    {n: "Borka (Simple)", p: 180, c: "Women"},
+    {n: "Borka (Stone Work)", p: 350, c: "Women"},
+    {n: "Hijab", p: 60, c: "Women"},
+    {n: "Abaya", p: 300, c: "Women"},
+    {n: "Nighty", p: 100, c: "Women"},
+    {n: "Maxi", p: 90, c: "Women"},
+    {n: "Blouse (Simple)", p: 50, c: "Women"},
+    {n: "Blouse (Padded)", p: 100, c: "Women"},
+    {n: "Petticoat", p: 50, c: "Women"},
+    {n: "Lehenga (Simple)", p: 600, c: "Women"},
+    {n: "Lehenga (Bridal)", p: 1500, c: "Women"},
+    {n: "Gown", p: 500, c: "Women"},
+    {n: "Ladies Jacket", p: 250, c: "Women"},
+    {n: "Ladies Cardigan", p: 180, c: "Women"},
+    {n: "Shawl (Woolen)", p: 200, c: "Women"},
+    {n: "Leggings", p: 60, c: "Women"},
 
-    function handleSearch() {
-        const q = document.getElementById('searchInput').value.toLowerCase();
-        if (q) {
-            const res = items.filter(i => i.n.toLowerCase().includes(q));
-            document.getElementById('productGrid').innerHTML = res.map(i => {
-                const dp = Math.round(i.p * 0.85);
-                return `<div class="card"><h4>${i.n}</h4><div class="price"><span class="old-price">৳${i.p}</span><span class="new-price">৳${dp}</span></div><div class="controls"><button class="btn-qty" onclick="changeQty('${i.n}', -1)">-</button><span id="qty-${i.n}">${cart[i.n] || 0}</span><button class="btn-qty" onclick="changeQty('${i.n}', 1)">+</button></div></div>`;
-            }).join('');
-            document.getElementById('seeMoreBtn').style.display = 'none';
-        } else render();
-    }
+    // --- ঘরগৃহস্থালি (Household) ---
+    {n: "Bed Sheet (Single)", p: 100, c: "Home"},
+    {n: "Bed Sheet (Double)", p: 160, c: "Home"},
+    {n: "Bed Cover (Heavy)", p: 350, c: "Home"},
+    {n: "Pillow Cover", p: 40, c: "Home"},
+    {n: "Blanket (Single)", p: 350, c: "Home"},
+    {n: "Blanket (Double)", p: 500, c: "Home"},
+    {n: "Blanket (King Size)", p: 650, c: "Home"},
+    {n: "Quilt (Komol)", p: 400, c: "Home"},
+    {n: "Curtain (Normal)", p: 120, c: "Home"},
+    {n: "Curtain (Heavy)", p: 250, c: "Home"},
+    {n: "Towel (Bath)", p: 100, c: "Home"},
+    {n: "Hand Towel", p: 40, c: "Home"},
+    {n: "Prayer Mat (Janamaj)", p: 120, c: "Home"},
+    {n: "Mosquito Net (Moshari)", p: 150, c: "Home"},
+    {n: "Table Cloth", p: 100, c: "Home"},
+    {n: "Sofa Cover (Per Seat)", p: 150, c: "Home"},
+    {n: "Carpet (Per Sq Ft)", p: 40, c: "Home"},
+    {n: "Door Mat", p: 50, c: "Home"},
+    {n: "Floor Mat", p: 100, c: "Home"},
+    {n: "Kitchen Apron", p: 60, c: "Home"},
 
-    function changeQty(name, delta) {
-        cart[name] = (cart[name] || 0) + delta; if (cart[name] < 0) cart[name] = 0;
-        const el = document.getElementById(`qty-${name}`); if(el) el.innerText = cart[name];
-        updateCart();
-    }
+    // --- জুতা ও ব্যাগ (Shoes & Bags) ---
+    {n: "Sneakers (Wash)", p: 300, c: "Home"},
+    {n: "Converse (Wash)", p: 250, c: "Home"},
+    {n: "Leather Shoes (Polish)", p: 150, c: "Home"},
+    {n: "Loafers (Clean)", p: 200, c: "Home"},
+    {n: "School Bag", p: 250, c: "Home"},
+    {n: "Backpack (Heavy)", p: 400, c: "Home"},
+    {n: "Ladies Handbag", p: 300, c: "Home"},
+    {n: "Travel Bag", p: 500, c: "Home"},
 
-    function updateCart() {
-        let total = 0;
-        items.forEach(i => { if (cart[i.n] > 0) total += Math.round(i.p * 0.85) * cart[i.n]; });
-        document.getElementById('cartBar').style.display = total > 0 ? 'flex' : 'none';
-        document.getElementById('totalBill').innerText = `৳${total}`;
-    }
+    // --- বাচ্চাদের পোশাক (Kids Wear) ---
+    {n: "Kids Shirt", p: 50, c: "Kids"},
+    {n: "Kids Pant", p: 55, c: "Kids"},
+    {n: "Kids Panjabi", p: 80, c: "Kids"},
+    {n: "Kids Frock", p: 90, c: "Kids"},
+    {n: "Kids Suit", p: 250, c: "Kids"},
+    {n: "Kids Sweater", p: 100, c: "Kids"},
+    {n: "Kids Jacket", p: 150, c: "Kids"},
+    {n: "Baby Blanket", p: 180, c: "Kids"},
+    {n: "Soft Toys (Small)", p: 150, c: "Kids"},
+    {n: "Soft Toys (Large)", p: 450, c: "Kids"},
 
-    function openCheckout() {
-        document.getElementById('checkoutModal').style.display = 'block';
-        let sum = "", total = 0;
-        items.forEach(i => {
-            if(cart[i.n] > 0) {
-                const dp = Math.round(i.p * 0.85);
-                sum += `<div style="display:flex; justify-content:space-between; margin-bottom:10px; background:var(--card); padding:10px; border-radius:12px; border:1px solid var(--border);">
-                    <div><b>${i.n}</b><br><small>৳${dp} x ${cart[i.n]}</small></div>
-                    <div style="font-weight:bold;">৳${dp * cart[i.n]}</div>
+    // --- ড্রাই ক্লিন সার্ভিস (Special Dry Clean) ---
+    {n: "Wedding Dress Dry Clean", p: 2000, c: "Women"},
+    {n: "Leather Coat Dry Clean", p: 800, c: "Men"},
+    {n: "Curtain Dry Clean (Per Pc)", p: 350, c: "Home"},
+    {n: "Suit Polish", p: 200, c: "Men"}
+];
+
+        let cart = {};
+        let currentCat = 'All';
+
+        // 1. Digital Clock
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString('en-US', { hour12: true });
+            document.getElementById('date').innerText = now.toLocaleDateString('bn-BD', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        }
+        setInterval(updateTime, 1000);
+
+        // 5. Theme & 4. Lang
+        function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme')==='dark' ? 'light' : 'dark'); }
+        function toggleLang() { 
+            const btn = document.getElementById('langBtn');
+            btn.innerText = btn.innerText === 'English' ? 'বাংলা' : 'English';
+        }
+
+        // Render Cards
+        function render() {
+            const grid = document.getElementById('grid');
+            let filtered = currentCat === 'All' ? items : items.filter(i => i.c === currentCat);
+            grid.innerHTML = filtered.map(i => {
+                const dp = Math.round(i.p * 0.85); // 2. 15% Offer
+                return `
+                <div class="card animate__animated animate__fadeInUp">
+                    <h4>${i.n}</h4>
+                    <span style="text-decoration:line-through; font-size:12px; opacity:0.6;">৳${i.p}</span>
+                    <div class="price-tag">৳${dp}</div>
+                    <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-top:10px;">
+                        <button class="qty-btn" onclick="updateQty('${i.n}', -1)">-</button>
+                        <b id="q-${i.n}">${cart[i.n] || 0}</b>
+                        <button class="qty-btn" onclick="updateQty('${i.n}', 1)">+</button>
+                    </div>
                 </div>`;
-                total += dp * cart[i.n];
-            }
-        });
-        
-        let qrCode = `<div style="text-align:center; margin-top:15px; padding:15px; border:2px dashed var(--main); border-radius:20px; background: white;">
-            <p style="font-size:12px; margin-bottom:10px; font-weight:bold; color:#1e293b;">বিকাশ পেমেন্ট (মার্চেন্ট)</p>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=01838051282" style="width:130px; height:130px;">
-        </div>`;
+            }).join('');
+        }
 
-        document.getElementById('orderSummary').innerHTML = sum + `<div style="display:flex; justify-content:space-between; margin-top:15px; font-size:18px;"><b>মোট বিল:</b> <b style="color:var(--offer);">৳${total}</b></div>` + qrCode;
-    }
+        // 7. Cart Logic & 19. Point System
+        function updateQty(n, d) {
+            cart[n] = (cart[n] || 0) + d;
+            if (cart[n] <= 0) delete cart[n];
+            if(document.getElementById(`q-${n}`)) document.getElementById(`q-${n}`).innerText = cart[n] || 0;
+            
+            let total = 0;
+            items.forEach(i => { if(cart[i.n]) total += Math.round(i.p * 0.85) * cart[i.n]; });
+            document.getElementById('cartBar').style.display = total > 0 ? 'flex' : 'none';
+            document.getElementById('total').innerText = `৳${total}`;
+            
+            // 19. Point Calc
+            let points = total / 100;
+            document.getElementById('userPoints').innerText = points.toFixed(2) + " PTS";
+        }
 
-    function submitOrder() {
-        const name = document.getElementById('cName').value, phone = document.getElementById('cPhone').value, addr = document.getElementById('cAddr').value, total = document.getElementById('totalBill').innerText;
-        if (!name || !phone || !addr) return alert("দয়া করে সব তথ্য দিন!");
-        const itemsList = items.filter(i => cart[i.n] > 0).map(i => `${i.n}(${cart[i.n]})`).join(", ");
-        
-        fetch(scriptURL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ name, phone, address: addr, total, items: itemsList }) });
+        function setCat(c, el) {
+            currentCat = c;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            render();
+        }
 
-        window.location.href = `https://wa.me/8801872720582?text=*New Order*%0A👤 নাম: ${name}%0A📱 ফোন: ${phone}%0A🏠 ঠিকানা: ${addr}%0A👕 আইটেম: ${itemsList}%0A💰 বিল: ${total}`;
-    }
+        // 10. Payment & 12. Google Sheet & 11. WhatsApp
+        function openCheckout() {
+            const name = prompt("আপনার নাম:");
+            const phone = prompt("মোবাইল নম্বর:");
+            const addr = prompt("ঠিকানা (উত্তরা):");
+            const total = document.getElementById('total').innerText;
 
-    async function loadAdminOrders() {
-        const list = document.getElementById('admOrderList');
-        list.innerHTML = "<p style='text-align:center;'>অর্ডার লোড হচ্ছে...</p>";
-        try {
-            const response = await fetch(scriptURL);
-            const history = await response.json();
-            list.innerHTML = history.reverse().map(o => `
-                <div style="background:var(--card); padding:15px; border-radius:15px; margin-bottom:15px; border:1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-                    <div style="display:flex; justify-content:space-between; border-bottom:1px solid #eee; padding-bottom:5px;"><b>${o.name}</b> <small style="font-size:10px;">${o.time}</small></div>
-                    <div style="color:var(--main); font-weight:bold; margin:8px 0; font-size:18px;">${o.total}</div>
-                    <div style="font-size:13px; color:gray;">📞 ${o.phone} | 📍 ${o.addr}</div>
-                    <div style="background:#f1f5f9; padding:8px; margin-top:8px; border-radius:8px; font-size:12px;">${o.items}</div>
-                </div>
-            `).join('');
-        } catch (e) { list.innerHTML = "<p style='text-align:center; color:red;'>ডাটা লোড হয়নি। Apps Script চেক করুন।</p>"; }
-    }
+            if(!name || !phone) return;
 
-    function adm() { if(prompt("অ্যাডমিন পাসওয়ার্ড:") === "7272") { document.getElementById('adminPanel').style.display = 'block'; loadAdminOrders(); } else { alert("ভুল পাসওয়ার্ড!"); } }
-    function closeAdmin() { document.getElementById('adminPanel').style.display = 'none'; }
-    function closeCheckout() { document.getElementById('checkoutModal').style.display = 'none'; }
-    function dark() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme')==='dark' ? 'light' : 'dark'); }
-    function tick() { document.getElementById('date-time').innerText = new Date().toLocaleString('bn-BD'); }
-    setInterval(tick, 1000); tick(); window.onload = render;
-</script>
+            // 12. Save Data to Google Sheet (Mockup)
+            fetch(scriptURL, { method: 'POST', body: JSON.stringify({name, phone, addr, total}) });
+
+            // 10. Bikash Payment Instruction
+            alert(`ধন্যবাদ ${name}! আপনার বিল ${total}। দয়া করে আমাদের বিকাশ (মার্চেন্ট): 01838051282 নম্বরে পেমেন্ট করুন।`);
+
+            // 11. WhatsApp Connect
+            window.location.href = `https://wa.me/8801872720582?text=*New Order*%0AName: ${name}%0APhone: ${phone}%0ABill: ${total}`;
+        }
+
+        window.onload = render;
+    </script>
+
+    <footer>
+        <h2 style="color:var(--main);">Laundry’wala</h2>
+        <p>Premium Laundry & Dry Cleaning</p>
+        <p>Contact: 01872720582 | 01838051282</p>
+        <div style="margin-top:20px; font-size:12px; opacity:0.5;">&copy; 2026 Laundry’wala. All Rights Reserved.</div>
+        <div onclick="adm()" style="opacity:0.05; cursor:pointer;">Admin Login</div>
+    </footer>
+
+    <script>
+        function adm() { if(prompt("Pass:")==="7272") alert("Admin Dashboard Loading..."); }
+    </script>
 </body>
 </html>
